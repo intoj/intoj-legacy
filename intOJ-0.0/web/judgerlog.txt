@@ -1,0 +1,5 @@
+Start!:	Wish you good luck&high score!
+Warning:	Using (source/?.cpp) (source/?.in) (source/?.out)
+Notice:	Propath:source/*.cpp
+Notice:	Inpath:source/*.in
+Notice:	Outpath:source/*.out
