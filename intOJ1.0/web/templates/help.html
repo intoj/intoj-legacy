@@ -20,41 +20,52 @@
 <body onresize="Resize()" onload="Resize();Render();">
 	<div class="ui topbar">
 		<ul class="ui topbar container">
-			<a href="/"><li class="ui topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="ui topbar topbaritem onewidth unselected"> <div class="topbarword"> <i class="fa fa-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth unselected"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth unselected"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth selected"> <div class="topbarword"> <i class="fa fa-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
+			<a href="/"> <li class="ui topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="fa fa-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/problems'"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth selected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="fa fa-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
 		</ul>
 	</div>
 	<div class="container">
 		<div class="ui main">
 			<div class="title">帮助</div>
-			<div class="contitle">什么是 intOJ</div>
-			<div class="content markdown">
-- interger Online Judge!
+			<div class="block">
+				<div class="contitle">评测</div>
+				<div class="content markdown">
+C++: `g++ -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w`
 
-- interesting Online Judge!
+C++11: `g++ -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w`
 
-- interval Online Judge!
+请注意 `-w` 代表编译器将不输出任何警告信息
 
-~~我也不知道~~
+请使用标准输入输出
+				</div>
 			</div>
-			<div class="contitle">能干什么</div>
-			<div class="content markdown">
-- 没有
+			<div class="block">
+				<div class="contitle">评测状态</div>
+				<div class="content markdown">
+| 状态 | 全称 | 中文解释 |
+| :-------: | :--------: | :--------: |
+| AC | Accept | ok,你的程序通过了! |
+| CE | Compile Error | 编译错误 |
+| WA | Wrong Answer | 答案错误 |
+| TLE | Time Limit Exceed | 时间超限 |
+| MLE | Memory Limit Exceed | 内存超限 |
+| RE | Runtime Error | 运行时错误 |
+| PE | Presentation Error | 格式错误 |
+| OLE | Output Limit Exceed | 输出超限 |
+				</div>
 			</div>
-			<div class="contitle">有什么特色</div>
-			<div class="content markdown">
-- 没有
-			</div>
-			<div class="contitle">判题参数</div>
-			<div class="content markdown">
-- 待定
-			</div>
-			<div class="contitle">制作人员</div>
-			<div class="content markdown">
-interestingLSY
+			<div class="block">
+				<div class="contitle">关于这个OnlineJudge</div>
+				<div class="content markdown">
+当前OJ版本为 1.0 alpha
+
+本OJ为开源项目,你可以[在github上找到它](https://github.com/interestingLSY/intOJ).现在她还在不断更新并处于活跃的开发中,欢迎联系 $interestingLSY$ 并加入开发组.
+
+interestingLSY的qq: $2659723130$
+				</div>
 			</div>
 		</div>
 	</div>

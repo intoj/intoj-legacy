@@ -1,6 +1,12 @@
-
 .onewidth{ flex: 1; }
 .twowidth{ flex: 2; }
+a{
+	color:#FF9900;
+	transition: all 0.3s;
+}
+a:hover{
+	color: #FF0000;
+}
 body{
 	background-image: url('/static/pic/bg.jpg');
 	background-attachment:fixed;
@@ -60,26 +66,31 @@ img.icon{
 
 div.main{
 	margin: calc(50px + 20px) auto 20px auto;
-	padding-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	height: calc(100% - 50px);
-	width: 95%;
+	width: 90%;
 }
 div.title{
-	margin: 20px auto;
-	width:90%;
+	margin: auto;
+	width: 90%;
 	font-size: 40px;
 	text-align: center;
 }
 div.contitle{
-	margin: 20px auto;
-	width:90%;
+	margin: 5px auto;
 	font-size: 25px;
 	text-align: left;
+	margin-left: 6px;
 	color: #55bbee;
 }
 div.content{
-	margin: 10px auto;
-	margin-left:auto;
-	margin-right:auto;
-	width:90%;
+	margin: 5px auto;
+}
+div.block{
+	width:93%;
+	margin: 20px auto;
+	padding: 5px 20px;
+	background-color: #e8e8e899;
+	border-radius: 6px;
 }

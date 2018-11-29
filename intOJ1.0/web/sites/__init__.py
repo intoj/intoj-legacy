@@ -1,4 +1,6 @@
-__all__ = ["home","help"]
+__all__ = ["home","problems","status","help"]
 
 from . import home
+from . import problems
+from . import status
 from . import help

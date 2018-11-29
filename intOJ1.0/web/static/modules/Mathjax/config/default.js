@@ -241,7 +241,7 @@ MathJax.Hub.Config({
     CMD: false,          //    require CMD?
     Shift: false,        //    require Shift?
     discoverable: false, //  make math menu discoverable on hover?
-    zscale: "200%",      //  the scaling factor for MathZoom
+    zscale: "125%",      //  the scaling factor for MathZoom
     renderer: null,      //  set when Jax are loaded
     font: "Auto",        //  what font HTML-CSS should use
     context: "MathJax",  //  or "Browser" for pass-through to browser menu

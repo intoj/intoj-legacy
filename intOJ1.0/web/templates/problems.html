@@ -1,0 +1,39 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title> intOJ | 帮助 </title>
+	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
+	<link rel="stylesheet" type="text/css" href="/static/style.css" />
+	<script src="/static/resize.js"> </script>
+	<script src="/static/render.js"> </script>
+
+	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
+
+	<script src="/static/modules/marked/marked.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/modules/highlight/styles/default.css" />
+	<script src="/static/modules/highlight/highlight.pack.js"> </script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
+	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+</head>
+<body onresize="Resize()" onload="Resize();Render();">
+	<div class="ui topbar">
+		<ul class="ui topbar container">
+			<a href="/"> <li class="ui topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="fa fa-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth selected" onclick="window.location.href='/problems'"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="fa fa-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
+		</ul>
+	</div>
+	<div class="container">
+		<div class="ui main">
+			<div class="block">
+				<div class="contitle"> 题目列表 </div>
+				<div class="content">
+				</div>
+		</div>
+	</div>
+</body>
+</html>

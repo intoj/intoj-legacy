@@ -1,0 +1,5 @@
+帮助:
+什么是intoj?
+intoj,全称int Online Judge.它是interestingLSY在无聊的时候,没事的时候写的一个造福广大oi朋友的oj,立志成为一个比肩loj的网站!
+评测状态?
+AC:通过;WA:答案错误;TLE:运行超时;CE:编译错误;MLE
