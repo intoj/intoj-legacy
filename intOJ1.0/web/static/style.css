@@ -1,8 +1,12 @@
+@keyframes Fade-in{
+    0%{ opacity:0; }
+    100%{ opacity:1; }
+}
 .onewidth{ flex: 1; }
 .twowidth{ flex: 2; }
 a{
 	color:#FF9900;
-	transition: all 0.3s;
+	transition: all 0.2s;
 }
 a:hover{
 	color: #FF0000;
@@ -13,6 +17,7 @@ body{
 	background-position: center top;
 	background-size:cover;
 	margin: 0;
+	animation: Fade-in 0.8s ease 0s 1;
 }
 
 div.ui{
