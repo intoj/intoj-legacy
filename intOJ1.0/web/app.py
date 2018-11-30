@@ -8,9 +8,13 @@ app = Flask(__name__)
 def Home():
 	return sites.home.page.Run()
 
-@app.route('/problems')
-def Problems():
-	return sites.problems.page.Run()
+@app.route('/problemlist')
+def Problemlist():
+	return sites.problemlist.page.Run()
+
+@app.route('/problem/<pid>')
+def Problem(pid):
+	return sites.problem.page.Run(int(pid))
 
 @app.route('/status')
 def Status():

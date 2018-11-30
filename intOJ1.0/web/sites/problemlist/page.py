@@ -3,4 +3,4 @@ from .problemlist import *
 
 def Run():
 	prolist = Getproblemlist()
-	return render_template('problems.html')
+	return render_template('problemlist.html',prolist=prolist)

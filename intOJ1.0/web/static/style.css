@@ -1,6 +1,6 @@
 div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td{
 	font-family: sans-serif;
-	font-size: 18px;
+	font-size: 17px;
 }
 @keyframes Fade-in{
     0%{ opacity:0; }
@@ -87,16 +87,17 @@ div.title{
 	width: 90%;
 	font-size: 40px;
 	text-align: center;
+	letter-spacing: 2px;
 }
 div.contitle{
-	margin: 5px auto;
+	margin: 10px auto;
 	font-size: 25px;
 	text-align: left;
 	margin-left: 6px;
 	color: #55bbee;
 }
 div.content{
-	margin: 5px auto;
+	margin: 7px auto;
 }
 div.block{
 	width:93%;
