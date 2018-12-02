@@ -10,12 +10,16 @@
 	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
 
 	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/modules/highlight/styles/default.css" />
-	<script src="/static/modules/highlight/highlight.pack.js"> </script>
+	<link rel="stylesheet" href="/static/modules/highlight/atom-one-light.min.css">
+	<script src="/static/modules/highlight/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 
 	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
 	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+	<script src="/static/modules/jquery/jquery.js"> </script>
+
+	<script src="/static/markedinit.js"> </script>
 </head>
 <body onresize="Resize()" onload="Render();">
 	<div class="ui topbar">
@@ -65,7 +69,7 @@ C++11: `g++ -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax-err
 			<div class="block">
 				<div class="contitle">新人求助,XXX那题,本机AC,提交RE/TLE/WA/CE/...</div>
 				<div class="content markdown">
-评测机搭建在linux上,请使用%lld输出long long类型,使用%llu输出unsigned long long类型.
+评测机搭建在linux上,请使用`%lld`输出`long long`类型,使用`%llu`输出`unsigned long long`类型.
 
 linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`头文件.
 
@@ -85,7 +89,7 @@ linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`
 			<div class="block">
 				<div class="contitle">关于这个OnlineJudge</div>
 				<div class="content markdown">
-当前OJ版本为 1.0 alpha. ~~很辣鸡~~
+当前OJ版本为`1.0 alpha`. ~~很辣鸡~~
 
 本OJ为开源项目,你可以[在github上找到它](https://github.com/interestingLSY/intOJ).现在她还在~~GuGuGu~~不断更新并处于活跃的开发中,欢迎联系 $interestingLSY$ 并加入开发组.
 
@@ -122,8 +126,8 @@ interestingLSY的qq: $2659723130$.
 
 22333 `inline code` 2333
 
-<pre><code>
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 int main(){
 	int a,b;
@@ -131,7 +135,7 @@ int main(){
 	cout << a+b << endl;
 	return 0;
 }
-</code></pre>
+```
 
 $\Huge{ans=\Sigma_{1}^{n}{-\frac{b+\sqrt{\color{Red}{b^2-4ac}}}{2\cdot a}}}$
 -->

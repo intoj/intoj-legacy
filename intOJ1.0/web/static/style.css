@@ -24,6 +24,13 @@ a.problemlink{
 a.problemlink:hover{
 	color: #FF0000;
 }
+p code{
+	margin: auto 2px;
+	background-color: #00000014;
+	border-radius: 6px;
+	padding: 1px 6px;
+}
+
 body{
 	background-image: url('/static/pic/bg.jpg');
 	background-attachment:fixed;
