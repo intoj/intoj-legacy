@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> intOJ | 评测状态 </title>
+	<title> 出锅啦! </title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
@@ -22,29 +22,19 @@
 		<ul class="ui topbar container">
 			<a href="/"> <li class="ui topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
 			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="fa fa-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth selected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth selected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
+			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
 			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="fa fa-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
 		</ul>
 	</div>
 	<div class="container">
 		<div class="ui main">
 			<div class="block">
-				<div class="contitle"> 实时评测记录 </div>
+				<div class="contitle"> 出锅啦! </div>
 				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list"> 编号 </th>
-							<th class="list"> 题目 </th>
-						</tr>
-						{% for urecord in recordlist %}
-						<tr class="list">
-							<td class="list"> <a href="/record/{{ urecord[0] }}"> R{{ urecord[0] }} </a> </td>
-							<td class="list"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
-						</tr>
-						{% endfor %}
-					</table>
+					{{- message -}}
 				</div>
+			</div>
 		</div>
 	</div>
 	<script> Resize(); </script>

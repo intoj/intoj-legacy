@@ -16,6 +16,14 @@ a{
 a:hover{
 	color: #FF0000;
 }
+a.problemlink{
+	font-size: 25px;
+	color: #55bbee;
+	transition: all 0.4s;
+}
+a.problemlink:hover{
+	color: #FF0000;
+}
 body{
 	background-image: url('/static/pic/bg.jpg');
 	background-attachment:fixed;
@@ -23,6 +31,9 @@ body{
 	background-size:cover;
 	margin: 0;
 	animation: Fade-in 0.8s ease 0s 1;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
 }
 
 .ui{
@@ -122,4 +133,18 @@ th.onecolumn{
 }
 td.list{
 	text-align: left;
+}
+textarea.codeinput{
+	width: 100%;
+	height: 300px;
+	opacity: 0.8;
+	background-color: #33333388;
+	color: #ffffff;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+}
+input.submit{
+	opacity: 0.9;
+	margin: 10px auto;
 }

@@ -1,4 +1,6 @@
 from flask import *
+from .recordlist import *
 
 def Run():
-	return render_template('status.html')
+	recordlist = Getrecordlist()
+	return render_template('status.html',recordlist=recordlist)

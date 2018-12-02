@@ -37,11 +37,11 @@
 
 编译命令:
 
-C++: `g++ -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w`
+C++: `g++ -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax-errors=5`
 
-C++11: `g++ -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w`
+C++11: `g++ -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax-errors=5`
 
-请注意 `-w` 代表编译器将不输出任何警告信息
+请注意 `-w` 代表编译器将不输出任何警告信息, `-fmax-errors=5`表示编译器最多输出 $5$ 条错误信息.
 
 请使用标准输入输出
 				</div>

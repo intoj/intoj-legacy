@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
+	<script src="/static/tab.js"> </script>
 
 	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
 
@@ -58,6 +59,15 @@
 				<div class="contitle"> 提示与说明 </div>
 				<div class="content markdown">
 					{{- uproblem[6] -}}
+				</div>
+			</div>
+			<div class="block">
+				<div class="contitle"> 提交代码 </div>
+				<div class="content">
+					<form method="POST">
+						<textarea class="codeinput" onkeydown="Tab(this,event)" spellcheck="false" name="code"></textarea>
+						<input type="submit" value="Submit!" class="submit"/>
+					</form>
 				</div>
 			</div>
 		</div>
