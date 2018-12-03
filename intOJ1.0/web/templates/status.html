@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
+	<script src="/static/tab.js"> </script>
 
 	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
 
@@ -23,12 +24,12 @@
 </head>
 <body onresize="Resize()" onload="Render();">
 	<div class="ui topbar">
-		<ul class="ui topbar container">
-			<a href="/"> <li class="ui topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="fa fa-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="fa fa-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth selected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="fa fa-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="ui topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="fa fa-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
+		<ul class="topbar container">
+			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
+			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
+			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
+			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-server" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
+			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-circle-o" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
 		</ul>
 	</div>
 	<div class="container">
@@ -39,12 +40,23 @@
 					<table class="list">
 						<tr class="list">
 							<th class="onecolumn list"> 编号 </th>
-							<th class="list"> 题目 </th>
+							<th class="onecolumn list"> 题目 </th>
+							<th class="fourcolumn list center"> 状态 </th>
+							<th class="onehalfcolumn list center"> 得分 </th>
+							<th class="onecolumn list center"> 时间 </th>
+							<th class="onecolumn list center"> 内存 </th>
+							<th></th>
 						</tr>
 						{% for urecord in recordlist %}
 						<tr class="list">
 							<td class="list"> <a href="/record/{{ urecord[0] }}"> R{{ urecord[0] }} </a> </td>
 							<td class="list"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
+							<td class="list center"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </td>
+							{% if urecord[2] not in ["Waiting","Running"] %}
+							<td class="list center" style="color:{{scorecolor[loop.index0]}}"> {{ urecord[3] }} </td>
+							<td class="list center"> {{ urecord[4] }}ms </td>
+							<td class="list center"> {{ urecord[5] }}MB </td>
+							{% endif %}
 						</tr>
 						{% endfor %}
 					</table>

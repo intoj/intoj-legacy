@@ -135,12 +135,14 @@ th.list{
 	font-size: 20px;
 	font-weight: 300;
 }
-th.onecolumn{
-	width: 80px;
-}
-td.list{
-	text-align: left;
-}
+th.onecolumn{ width: 80px; }
+th.onehalfcolumn{ width: 120px; }
+th.twocolumn{ width: 160px; }
+th.threecolumn{ width: 240px; }
+th.fourcolumn{ width: 320px; }
+td.list{ text-align: left; }
+.list.center{ text-align: center; }
+
 textarea.codeinput{
 	width: 100%;
 	height: 300px;
@@ -155,3 +157,10 @@ input.submit{
 	opacity: 0.9;
 	margin: 10px auto;
 }
+
+.judge-Accepted{ color: forestgreen; }
+.judge-Wrong{ color: red; }
+.judge-Time,.judge-Memory{ color: orange; }
+.judge-Runtime{ color:purple; }
+.judge-Waiting{ color: #888888; }
+.judge-Running{ color: #66ccff; }
