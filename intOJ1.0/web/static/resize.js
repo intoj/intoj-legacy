@@ -8,7 +8,7 @@ function Resize(){
 
 	ma = document.getElementsByClassName("main")
 	for( var i = 0 ; i < ma.length ; i++ ){
-		if( wid < 1200 ) ma[i].style.width = "90%"
+		if( wid < 1200 ) ma[i].style.width = "95%"
 		else ma[i].style.width = "100%"
 	}
 
@@ -27,5 +27,20 @@ function Resize(){
 			a[i].style.width = "93%"
 			a[i].style.padding = "5px 20px"
 		}
+	}
+
+	stateclassname = ["judge-Accepted","judge-Wrong","judge-Time","judge-Memory","judge-Runtime","judge-Waiting","judge-Running"]
+	longstate = ["Accepted","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Waiting","Running"]
+	shortstate= ["AC","WA","TLE","MLE","RE","WJ","Run"]
+	for( var i = 0 ; i < stateclassname.length ; i++ ){
+		a = document.getElementsByClassName(stateclassname[i]);
+		for( var j = 0 ; j < a.length ; j++ )
+			if( wid < 600 ){
+				if(!a[j].innerHTML.match(/shortstate[i]/))
+					a[j].innerHTML = a[j].innerHTML.replace(longstate[i],shortstate[i])
+			}else{
+				if(!a[j].innerHTML.match(longstate[i]))
+					a[j].innerHTML = a[j].innerHTML.replace(shortstate[i],longstate[i])
+			}
 	}
 }

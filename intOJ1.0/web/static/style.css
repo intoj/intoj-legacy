@@ -83,8 +83,9 @@ li.topbaritem{
 li.topbaritem.selected{
 	background-color: #ccccccee;
 }
-li.topbaritem.unselected:hover{
+li.topbaritem:hover{
 	background-color: #dadadaee;
+	cursor: pointer;
 }
 div.topbarword{
 	padding-top:8px;
@@ -135,7 +136,7 @@ th.list{
 	font-size: 20px;
 	font-weight: 300;
 }
-th.onecolumn{ width: 80px; }
+th.onecolumn{ width: 60px; font-size: 15px; }
 th.onehalfcolumn{ width: 120px; }
 th.twocolumn{ width: 160px; }
 th.threecolumn{ width: 240px; }
