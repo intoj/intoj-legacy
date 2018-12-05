@@ -7,7 +7,8 @@ statuslist = {
 "Waiting":"spinner icon-spin",
 "Running":"spinner icon-spin",
 "Time Limit Exceed":"time",
-"Runtime Error":"asterisk"
+"Runtime Error":"asterisk",
+"Compile Error":"github-alt"
 }
 def Color(a):
 	if a < 30: return "red"
