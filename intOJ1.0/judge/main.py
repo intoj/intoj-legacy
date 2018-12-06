@@ -18,11 +18,11 @@ while(1):
 		tlim = pres[7]; mlim = pres[8]
 		ctlim = 100000; cmlim = 256
 		code = res[6]
-		config = open("judgeconf.txt","w")
+		config = open("judger/judgeconf.txt","w")
 		config.write("%d %d %d %d %d\n" % (pid,tlim,mlim,ctlim,cmlim))
 		config.close()
 
-		code = open("code.cpp","w")
+		code = open("judger/code.cpp","w")
 		code.write(res[6])
 		code.close()
 	time.sleep(1)
