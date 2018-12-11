@@ -7,6 +7,7 @@ statuslist = {
 "Waiting":"spinner icon-spin",
 "Running":"spinner icon-spin",
 "Time Limit Exceed":"time",
+"Memory Limit Exceed":"hdd",
 "Runtime Error":"asterisk",
 "Compile Error":"github-alt"
 }
