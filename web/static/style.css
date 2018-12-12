@@ -166,3 +166,4 @@ input.submit{
 .judge-Runtime{ color:purple; }
 .judge-Waiting{ color: #888888; }
 .judge-Running{ color: #66ccff; }
+.judge-Compile{ color: #233333; }

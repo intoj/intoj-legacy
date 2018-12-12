@@ -51,7 +51,7 @@
 						<tr class="list">
 							<td class="list"> <a href="/record/{{ urecord[0] }}"> R{{ urecord[0] }} </a> </td>
 							<td class="list"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
-							<td class="list center"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </td>
+							<td class="list center"> <a href="/record/{{ urecord[0] }}"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </a> </td>
 							{% if urecord[2] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
 							<td class="list center" style="color:{{scorecolor[loop.index0]}}"> {{ urecord[3] }} </td>
 							<td class="list center"> {{ urecord[4] }}ms </td>
