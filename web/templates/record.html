@@ -37,6 +37,63 @@
 			<div class="block">
 				<div class="contitle"> 评测记录R{{urecord[0]}}: <a href="/problem/{{urecord[1]}}" class="problemlink"> P{{urecord[1]}} </a> </div>
 			</div>
+			{%if urecord[2] != "Compile Error" %}
+			<div class="block">
+				<div class="content">
+					<table class="list">
+						<tr class="list">
+							<th class="onecolumn list center smallfont"> 题目 </th>
+							<th class="fourcolumn list center smallfont"> 状态 </th>
+							<th class="onehalfcolumn list center smallfont"> 得分 </th>
+							<th class="onecolumn list center smallfont"> 时间 </th>
+							<th class="onecolumn list center smallfont"> 内存 </th>
+							<th></th>
+						</tr>
+						<tr class="list">
+							<td class="list center"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
+							<td class="list center"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </td>
+							{% if urecord[2] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
+							<td class="list center" style="color:{{scorecolor}}"> {{ urecord[3] }} </td>
+							<td class="list center"> {{ urecord[4] }}ms </td>
+							<td class="list center"> {{ urecord[5] }}M </td>
+							{% endif %}
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="block">
+				<div class="contitle"> 测试点信息 </div>
+				<div class="content">
+					<table class="list">
+						<tr class="list">
+							<th class="onecolumn list center smallfont"> 编号 </th>
+							<th class="fourcolumn list center smallfont"> 状态 </th>
+							<th class="onehalfcolumn list center smallfont"> 得分 </th>
+							<th class="onecolumn list center smallfont"> 时间 </th>
+							<th class="onecolumn list center smallfont"> 内存 </th>
+							<th></th>
+						</tr>
+						{% for urecord in subtaskstatus %}
+						<tr class="list">
+							<td class="list center"> #{{loop.index}} </td>
+							<td class="list center"> <span class="judge-{{ urecord[0] }}"> <i class="icon-{{ subtaskicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[0] }} </span> </td>
+							{% if urecord[0] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
+							<td class="list center" style="color:{{subtaskcolor[loop.index0]}}"> {{ urecord[1] }} </td>
+							<td class="list center"> {{ urecord[2] }}ms </td>
+							<td class="list center"> {{ urecord[3] }}M </td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			{% endif %}
+			<div class="block">
+				<div class="contitle"> 编译信息 </div>
+				<div class="content">
+<pre><code>{{urecord[8]}}</code></pre>
+				</div>
+			</div>
 			<div class="block">
 				<div class="contitle"> 源代码 </div>
 				<div class="content">

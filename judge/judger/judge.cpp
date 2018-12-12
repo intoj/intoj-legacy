@@ -117,6 +117,7 @@ void AllCompileError(){
 }
 
 
+
 string finalstatus;
 int totpoint,tottimeusage,maxmemoryusage;
 void Collect(){
@@ -131,6 +132,7 @@ void GetFinalstatus(){
 }
 void Judge(){
 	for( int i = 1 ; i <= testcasecnt ; i += 2 ){
+		cout << "Running On Test " << (i+1>>1) << endl;
 		WriteConfig(name[i],name[i+1],100/(testcasecnt/2));
 		InnerBox(i==1);
 		ReadResult();

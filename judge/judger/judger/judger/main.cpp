@@ -35,6 +35,7 @@ void Killprocess(){
 int problemid,timelimit,memorylimit,comptimelimit,compmemorylimit,fullscore;
 char inputfilename[233], outputfilename[233];
 int timeusage, memoryusage;
+bool shouldcompile;
 void ReadConfigFile(){
 	ifstream configin;
 	configin.open("../tmp/config.txt",ios::in);
@@ -45,7 +46,7 @@ ofstream resultout,messageout,compileresultout;
 void OpenOutputFile(){
 	resultout.open("../result/result.txt",ios::out);
 	messageout.open("../result/message.txt",ios::out);
-	compileresultout.open("../result/compileresult.txt",ios::out);
+	if(shouldcompile) compileresultout.open("../result/compileresult.txt",ios::out);
 }
 void WriteConfig(){
 	sprintf(cmd,"echo %dM > /sys/fs/cgroup/memory/intoj-run/memory.limit_in_bytes",memorylimit); system(cmd);
@@ -112,10 +113,11 @@ void Compile(){
 	cout << "Compiling..." << endl;
 	int state = system("g++ -DONLINE_JUDGE ../tmp/code.cpp -o ../tmp/code -lm -w -fmax-errors=5 2> ../tmp/compres.txt");
 	if( state != 0 ) CompileError();
+	else compileresultout << "编译成功,您太强了!" << endl;
 }
 
 void RunAsChild(){
-	usleep(10000);
+	usleep(100);
 	sprintf(cmd,"../tmp/./code < ../../../testdata/%d/%s > ../tmp/ans.txt 2> ../tmp/err.txt",problemid,inputfilename);
 	execl("/bin/sh","sh","-c",cmd,(char *)0);
 	exit(0);
@@ -167,11 +169,13 @@ void Judge(){
 }
 
 int main( int argc , char **argv ){
+	shouldcompile = argv[1][0] == '1';
+
 	ReadConfigFile();
 	OpenOutputFile();
 	WriteConfig();
 
-	if( argv[1][0] == '1' ) Compile();
+	if(shouldcompile) Compile();
 	Run();
 	Judge();
 

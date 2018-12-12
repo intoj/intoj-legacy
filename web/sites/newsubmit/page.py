@@ -30,7 +30,7 @@ def Submit(pid,req):
 	cur.execute("SELECT COUNT(*) FROM records;")
 	rid = int(cur.fetchone()[0])+1
 	code = Tran(req['code']);
-	cmd = "INSERT INTO records VALUES(%d,%d,'Waiting',0,0,0,'%s','');" % (rid,pid,code)
+	cmd = "INSERT INTO records VALUES(%d,%d,'Waiting',0,0,0,'%s','','');" % (rid,pid,code)
 	cur.execute(cmd)
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
