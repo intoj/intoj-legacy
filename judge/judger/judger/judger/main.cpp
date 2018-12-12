@@ -129,7 +129,7 @@ void RunAsFather( int childpid ){
 	rg ll starttime = 1LL*starttimeval.tv_sec*1000000+starttimeval.tv_usec;
 
 	while(waitpid(childpid,&status,WNOHANG)==0){
-		usleep(3000);
+		usleep(1000);
 		gettimeofday(&nowtimeval,NULL);
 		timeusage = 1LL*nowtimeval.tv_sec*1000000+nowtimeval.tv_usec - starttime;
 		if( timeusage > timelimit ){

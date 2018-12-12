@@ -136,13 +136,14 @@ th.list{
 	font-size: 20px;
 	font-weight: 300;
 }
-th.onecolumn{ width: 60px; font-size: 15px; }
+th.onecolumn{ width: 60px; }
 th.onehalfcolumn{ width: 120px; }
 th.twocolumn{ width: 160px; }
 th.threecolumn{ width: 240px; }
 th.fourcolumn{ width: 320px; }
 td.list{ text-align: left; }
 .list.center{ text-align: center; }
+th.smallfont{ font-size: 15px; }
 
 textarea.codeinput{
 	width: 100%;

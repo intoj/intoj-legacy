@@ -39,12 +39,12 @@
 				<div class="content">
 					<table class="list">
 						<tr class="list">
-							<th class="onecolumn list"> 编号 </th>
-							<th class="onecolumn list"> 题目 </th>
-							<th class="fourcolumn list center"> 状态 </th>
-							<th class="onehalfcolumn list center"> 得分 </th>
-							<th class="onecolumn list center"> 时间 </th>
-							<th class="onecolumn list center"> 内存 </th>
+							<th class="onecolumn list smallfont"> 编号 </th>
+							<th class="onecolumn list smallfont"> 题目 </th>
+							<th class="fourcolumn list center smallfont"> 状态 </th>
+							<th class="onehalfcolumn list center smallfont"> 得分 </th>
+							<th class="onecolumn list center smallfont"> 时间 </th>
+							<th class="onecolumn list center smallfont"> 内存 </th>
 							<th></th>
 						</tr>
 						{% for urecord in recordlist %}
@@ -52,10 +52,10 @@
 							<td class="list"> <a href="/record/{{ urecord[0] }}"> R{{ urecord[0] }} </a> </td>
 							<td class="list"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
 							<td class="list center"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </td>
-							{% if urecord[2] not in ["Waiting","Running"] %}
+							{% if urecord[2] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
 							<td class="list center" style="color:{{scorecolor[loop.index0]}}"> {{ urecord[3] }} </td>
 							<td class="list center"> {{ urecord[4] }}ms </td>
-							<td class="list center"> {{ urecord[5] }}MB </td>
+							<td class="list center"> {{ urecord[5] }}M </td>
 							{% endif %}
 						</tr>
 						{% endfor %}
