@@ -1,2 +1,6 @@
 *.pyc
 *__pycache__*
+*.in
+*.out
+**/result
+**/tmp

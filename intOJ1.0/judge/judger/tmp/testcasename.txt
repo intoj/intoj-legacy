@@ -1,4 +1,0 @@
-a1.in
-a1.out
-a2.in
-a2.out

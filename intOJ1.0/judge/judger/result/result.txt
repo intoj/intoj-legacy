@@ -1,6 +1,0 @@
-Wrong Answer
-0 25 3
-Accepted
-50 3 2
-Wrong Answer
-50 28 3
