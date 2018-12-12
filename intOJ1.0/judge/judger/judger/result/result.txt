@@ -1,2 +1,2 @@
-Accepted
-50 3 2
+Time Limit Exceed
+0 1502 0

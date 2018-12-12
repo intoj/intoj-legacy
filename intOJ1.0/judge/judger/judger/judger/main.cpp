@@ -23,7 +23,13 @@ string Tostring( int a ){
 	return s;
 }
 char cmd[233];
-
+void Killprocess(){
+	ifstream processidin;
+	processidin.open("../tmp/processid.txt",ios::in);
+	int processid;
+	processidin >> processid;
+	sprintf(cmd,"kill %d",processid); system(cmd);
+}
 
 
 int problemid,timelimit,memorylimit,comptimelimit,compmemorylimit,fullscore;
@@ -46,7 +52,13 @@ void WriteConfig(){
 	sprintf(cmd,"echo %dM > /sys/fs/cgroup/memory/intoj-run/memory.memsw.limit_in_bytes",memorylimit); system(cmd);
 	sprintf(cmd,"echo \"233\" > /sys/fs/cgroup/memory/intoj-run/memory.memsw.max_usage_in_bytes"); system(cmd);
 }
-
+void Exit(){
+	sprintf(cmd,"pidof code > ../tmp/processid.txt"); int ret = system(cmd);
+	if( ret == 0 ){
+		Killprocess();
+	}
+	exit(0);
+}
 
 
 void CompileError(){
@@ -61,29 +73,29 @@ void CompileError(){
 void TimeLimitExceed(){
 	resultout << "Time Limit Exceed" << endl;
 	resultout << 0 << " " << timeusage << " " << memoryusage << endl;
-	exit(0);
+	Exit();
 }
 void MemoryLimitExceed(){
 	resultout << "Memory Limit Exceed" << endl;
 	resultout << 0 << " " << timeusage << " " << memoryusage << endl;
-	exit(0);
+	Exit();
 }
 void RuntimeError( string message ){
 	resultout << "Runtime Error" << endl;
 	resultout << "0 0 0" << endl;
 	messageout << message << endl;
-	exit(0);
+	Exit();
 }
 void WrongAnswer( string message = " " ){
 	resultout << "Wrong Answer" << endl;
 	resultout << 0 << " " << timeusage << " " << memoryusage << endl;
 	messageout << message << endl;
-	exit(0);
+	Exit();
 }
 void Accepted(){
 	resultout << "Accepted" << endl;
 	resultout << fullscore << " " << timeusage << " " << memoryusage << endl;
-	exit(0);
+	Exit();
 }
 
 
