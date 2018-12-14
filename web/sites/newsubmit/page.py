@@ -13,39 +13,41 @@ import redis
 7. 移锅给后端
 """
 
-specialc = ['\\','\'','\"']
 def Tran(code):
 	a = ""
 	for i in code:
-		if i in specialc:
-			a += '\\'
-			a += i
+		if i == '\r':
+			continue
+		elif i == '\t':
+			a += '@))#!!!!t'
+		elif i == '\n':
+			a += '@))#!!!!n'
+		elif i == '\\':
+			a += '@))#!!!!s'
+		elif i == '\'':
+			a += '@))#!!!!single'
+		elif i == '\"':
+			a += '@))#!!!!double'
 		else:
 			a += i
 	return a
 
-def Submit(pid,req):
+def Submit(problemid,request):
+	ucode = Tran(request['code']);
+
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 	cur.execute("SELECT COUNT(*) FROM records;")
-	rid = int(cur.fetchone()[0])+1
-	code = Tran(req['code']);
-	cmd = "INSERT INTO records VALUES(%d,%d,'Waiting',0,0,0,'%s','','');" % (rid,pid,code)
+	runid = int(cur.fetchone()[0])+1
+	index = "{\"pid\": %d,\"status\": 0,\"score\": 0,\"time\": 0,\"memory\": 0,\"code\": \"%s\",\"subtask\": {},\"compilemessage\": \"\",\"checkermessage\": \"\" }" % (problemid,ucode)
+	print(index)
+	cmd = "INSERT INTO records VALUES(%d,'%s');" % (runid,index)
 	cur.execute(cmd)
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
-	r.rpush('judgelist',str(rid))
+	r.rpush('intoj-waiting',str(runid))
 
 	db.commit()
 	db.close()
 
-	return rid
-
-"""
-#include<iostream>
-using namespace std;
-
-int main(){
-	return 0;
-}
-"""
+	return runid

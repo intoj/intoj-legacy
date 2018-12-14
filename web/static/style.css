@@ -8,6 +8,7 @@ div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td{
 }
 .onewidth{ flex: 1; }
 .twowidth{ flex: 2; }
+
 a{
 	color:#FF9900;
 	text-decoration:none;
@@ -37,10 +38,8 @@ body{
 	background-position: center top;
 	background-size:cover;
 	margin: 0;
-	animation: Fade-in 0.8s ease 0s 1;
-	tab-size: 4;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
+	animation: Fade-in 0.5s ease 0s 1;
+	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
 }
 
 .ui{
@@ -48,8 +47,7 @@ body{
 	border-radius: 2px;
 }
 .container{
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: auto; margin-right: auto;
 	height: fit-content;
 }
 div.filler{
@@ -160,10 +158,14 @@ input.submit{
 	margin: 10px auto;
 }
 
-.judge-Accepted{ color: forestgreen; }
-.judge-Wrong{ color: red; }
-.judge-Time,.judge-Memory{ color: orange; }
-.judge-Runtime{ color:purple; }
-.judge-Waiting{ color: #888888; }
-.judge-Running{ color: #66ccff; }
-.judge-Compile{ color: #233333; }
+.judge-0{ color: #888888; }		/* Waiting */
+.judge-1{ color: #66ccff; }		/* Running */
+.judge-2{ color: #aaaaaa; }		/* Unknown Error */
+.judge-3{ color: #233333; }		/* Compile Error */
+.judge-4{ color: #ff4499; }		/* Hacked */
+.judge-5{ color: red; }			/* Wrong Answer */
+.judge-6{ color: orange; }		/* Time Limit Exceed */
+.judge-7{ color: orange; }		/* Memory Limit Exceed */
+.judge-8{ color:purple; }		/* Runtime Error */
+.judge-9{ color: forestgreen; }	/* Partical Accepted */
+.judge-10{ color: #00cc00; }	/* Accepted */

@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> 评测记录R{{urecord[0]}} </title>
+	<title> 评测记录R{{urec.rid}} </title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
@@ -35,9 +35,8 @@
 	<div class="container">
 		<div class="ui main">
 			<div class="block">
-				<div class="contitle"> 评测记录R{{urecord[0]}}: <a href="/problem/{{urecord[1]}}" class="problemlink"> P{{urecord[1]}} </a> </div>
+				<div class="contitle"> 评测记录R{{urec.rid}}: <a href="/problem/{{urec.pid}}" class="problemlink"> P{{urec.pid}} </a> </div>
 			</div>
-			{%if urecord[2] != "Compile Error" %}
 			<div class="block">
 				<div class="content">
 					<table class="list">
@@ -50,17 +49,18 @@
 							<th></th>
 						</tr>
 						<tr class="list">
-							<td class="list center"> <a href="/problem/{{ urecord[1] }}"> P{{ urecord[1] }} </a> </td>
-							<td class="list center"> <span class="judge-{{ urecord[2] }}"> <i class="icon-{{ statusicon }}" aria-hidden="true"></i>  {{ urecord[2] }} </span> </td>
-							{% if urecord[2] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
-							<td class="list center" style="color:{{scorecolor}}"> {{ urecord[3] }} </td>
-							<td class="list center"> {{ urecord[4] }}ms </td>
-							<td class="list center"> {{ urecord[5] }}M </td>
+							<td class="list center"> <a href="/problem/{{ urec.pid }}"> P{{ urec.pid }} </a> </td>
+							<td class="list center"> <span class="judge-{{ urec.status }}"> <i class="icon-{{ urec.icon }}" aria-hidden="true"></i>  {{ urec.statusname }} </span> </td>
+							<td class="list center" style="color:{{urec.scorecolor}}"> {{ urec.score }} </td>
+							{% if urec.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+							<td class="list center"> {{ urec.time }}ms </td>
+							<td class="list center"> {{ urec.memory }}M </td>
 							{% endif %}
 						</tr>
 					</table>
 				</div>
 			</div>
+			{%if urec.statusname != "Compile Error" %}
 			<div class="block">
 				<div class="contitle"> 测试点信息 </div>
 				<div class="content">
@@ -73,14 +73,14 @@
 							<th class="onecolumn list center smallfont"> 内存 </th>
 							<th></th>
 						</tr>
-						{% for urecord in subtaskstatus %}
+						{% for id,usub in urec['subtask'].items() %}
 						<tr class="list">
-							<td class="list center"> #{{loop.index}} </td>
-							<td class="list center"> <span class="judge-{{ urecord[0] }}"> <i class="icon-{{ subtaskicon[loop.index0] }}" aria-hidden="true"></i>  {{ urecord[0] }} </span> </td>
-							{% if urecord[0] not in ["Waiting","Running","Runtime Error","Compile Error"] %}
-							<td class="list center" style="color:{{subtaskcolor[loop.index0]}}"> {{ urecord[1] }} </td>
-							<td class="list center"> {{ urecord[2] }}ms </td>
-							<td class="list center"> {{ urecord[3] }}M </td>
+							<td class="list center"> #{{id}} </td>
+							<td class="list center"> <span class="judge-{{ usub.status }}"> <i class="icon-{{ usub.icon }}" aria-hidden="true"></i>  {{ usub.statusname }} </span> </td>
+							{% if usub.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+							<td class="list center" style="color:{{usub.scorecoloe}}"> {{ usub.score }} </td>
+							<td class="list center"> {{ usub.time }}ms </td>
+							<td class="list center"> {{ usub.memory }}M </td>
 							{% endif %}
 						</tr>
 						{% endfor %}
@@ -91,13 +91,13 @@
 			<div class="block">
 				<div class="contitle"> 编译信息 </div>
 				<div class="content">
-<pre><code>{{urecord[8]}}</code></pre>
+			<pre><code>{{ urec['compilemessage'] }}</code></pre>
 				</div>
 			</div>
 			<div class="block">
 				<div class="contitle"> 源代码 </div>
 				<div class="content">
-<pre><code>{{urecord[6]}}</code></pre>
+			<pre><code>{{ urec['code'] }}</code></pre>
 			</div>
 		</div>
 	</div>

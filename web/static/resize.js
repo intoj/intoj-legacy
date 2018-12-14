@@ -29,13 +29,13 @@ function Resize(){
 		}
 	}
 
-	stateclassname = ["judge-Accepted","judge-Wrong","judge-Time","judge-Memory","judge-Runtime","judge-Waiting","judge-Running","judge-Compile"]
-	longstate = ["Accepted","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Waiting","Running","Compile Error"]
-	shortstate= ["AC","WA","TLE","MLE","RE","WJ","Run","CE"]
+	stateclassname = ["judge-Accepted","judge-Wrong","judge-Time","judge-Memory","judge-Runtime","judge-Waiting","judge-Running","judge-Compile","judge-Partical","judge-Unknown","judge-Hacked"]
+	longstate = ["Accepted","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Waiting","Running","Compile Error","Partical Accepted","Unknown Error","Hacked"]
+	shortstate= ["AC","WA","TLE","MLE","RE","Wait","Run","CE","PC","UKE","Hack"]
 	for( var i = 0 ; i < stateclassname.length ; i++ ){
 		a = document.getElementsByClassName(stateclassname[i]);
 		for( var j = 0 ; j < a.length ; j++ )
-			if( wid < 650 ){
+			if( wid < 580 ){
 				if(!a[j].innerHTML.match(/shortstate[i]/))
 					a[j].innerHTML = a[j].innerHTML.replace(longstate[i],shortstate[i])
 			}else{

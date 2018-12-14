@@ -51,7 +51,6 @@ void OpenOutputFile(){
 void WriteConfig(){
 	sprintf(cmd,"echo %dM > /sys/fs/cgroup/memory/intoj-run/memory.limit_in_bytes",memorylimit); system(cmd);
 	sprintf(cmd,"echo %dM > /sys/fs/cgroup/memory/intoj-run/memory.memsw.limit_in_bytes",memorylimit); system(cmd);
-	sprintf(cmd,"echo \"233\" > /sys/fs/cgroup/memory/intoj-run/memory.memsw.max_usage_in_bytes"); system(cmd);
 }
 void Exit(){
 	sprintf(cmd,"pidof code > ../tmp/processid.txt"); int ret = system(cmd);
@@ -104,9 +103,8 @@ void Accepted(){
 
 void ReadMemoryUsage(){
 	ifstream memusagein;
-	memusagein.open("/sys/fs/cgroup/memory/intoj-run/memory.memsw.max_usage_in_bytes",ios::in);
+	memusagein.open("/sys/fs/cgroup/memory/intoj-run/memory.max_usage_in_bytes",ios::in);
 	memusagein >> memoryusage;
-	memoryusage /= 1024*1024;
 }
 
 void Compile(){
@@ -142,7 +140,8 @@ void RunAsFather( int childpid ){
 	timeusage /= 1000;
 
 	ReadMemoryUsage();
-	if( memoryusage >= memorylimit || memoryusage == 0 ) MemoryLimitExceed();
+	if( memoryusage/1024/1024 >= memorylimit || memoryusage == 0 ) MemoryLimitExceed();
+	memoryusage /= 1024*1024;
 	if( status != 0 ){
 		string errormessage;
 		ifstream errin;

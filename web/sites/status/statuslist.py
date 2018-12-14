@@ -1,10 +1,10 @@
 from flask import *
 import pymysql
 
-def Getrecordlist():
+def Getstatuslist():
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 	cur.execute("SELECT * FROM records ORDER BY rid DESC")
-	recordlist = cur.fetchall()
+	statuslist = cur.fetchall()
 	db.close()
-	return recordlist
+	return list(statuslist)

@@ -4,3 +4,4 @@
 *.out
 **/result
 **/tmp
+**/ls

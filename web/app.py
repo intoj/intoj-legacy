@@ -12,13 +12,13 @@ def Home():
 def Problemlist():
 	return sites.problemlist.page.Run()
 
-@app.route('/problem/<pid>',methods=['GET','POST'])
-def Problem(pid):
+@app.route('/problem/<problemid>',methods=['GET','POST'])
+def Problem(problemid):
 	if request.method == 'GET':
-		return sites.problem.page.Run(int(pid))
+		return sites.problem.page.Run(int(problemid))
 	else:
-		rid = sites.newsubmit.page.Submit(int(pid),request.form)
-		return redirect('/record/%d'%rid)
+		runid = sites.newsubmit.page.Submit(int(problemid),request.form)
+		return redirect('/record/%d'%runid)
 
 @app.route('/status')
 def Status():
@@ -28,6 +28,6 @@ def Status():
 def Help():
 	return sites.help.page.Run()
 
-@app.route('/record/<int:rid>')
-def Record(rid):
-	return sites.record.page.Run(rid)
+@app.route('/record/<int:runid>')
+def Record(runid):
+	return sites.record.page.Run(runid)

@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> P{{uproblem[0]}}. {{uproblem[1]}} </title>
+	<title> P{{uproblem.pid}}. {{uproblem.title}} </title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
@@ -34,40 +34,40 @@
 	</div>
 	<div class="container">
 		<div class="ui main">
-			<div class="title"> P{{uproblem[0]}}. {{uproblem[1]}}</div>
+			<div class="title"> P{{uproblem.pid}}. {{uproblem.title}}</div>
 			<div class="block">
 				<div class="contitle"> 题目描述 </div>
 				<div class="content markdown">
-					{{- uproblem[2] -}}
+					{{- uproblem.description -}}
 				</div>
 			</div>
 			<div class="block">
 				<div class="contitle"> 输入格式 </div>
 				<div class="content markdown">
-					{{- uproblem[3] -}}
+					{{- uproblem.input -}}
 				</div>
 			</div>
 			<div class="block">
 				<div class="contitle"> 输出格式 </div>
 				<div class="content markdown">
-					{{- uproblem[4] -}}
+					{{- uproblem.output -}}
 				</div>
 			</div>
 			<div class="block">
 				<div class="contitle"> 样例 </div>
 				<div class="content markdown">
-					{{- uproblem[5] -}}
+					{{- uproblem.sample -}}
 				</div>
 			</div>
 			<div class="block">
 				<div class="contitle"> 提示与说明 </div>
 				<div class="content markdown">
-					{{- uproblem[6] -}}
+					{{- uproblem.hint -}}
 				</div>
 			</div>
 			<div class="block">
 				<div class="content markdown">
-`时间限制:{{- uproblem[7] -}}ms`  `空间限制:{{- uproblem[8] -}}M`
+`时间限制:{{- uproblem.timelimit -}}ms`  `空间限制:{{- uproblem.memorylimit -}}M`
 				</div>
 			</div>
 			<div class="block">

@@ -44,10 +44,10 @@
 							<th class="onecolumn list"> 编号 </th>
 							<th class="list"> 题目名称 </th>
 						</tr>
-						{% for uproblem in prolist %}
+						{% for uproblem in problemlist %}
 						<tr class="list">
-							<td class="list"> {{uproblem[0]}} </td>
-							<td class="list"> <a href="/problem/{{ uproblem[0] }}"> {{ uproblem[1] }} </a> </td>
+							<td class="list"> {{uproblem.pid}} </td>
+							<td class="list"> <a href="/problem/{{uproblem.pid}}"> {{ uproblem.title }} </a> </td>
 						</tr>
 						{% endfor %}
 					</table>
