@@ -30,6 +30,12 @@ statusicon = {
 	"Accepted":"ok"
 }
 
+def Fromascii(s):
+	a = ""
+	s = s.split()
+	for i in s:
+		a += chr(int(i,16))
+	return a
 
 def Color(a):
 	if a < 30: return "red"
@@ -47,6 +53,7 @@ def Run(runid):
 
 	urec = json.loads(urec[1])
 	urec['rid'] = runid
+	urec['code'] = Fromascii(urec['code'])
 	urec['statusname'] = tostatus[urec['status']]
 	urec['icon'] = statusicon[urec['statusname']]
 	urec['scorecolor'] = Color(urec['score'])

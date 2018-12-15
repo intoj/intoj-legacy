@@ -13,27 +13,14 @@ import redis
 7. 移锅给后端
 """
 
-def Tran(code):
+def Toascii(code):
 	a = ""
 	for i in code:
-		if i == '\r':
-			continue
-		elif i == '\t':
-			a += '@))#!!!!t'
-		elif i == '\n':
-			a += '@))#!!!!n'
-		elif i == '\\':
-			a += '@))#!!!!s'
-		elif i == '\'':
-			a += '@))#!!!!single'
-		elif i == '\"':
-			a += '@))#!!!!double'
-		else:
-			a += i
+		a += hex(ord(i)) + ' '
 	return a
 
 def Submit(problemid,request):
-	ucode = Tran(request['code']);
+	ucode = Toascii(request['code']);
 
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
