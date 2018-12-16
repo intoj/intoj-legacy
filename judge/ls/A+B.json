@@ -1,0 +1,10 @@
+{
+	"title":		"A+B Problem",
+	"description":	"$des$",
+	"input":		"input",
+	"output":		"output",
+	"sample":		"sample",
+	"hint":			"啊",
+	"timelimit":	1000,
+	"memorylimit":	16
+}
