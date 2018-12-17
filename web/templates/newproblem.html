@@ -30,7 +30,7 @@
 		<ul class="topbar container">
 			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
 			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
+			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
 			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
 			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
 		</ul>
@@ -38,27 +38,14 @@
 	<div class="container">
 		<div class="ui main">
 			<div class="block">
-				<div class="contitle">
-					题目列表
-					<a href="newproblem"><button class="button button-primary button-small" style="float:right; margin-top:3px">
-						<i class="icon-plus"></i>添加题目
-					</button></a>
-				</div>
+				<div class="contitle"> 新建题目 </div>
 			</div>
 			<div class="block">
 				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list"> 编号 </th>
-							<th class="list"> 题目名称 </th>
-						</tr>
-						{% for uproblem in problemlist %}
-						<tr class="list">
-							<td class="list"> {{uproblem.pid}} </td>
-							<td class="list"> <a href="/problem/{{uproblem.pid}}"> {{ uproblem.title }} </a> </td>
-						</tr>
-						{% endfor %}
-					</table>
+					<form method="POST">
+						<textarea class="codeinput" onkeydown="Tab(this,event)" spellcheck="false" name="code"></textarea>
+						<input type="submit" value="Submit!" class="submit"/>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -31,3 +31,7 @@ def Help():
 @app.route('/record/<int:runid>')
 def Record(runid):
 	return sites.record.page.Run(runid)
+
+@app.route('/newproblem')
+def Newproblem():
+	return sites.newproblem.page.Run()
