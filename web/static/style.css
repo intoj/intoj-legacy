@@ -153,9 +153,25 @@ textarea.codeinput{
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 }
+textarea.wordinput{
+	background-color: #fafafa;
+	width: 100%;
+	height: 200px;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	border:0px;
+}
 input.submit{
 	opacity: 0.9;
 	margin: 10px auto;
+}
+input.titleinput{
+	width:230px;
+}
+input.numberinput{
+	margin: 10px;
+	width:100px;
 }
 
 .judge-0{ color: #888888; }		/* Waiting */

@@ -27,7 +27,7 @@ def Submit(problemid,request):
 	cur.execute("SELECT COUNT(*) FROM records;")
 	runid = int(cur.fetchone()[0])+1
 	index = "{\"pid\": %d,\"status\": 0,\"score\": 0,\"time\": 0,\"memory\": 0,\"code\": \"%s\",\"subtask\": {},\"compilemessage\": \"\",\"checkermessage\": \"\" }" % (problemid,ucode)
-	print(index)
+	#print(index)
 	cmd = "INSERT INTO records VALUES(%d,'%s');" % (runid,index)
 	cur.execute(cmd)
 

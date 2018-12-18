@@ -32,6 +32,10 @@ def Help():
 def Record(runid):
 	return sites.record.page.Run(runid)
 
-@app.route('/newproblem')
-def Newproblem():
-	return sites.newproblem.page.Run()
+@app.route('/problemadd',methods=['GET','POST'])
+def Problemadd():
+	if request.method == 'GET':
+		return sites.problemadd.page.Run()
+	else:
+		pid = sites.problemadd.page.Submit(request.form)
+		return redirect('/problem/%d' % pid)

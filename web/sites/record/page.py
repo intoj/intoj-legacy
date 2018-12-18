@@ -54,6 +54,8 @@ def Run(runid):
 	urec = json.loads(urec[1])
 	urec['rid'] = runid
 	urec['code'] = Fromascii(urec['code'])
+	urec['compilemessage'] = Fromascii(urec['compilemessage'])
+	urec['checkermessage'] = Fromascii(urec['checkermessage'])
 	urec['statusname'] = tostatus[urec['status']]
 	urec['icon'] = statusicon[urec['statusname']]
 	urec['scorecolor'] = Color(urec['score'])

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> intOJ | 题目 </title>
+	<title> intOJ | 新建题目 </title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<script src="/static/resize.js"> </script>
@@ -24,6 +24,9 @@
 	<script src="/static/markedinit.js"> </script>
 
 	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
+
+	<link rel="stylesheet" type="text/css" href="trix.css">
+	<script type="text/javascript" src="trix.js"></script>
 </head>
 <body onresize="Resize()" onload="Render();">
 	<div class="ui topbar">
@@ -43,8 +46,22 @@
 			<div class="block">
 				<div class="content">
 					<form method="POST">
-						<textarea class="codeinput" onkeydown="Tab(this,event)" spellcheck="false" name="code"></textarea>
-						<input type="submit" value="Submit!" class="submit"/>
+						<div class="contitle"> 题目标题 </div>
+						<input type="text" name="title" class="titleinput" autofocus required>
+						<div class="contitle"> 题目描述 </div>
+						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
+						<div class="contitle"> 输入格式 </div>
+						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="input"></textarea>
+						<div class="contitle"> 输出格式 </div>
+						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="output"></textarea>
+						<div class="contitle"> 样例 </div>
+						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="sample"></textarea>
+						<div class="contitle"> 数据范围与提示 </div>
+						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="hint"></textarea> <br />
+						<div class="contitle"> 时空限制 </div>
+						时间限制: <input type="number" name="timelimit" min="10" max="100000" class="numberinput" required> ms <br />
+						空间限制: <input type="number" name="memorylimit" min="1" max="2048" class="numberinput" required> MB <br />
+						<input type="submit" value="Go!" class="submit"/>
 					</form>
 				</div>
 			</div>
