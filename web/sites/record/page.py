@@ -37,11 +37,12 @@ def Fromascii(s):
 		a += chr(int(i,16))
 	return a
 
-def Color(a):
-	if a < 30: return "red"
-	if a < 60: return "orange"
-	if a < 100: return "forestgreen"
+def Color(a,fullscore=100):
+	if a < fullscore*0.3: return "red"
+	if a < fullscore*0.6: return "orange"
+	if a < fullscore: return "forestgreen"
 	return "#00ee00"
+
 def SubtaskColor(a):
 	if a == "Accepted": return "#00ee00"
 	return "red"
@@ -55,7 +56,6 @@ def Run(runid):
 	urec['rid'] = runid
 	urec['code'] = Fromascii(urec['code'])
 	urec['compilemessage'] = Fromascii(urec['compilemessage'])
-	urec['checkermessage'] = Fromascii(urec['checkermessage'])
 	urec['statusname'] = tostatus[urec['status']]
 	urec['icon'] = statusicon[urec['statusname']]
 	urec['scorecolor'] = Color(urec['score'])
@@ -63,6 +63,8 @@ def Run(runid):
 		u = urec['subtask'][str(i)]
 		urec['subtask'][str(i)]['statusname'] = tostatus[u['status']]
 		urec['subtask'][str(i)]['icon'] = statusicon[tostatus[u['status']]]
-		urec['subtask'][str(i)]['scorecolor'] = Color(u['score'])
+		urec['subtask'][str(i)]['scorecolor'] = Color(u['score'],u['fullscore'])
+		urec['subtask'][str(i)]['judgermessage'] = Fromascii(u['judgermessage'])
+		urec['subtask'][str(i)]['checkermessage'] = Fromascii(u['checkermessage'])
 
 	return render_template('record.html',urec=urec)

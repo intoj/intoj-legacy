@@ -78,7 +78,7 @@
 							<td class="list center"> #{{id}} </td>
 							<td class="list center"> <span class="judge-{{ usub.status }}"> <i class="icon-{{ usub.icon }}" aria-hidden="true"></i>  {{ usub.statusname }} </span> </td>
 							{% if usub.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-							<td class="list center" style="color:{{usub.scorecoloe}}"> {{ usub.score }} </td>
+							<td class="list center" style="color:{{usub.scorecolor}}"> {{ usub.score }} </td>
 							<td class="list center"> {{ usub.time }}ms </td>
 							<td class="list center"> {{ usub.memory }}M </td>
 							{% endif %}
@@ -92,12 +92,6 @@
 				<div class="contitle"> 编译信息 </div>
 				<div class="content">
 					<pre><code>{{ urec['compilemessage'] }}</code></pre>
-				</div>
-			</div>
-			<div class="block">
-				<div class="contitle"> 评测姬信息 </div>
-				<div class="content">
-					<pre><code>{{ urec['checkermessage'] }}</code></pre>
 				</div>
 			</div>
 			<div class="block">

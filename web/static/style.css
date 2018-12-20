@@ -25,6 +25,9 @@ a.problemlink{
 a.problemlink:hover{
 	color: #FF0000;
 }
+a.uncolored{
+	color:inherit
+}
 p code{
 	margin: auto 2px;
 	background-color: #00000014;
