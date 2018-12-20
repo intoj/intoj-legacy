@@ -1,6 +1,6 @@
 import pymysql,redis
 import time,os,json,math
-import compile,run
+import compile,run,judge
 def Fromascii(s):
 	a = ""
 	s = s.split()
@@ -101,7 +101,8 @@ while True:
 	finalstatus = 11
 	for i in range(1,casecnt+1):
 		inputfile = filepath + str(i) + ".in"
-		outputfile = filepath + str(i) + ".out"
+		outputfile = "../tmp/out.out"
+		ansfile = filepath + str(i) + ".out"
 		(status,timeuse,memuse,exitcode,judgermessage) = run.Run(timelim,memlim,outputlim,inputfile,outputfile)
 		if status != 10:
 			subtask[str(i)] = {
@@ -114,16 +115,17 @@ while True:
 				"checkermessage":Toascii("Skipped")
 			}
 		else:
+			(status,score,checkermessage) = judge.txtcompare.Compare(outputfile,ansfile,casescore[i])
 			subtask[str(i)] = {
 				"status":status,
-				"score":casescore[i],
+				"score":score,
 				"fullscore":casescore[i],
 				"time":timeuse,
 				"memory":memuse,
 				"judgermessage":Toascii(judgermessage),
-				"checkermessage":""
+				"checkermessage":Toascii(checkermessage)
 			}
-			totscore += casescore[i]
+			totscore += score
 		tottimeuse += timeuse
 		totmemuse = max(totmemuse,memuse)
 		finalstatus = min(finalstatus,status)

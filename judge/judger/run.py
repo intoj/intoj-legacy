@@ -18,6 +18,7 @@ def Run(timelim,memlim,outputlim,inputpath,outputpath):
 		./%s < %s 1> %s \
 		3>&2 \
 		" % (timelim/1000.0,memlim*1024*1024,outputlim*1024,exepath,inputpath,outputpath) )		# TODO --max-nprocess
+		# --max-nfile 2 \
 
 		time = math.floor(float(message[message.find("CPUTIME"):message.find("REALTIME")][7:].strip())*1000)
 		memory = round(int(message[:message.find("CPUTIME")][6:].strip())/1024.0/1024.0,2)

