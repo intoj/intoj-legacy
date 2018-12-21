@@ -130,6 +130,7 @@ ll Pow( rg ll a , rg ll b , rg ll p = MOD ){
 ll Inv( ll a , ll p = MOD ){ return Pow(a,p-2LL); }
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+#define Popb pop_back
 #define MAXN 16
 il int Tran( rg char c ){
 	if( c >= '4' && c <= '9' ) return c - '4' + 1;
@@ -144,7 +145,7 @@ il int Tran( rg char c ){
 	ERR("[Tran] char not found");
 }
 
-const int tot[] = {-1000,4,4,4,4,4,4,4,4,4,4,4,4,1,1};
+const int tot[MAXN] = {-1000,4,4,4,4,4,4,4,4,4,4,4,4,1,1};
 int wy[MAXN], jrycan[MAXN], jry[MAXN];
 int ans;
 
@@ -154,21 +155,116 @@ il void Init(){
 	ans = 0;
 }
 
-int Solve(){
+int p3[MAXN], p4[MAXN];
+int twy[MAXN], tjry[MAXN];
+int sum[MAXN];
+il bool Pairing( rg int three , rg int four ){
+	Forx(i,0,three){
+		// t个aaa*
+		// i个aaabb
+		// t-i个aaab
+		// f个aaaabb
+		memcpy(twy,wy,sizeof wy);
+		memcpy(tjry,jry,sizeof jry);
+		if( (i<<1) + three-i + (four<<1) + (four<<2) + three*3 > 17 ) return 0;
+		rg int used = 0;
+		For(j,14){
+			if( twy[j] >= 2 && used < i ){ twy[j] -= 2; ++used; }
+			if( twy[j] >= 2 && used < i ){ twy[j] -= 2; ++used; }
+			if( used == i ) break;
+		}
+		if( used < i ) return 0;
+		used = 0;
+		fOR(j,14){
+			if( tjry[j] >= 2 && used < i ){ tjry[j] -= 2; ++used; }
+			if( tjry[j] >= 2 && used < i ){ tjry[j] -= 2; ++used; }
+			if( used == i ) break;
+		}
+		if( used < i ) return 0;
 
-	return 1;
+		rg int left = (four<<1) + three-i;
+		For(j,14){
+			rg int tdel = min(left,twy[j]);
+			twy[j] -= tdel;
+			left -= tdel;
+			if(!left) break;
+		}
+		left = (four<<1) + three-i;
+		fOR(j,14){
+			rg int tdel = min(left,tjry[j]);
+			tjry[j] -= tdel;
+			left -= tdel;
+			if(!left) break;
+		}
+		if(tjry[14]) continue;
+		if(left) continue;
+
+		Ms(sum);
+		rg int cnt = 0;
+		For(j,14){
+			sum[j] += twy[j];
+			sum[j+1] -= tjry[j];
+			cnt += sum[j];
+			if( cnt > 0 ) break;
+		}
+		if( cnt == 0 ) return 1;
+	}
+	return 0;
+}
+// 没有一个时刻使得 网友的3 多于 jry的3
+bool DfsJry( int pos , int threenow , int fournow , int threegoal , int fourgoal , int cnt1 , int cnt2 ){
+	if( threenow == threegoal && fournow == fourgoal ) return Pairing(threegoal,fourgoal);
+	// if( threenow == threegoal && fournow == fourgoal ) return check(fourgoal,threegoal);
+	if( pos >= 12 ) return 0;
+	cnt1 += p3[pos];
+	cnt2 += p4[pos];
+	if( cnt1 > 0 || cnt2 > 0 ) return 0;
+	if( jry[pos] >= 3 ){
+		jry[pos] -= 3;
+		bool res = DfsJry(pos+1,threenow+1,fournow,threegoal,fourgoal,cnt1-1,cnt2);
+		jry[pos] += 3;
+		if(res) return 1;
+	}
+	if( jry[pos] >= 4 ){
+		jry[pos] -= 4;
+		bool res = DfsJry(pos+1,threenow,fournow+1,threegoal,fourgoal,cnt1,cnt2-1);
+		jry[pos] += 4;
+		if(res) return 1;
+	}
+	if(DfsJry(pos+1,threenow,fournow,threegoal,fourgoal,cnt1,cnt2)) return 1;
+	return 0;
+}
+bool DfsWy( int pos , int threenow , int fournow ){
+	if( pos == 13 ){
+		return DfsJry(1,0,0,threenow,fournow,0,0);
+	}
+	if( wy[pos] >= 3 ){
+		wy[pos] -= 3; ++p3[pos];
+		bool res = DfsWy(pos+1,threenow+1,fournow);
+		wy[pos] += 3; --p3[pos];
+		if(res) return 1;
+	}
+	if( wy[pos] >= 4 ){
+		wy[pos] -= 4; ++p4[pos];
+		bool res = DfsWy(pos+1,threenow,fournow+1);
+		wy[pos] += 4; --p4[pos];
+		if(res) return 1;
+	}
+	if(DfsWy(pos+1,threenow,fournow)) return 1;
+	return 0;
 }
 
 void Dfs( int pos , int selected ){
 	if( selected == 17 ){
-		ans += Solve();
+		ans += DfsWy(2,0,0);	// 网友第一个不能出3或4
 		return;
 	}
-	if( pos > 14 ) return;
+	if( pos == 15 ) return;
 	Forx(i,0,jrycan[pos]){
 		if( i+selected > 17 ) continue;
 		jry[pos] = i;
 		Dfs(pos+1,i+selected);
+		jry[pos] = 0;
 	}
 }
 
