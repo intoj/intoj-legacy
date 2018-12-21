@@ -19,6 +19,10 @@ r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 db = pymysql.connect("localhost","intlsy","24","intoj")
 cur = db.cursor()
 
+def Startjudge(rid,origin):
+	origin['status'] = 1
+	cur.execute("UPDATE records SET content='%s' WHERE rid=%d" % (json.dumps(origin),rid))
+	db.commit()
 def Readrecord(rid):
 	cur.execute("SELECT * FROM records WHERE rid=%d"%runid)
 	dbresult = cur.fetchone()
@@ -79,6 +83,7 @@ while True:
 	print("\033[46;37mJudging runid:%d\033[0m"%runid)
 
 	(pid,code,origin) = Readrecord(runid)
+	Startjudge(runid,origin)
 	Writecode(code)
 	(timelim,memlim) = Readproblem(pid)
 	outputlim = 65536
