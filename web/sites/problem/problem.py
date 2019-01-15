@@ -1,10 +1,10 @@
 from flask import *
 import pymysql
 
-def Getproblem(pid):
+def Getproblem(id):
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
-	cur.execute("SELECT * FROM problems where pid=%s" % str(pid))
+	cur.execute("SELECT * FROM problems where id=%s" % str(id))
 	uproblem = cur.fetchone()
 	db.close()
 	return uproblem

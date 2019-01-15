@@ -4,7 +4,7 @@ import pymysql
 def Getproblemlist():
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
-	cur.execute("SELECT * FROM problems ORDER BY pid")
+	cur.execute("SELECT * FROM problems ORDER BY id")
 	problemlist = cur.fetchall()
 	db.close()
 	return problemlist

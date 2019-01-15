@@ -1,86 +1,54 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> P{{uproblem.pid}}. {{uproblem.title}} </title>
-	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
-
-	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="/static/modules/highlight/atom-one-light.min.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
-
-	<script src="/static/modules/jquery/jquery.js"> </script>
-
-	<script src="/static/markedinit.js"> </script>
-</head>
-<body onresize="Resize()" onload="Render();">
-	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
-	</div>
-	<div class="container">
-		<div class="ui main">
-			<div class="title"> P{{uproblem.pid}}. {{uproblem.title}}</div>
-			<div class="block">
-				<div class="contitle"> 题目描述 </div>
-				<div class="content markdown">
-					{{- uproblem.description -}}
-				</div>
+{% extends 'base.html' %}
+{% block title %} P{{uproblem[0]}}. {{uproblem[1]}} - intOJ {% endblock %}
+{% block selected_problem %} selected {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div class="title"> P{{uproblem[0]}}. {{uproblem[1]}}</div>
+		<div class="block">
+			<div class="contitle"> 题目描述 </div>
+			<div class="content markdown">
+				{{- uproblem[2] -}}
 			</div>
-			<div class="block">
-				<div class="contitle"> 输入格式 </div>
-				<div class="content markdown">
-					{{- uproblem.input -}}
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 输入格式 </div>
+			<div class="content markdown">
+				{{- uproblem[3] -}}
 			</div>
-			<div class="block">
-				<div class="contitle"> 输出格式 </div>
-				<div class="content markdown">
-					{{- uproblem.output -}}
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 输出格式 </div>
+			<div class="content markdown">
+				{{- uproblem[4] -}}
 			</div>
-			<div class="block">
-				<div class="contitle"> 样例 </div>
-				<div class="content markdown">
-					{{- uproblem.sample -}}
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 样例 </div>
+			<div class="content markdown">
+				{{- uproblem[5] -}}
 			</div>
-			<div class="block">
-				<div class="contitle"> 提示与说明 </div>
-				<div class="content markdown">
-					{{- uproblem.hint -}}
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 提示与说明 </div>
+			<div class="content markdown">
+				{{- uproblem[6] -}}
 			</div>
-			<div class="block">
-				<div class="content markdown">
-`时间限制:{{- uproblem.timelimit -}}ms`  `空间限制:{{- uproblem.memorylimit -}}M`
-				</div>
+		</div>
+		<div class="block">
+			<div class="content markdown">
+`时间限制:{{- uproblem[7] -}}ms`  `空间限制:{{- uproblem[8] -}}M`
 			</div>
-			<div class="block">
-				<div class="contitle"> 提交代码 </div>
-				<div class="content">
-					<form method="POST">
-						<textarea class="codeinput" onkeydown="Tab(this,event)" spellcheck="false" name="code"></textarea>
-						<input type="submit" value="Submit!" class="submit"/>
-					</form>
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 提交代码 </div>
+			<div class="content">
+				<form method="POST">
+					<textarea class="codeinput" onkeydown="Tab(this,event)" spellcheck="false" name="code"></textarea>
+					<input type="submit" value="Submit!" class="submit"/>
+				</form>
 			</div>
 		</div>
 	</div>
-	<script> Resize(); </script>
-</body>
-</html>
+</div>
+{% endblock %}

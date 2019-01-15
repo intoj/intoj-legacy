@@ -37,5 +37,5 @@ def Problemadd():
 	if request.method == 'GET':
 		return sites.problemadd.page.Run()
 	else:
-		pid = sites.problemadd.page.Submit(request.form)
-		return redirect('/problem/%d' % pid)
+		id = sites.problemadd.page.Submit(request.form)
+		return redirect('/problem/%d' % id)

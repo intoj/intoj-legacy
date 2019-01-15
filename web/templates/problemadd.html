@@ -1,69 +1,35 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> intOJ | 新建题目 </title>
-	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
-
-	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="/static/modules/highlight/atom-one-light.min.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
-
-	<script src="/static/modules/jquery/jquery.js"> </script>
-
-	<script src="/static/markedinit.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
-</head>
-<body onresize="Resize()" onload="Render();">
-	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
-	</div>
-	<div class="container">
-		<div class="ui main">
-			<div class="block">
-				<div class="contitle"> 新建题目 </div>
-			</div>
-			<div class="block">
-				<div class="content">
-					<form method="POST">
-						<div class="contitle"> 题目标题 </div>
-						<input type="text" name="title" class="titleinput" autofocus required>
-						<div class="contitle"> 题目描述 </div>
-						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
-						<div class="contitle"> 输入格式 </div>
-						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="input"></textarea>
-						<div class="contitle"> 输出格式 </div>
-						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="output"></textarea>
-						<div class="contitle"> 样例 </div>
-						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="sample"></textarea>
-						<div class="contitle"> 数据范围与提示 </div>
-						<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="hint"></textarea> <br />
-						<div class="contitle"> 时空限制 </div>
-						时间限制: <input type="number" name="timelimit" min="10" max="100000" class="numberinput" required> ms <br />
-						空间限制: <input type="number" name="memorylimit" min="1" max="2048" class="numberinput" required> MB <br />
-						<input type="submit" value="Go!" class="submit"/>
-					</form>
-				</div>
+{% extends 'base.html' %}
+{% block title %} 添加题目 - intOJ {% endblock %}
+{% block selected_problem %} selected {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div class="block">
+			<div class="contitle"> 新建题目 </div>
+		</div>
+		<div class="block">
+			<div class="content">
+				<form method="POST">
+					<span class="contitle"> 题目编号 </span> <input type="number" name="id" class="numberinput" autofocus required>
+					<div class="contitle"> 题目标题 </div>
+					<input type="text" name="title" class="titleinput" required>
+					<div class="contitle"> 题目描述 </div>
+					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
+					<div class="contitle"> 输入格式 </div>
+					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="input_format"></textarea>
+					<div class="contitle"> 输出格式 </div>
+					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="output_format"></textarea>
+					<div class="contitle"> 样例 </div>
+					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="example"></textarea>
+					<div class="contitle"> 数据范围与提示 </div>
+					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="limit_and_hint"></textarea> <br />
+					<div class="contitle"> 时空限制 </div>
+					时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required> ms <br />
+					空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required> MB <br />
+					<input type="submit" value="Go!" class="submit"/>
+				</form>
 			</div>
 		</div>
 	</div>
-	<script> Resize(); </script>
-</body>
-</html>
+</div>
+{% endblock %}

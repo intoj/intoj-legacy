@@ -13,22 +13,15 @@ import redis
 7. 移锅给后端
 """
 
-def Toascii(code):
-	a = ""
-	for i in code:
-		a += hex(ord(i)) + ' '
-	return a
-
 def Submit(problemid,request):
-	ucode = Toascii(request['code']);
-
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 	cur.execute("SELECT COUNT(*) FROM records;")
 	runid = int(cur.fetchone()[0])+1
-	index = "{\"pid\": %d,\"status\": 0,\"score\": 0,\"time\": 0,\"memory\": 0,\"code\": \"%s\",\"subtask\": {},\"compilemessage\": \"\",\"judgermessage\":\"\",\"checkermessage\": \"\" }" % (problemid,ucode)
-	#print(index)
-	cmd = "INSERT INTO records VALUES(%d,'%s');" % (runid,index)
+	index = "%d,%d,'%s','%s',0,0,'','{\"subtasks\":[]}',0,0" % (runid,problemid,request['code'],'cpp')
+	print(index)
+
+	cmd = "INSERT INTO records VALUES(%s);" % index
 	cur.execute(cmd)
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)

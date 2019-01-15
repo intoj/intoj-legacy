@@ -1,68 +1,33 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> intOJ | 题目 </title>
-	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
-
-	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="/static/modules/highlight/atom-one-light.min.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
-
-	<script src="/static/modules/jquery/jquery.js"> </script>
-
-	<script src="/static/markedinit.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
-</head>
-<body onresize="Resize()" onload="Render();">
-	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
-	</div>
-	<div class="container">
-		<div class="ui main">
-			<div class="block">
-				<div class="contitle">
-					题目列表
-					<a href="problemadd"><button class="button button-primary button-small" style="float:right; margin-top:3px">
-						<i class="icon-plus"></i>添加题目
-					</button></a>
-				</div>
+{% extends 'base.html' %}
+{% block title %} 题目列表 - intOJ {% endblock %}
+{% block selected_problem %} selected {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div class="block">
+			<div class="contitle">
+				题目列表
+				<a href="problemadd"><button class="button button-primary button-small" style="float:right; margin-top:3px">
+					<i class="icon-plus"></i>添加题目
+				</button></a>
 			</div>
-			<div class="block">
-				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list"> 编号 </th>
-							<th class="list"> 题目名称 </th>
-						</tr>
-						{% for uproblem in problemlist %}
-						<tr class="list">
-							<td class="list"> {{uproblem.pid}} </td>
-							<td class="list"> <a href="/problem/{{uproblem.pid}}"> {{ uproblem.title }} </a> </td>
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
+		</div>
+		<div class="block">
+			<div class="content">
+				<table class="list">
+					<tr class="list">
+						<th class="onecolumn list"> 编号 </th>
+						<th class="list"> 题目名称 </th>
+					</tr>
+					{% for uproblem in problemlist %}
+					<tr class="list">
+						<td class="list"> {{uproblem[0] }} </td>
+						<td class="list"> <a href="/problem/{{uproblem[0]}}"> {{ uproblem[1] }} </a> </td>
+					</tr>
+					{% endfor %}
+				</table>
 			</div>
 		</div>
 	</div>
-	<script> Resize(); </script>
-</body>
-</html>
+</div>
+{% endblock %}

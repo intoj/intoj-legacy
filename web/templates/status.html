@@ -1,68 +1,36 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> intOJ | 评测状态 </title>
-	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
-
-	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="/static/modules/highlight/atom-one-light.min.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
-
-	<script src="/static/modules/jquery/jquery.js"> </script>
-
-	<script src="/static/markedinit.js"> </script>
-</head>
-<body onresize="Resize()" onload="Render();">
-	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
+{% extends 'base.html' %}
+{% block title %} 评测状态 - intOJ {% endblock %}
+{% block selected_status %} selected {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div class="block">
+			<div class="contitle"> 实时评测记录 </div>
+			<div class="content">
+				<table class="list">
+					<tr class="list">
+						<th class="onecolumn list smallfont"> 编号 </th>
+						<th class="onecolumn list smallfont"> 题目 </th>
+						<th class="fourcolumn list center smallfont"> 状态 </th>
+						<th class="onehalfcolumn list center smallfont"> 得分 </th>
+						<th class="onecolumn list center smallfont"> 时间 </th>
+						<th class="onecolumn list center smallfont"> 内存 </th>
+						<th></th>
+					</tr>
+					{% for ustatus in statuslist %}
+					<tr class="list">
+						<td class="list"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </td>
+						<td class="list"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </td>
+						<td class="list center"> <a href="/record/{{ ustatus[0] }}"> <span class="judge-{{ ustatus[4] }}"> <i class="icon-{{ ustatus[11] }}" aria-hidden="true"></i>  {{ ustatus[10] }} </span> </a> </td>
+						<td class="list center" style="color:{{ustatus[12]}}"> <a href="/record/{{ ustatus[0] }}" class="uncolored"> {{ ustatus[5] }} </a> </td>
+						{% if ustatus[10] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+						<td class="list center"> {{ ustatus[8] }}ms </td>
+						<td class="list center"> {{ ustatus[9] }}M </td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
 	</div>
-	<div class="container">
-		<div class="ui main">
-			<div class="block">
-				<div class="contitle"> 实时评测记录 </div>
-				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list smallfont"> 编号 </th>
-							<th class="onecolumn list smallfont"> 题目 </th>
-							<th class="fourcolumn list center smallfont"> 状态 </th>
-							<th class="onehalfcolumn list center smallfont"> 得分 </th>
-							<th class="onecolumn list center smallfont"> 时间 </th>
-							<th class="onecolumn list center smallfont"> 内存 </th>
-							<th></th>
-						</tr>
-						{% for ust in statuslist %}
-						<tr class="list">
-							<td class="list"> <a href="/record/{{ ust.rid }}"> R{{ ust.rid }} </a> </td>
-							<td class="list"> <a href="/problem/{{ ust.pid }}"> P{{ ust.pid }} </a> </td>
-							<td class="list center"> <a href="/record/{{ ust.rid }}"> <span class="judge-{{ ust.status }}"> <i class="icon-{{ ust.icon }}" aria-hidden="true"></i>  {{ ust.statusname }} </span> </a> </td>
-							<td class="list center" style="color:{{ust.scorecolor}}"> <a href="/record/{{ ust.rid }}" class="uncolored"> {{ ust.score }} </a> </td>
-							{% if ust.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-							<td class="list center"> {{ ust.time }}ms </td>
-							<td class="list center"> {{ ust.memory }}M </td>
-							{% endif %}
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
-		</div>
-	</div>
-	<script> Resize(); </script>
-</body>
-</html>
+</div>
+{% endblock %}

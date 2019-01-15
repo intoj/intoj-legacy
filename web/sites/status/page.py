@@ -11,22 +11,22 @@ tostatus = {
 	6:"Time Limit Exceed",
 	7:"Memory Limit Exceed",
 	8:"Runtime Error",
-	9:"Partical Accepted",
+	9:"Partially Accepted",
 	10:"Accepted"
 }
 
 statusicon = {
-	"Waiting":"spinner icon-spin",
-	"Running":"spinner icon-spin",
-	"Unknown Error":"thumbs-down",
-	"Compile Error":"github-alt",
-	"Hacked":"magic",
-	"Wrong Answer":"remove",
-	"Time Limit Exceed":"time",
-	"Memory Limit Exceed":"hdd",
-	"Runtime Error":"asterisk",
-	"Partical Accepted":"legal",
-	"Accepted":"ok"
+	0:"spinner icon-spin",
+	1:"spinner icon-spin",
+	2:"thumbs-down",
+	3:"github-alt",
+	4:"magic",
+	5:"remove",
+	6:"time",
+	7:"hdd",
+	8:"asterisk",
+	9:"legal",
+	10:"ok"
 }
 
 def Color(a):
@@ -36,13 +36,14 @@ def Color(a):
 	return "#00ee00"
 
 def Run():
-	stlist = Getstatuslist()
-	statuslist = []
-	for i in stlist:
-		decoded = json.loads(i[1]);
-		decoded['rid'] = int(i[0])
-		decoded['statusname'] = tostatus[decoded['status']]
-		decoded['icon'] = statusicon[decoded['statusname']]
-		decoded['scorecolor'] = Color(decoded['score'])
-		statuslist.append(decoded)
+	statuslist = list(Getstatuslist())
+	for i in range(len(statuslist)):
+		statuslist[i] = list(statuslist[i])
+		ustatus = statuslist[i][4]
+		uscore = statuslist[i][5]
+		if int(uscore) == uscore: uscore = int(uscore)
+		statuslist[i][5] = uscore
+		statuslist[i].append(tostatus[ustatus])
+		statuslist[i].append(statusicon[ustatus])
+		statuslist[i].append(Color(uscore))
 	return render_template('status.html',statuslist=statuslist)

@@ -1,108 +1,76 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> 评测记录R{{urec.rid}} </title>
-	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
-
-	<script src="/static/modules/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="/static/modules/highlight/solarized-light.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
-
-	<script src="/static/modules/jquery/jquery.js"> </script>
-
-	<script src="/static/markedinit.js"> </script>
-</head>
-<body onresize="Resize()" onload="Render();">
-	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth unselected"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth selected" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth unselected" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
-	</div>
-	<div class="container">
-		<div class="ui main">
-			<div class="block">
-				<div class="contitle"> 评测记录R{{urec.rid}}: <a href="/problem/{{urec.pid}}" class="problemlink"> P{{urec.pid}} </a> </div>
+{% extends 'base.html' %}
+{% block title %} 评测记录R{{record[0]}} - intOJ {% endblock %}
+{% block selected_status %} selected {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div class="block">
+			<div class="contitle"> 评测记录R{{record[0]}}: <a href="/problem/{{record[1]}}" class="problemlink"> P{{record[1]}} </a> </div>
+		</div>
+		<div class="block">
+			<div class="content">
+				<table class="list">
+					<tr class="list">
+						<th class="onecolumn list center smallfont"> 题目 </th>
+						<th class="fourcolumn list center smallfont"> 状态 </th>
+						<th class="onehalfcolumn list center smallfont"> 得分 </th>
+						<th class="onecolumn list center smallfont"> 时间 </th>
+						<th class="onecolumn list center smallfont"> 内存 </th>
+						<th></th>
+					</tr>
+					<tr class="list">
+						<td class="list center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </td>
+						<td class="list center"> <span class="judge-{{ record[4] }}"> <i class="icon-{{ record[11] }}" aria-hidden="true"></i>  {{ record[10] }} </span> </td>
+						<td class="list center" style="color:{{record[12]}}"> {{ record[5] }} </td>
+						{% if record[10] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+						<td class="list center"> {{ record[8] }}ms </td>
+						<td class="list center"> {{ record[9] }}M </td>
+						{% endif %}
+					</tr>
+				</table>
 			</div>
-			<div class="block">
-				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list center smallfont"> 题目 </th>
-							<th class="fourcolumn list center smallfont"> 状态 </th>
-							<th class="onehalfcolumn list center smallfont"> 得分 </th>
-							<th class="onecolumn list center smallfont"> 时间 </th>
-							<th class="onecolumn list center smallfont"> 内存 </th>
-							<th></th>
-						</tr>
-						<tr class="list">
-							<td class="list center"> <a href="/problem/{{ urec.pid }}"> P{{ urec.pid }} </a> </td>
-							<td class="list center"> <span class="judge-{{ urec.status }}"> <i class="icon-{{ urec.icon }}" aria-hidden="true"></i>  {{ urec.statusname }} </span> </td>
-							<td class="list center" style="color:{{urec.scorecolor}}"> {{ urec.score }} </td>
-							{% if urec.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-							<td class="list center"> {{ urec.time }}ms </td>
-							<td class="list center"> {{ urec.memory }}M </td>
-							{% endif %}
-						</tr>
-					</table>
-				</div>
+		</div>
+		{%if record[10] != "Compile Error" %}
+		<div class="block">
+			<div class="contitle"> 测试点信息 </div>
+			<div class="content">
+				<table class="list">
+					<tr class="list">
+						<th class="onecolumn list center smallfont"> 编号 </th>
+						<th class="fourcolumn list center smallfont"> 状态 </th>
+						<th class="onehalfcolumn list center smallfont"> 得分 </th>
+						<th class="onecolumn list center smallfont"> 时间 </th>
+						<th class="onecolumn list center smallfont"> 内存 </th>
+						<th></th>
+					</tr>
+					{% for subtask in subtasks %}
+					<tr class="list">
+						<td class="list center"> #{{subtask['id']}} </td>
+						<td class="list center"> <span class="judge-{{ subtask['status'] }}"> <i class="icon-{{ subtask['status_icon'] }}" aria-hidden="true"></i>  {{ subtask['status_name'] }} </span> </td>
+						{% if subtask['status_name'] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+						<td class="list center" style="color:{{subtask['score_color']}}"> {{ subtask['score'] }} </td>
+						<td class="list center"> {{ subtask['time_usage'] }}ms </td>
+						<td class="list center"> {{ subtask['memory_usage'] }}M </td>
+						<td class="list center"> {{ subtask['checker_message'] }} </td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</table>
 			</div>
-			{%if urec.statusname != "Compile Error" %}
-			<div class="block">
-				<div class="contitle"> 测试点信息 </div>
-				<div class="content">
-					<table class="list">
-						<tr class="list">
-							<th class="onecolumn list center smallfont"> 编号 </th>
-							<th class="fourcolumn list center smallfont"> 状态 </th>
-							<th class="onehalfcolumn list center smallfont"> 得分 </th>
-							<th class="onecolumn list center smallfont"> 时间 </th>
-							<th class="onecolumn list center smallfont"> 内存 </th>
-							<th></th>
-						</tr>
-						{% for id,usub in urec['subtask'].items() %}
-						<tr class="list">
-							<td class="list center"> #{{id}} </td>
-							<td class="list center"> <span class="judge-{{ usub.status }}"> <i class="icon-{{ usub.icon }}" aria-hidden="true"></i>  {{ usub.statusname }} </span> </td>
-							{% if usub.statusname not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-							<td class="list center" style="color:{{usub.scorecolor}}"> {{ usub.score }} </td>
-							<td class="list center"> {{ usub.time }}ms </td>
-							<td class="list center"> {{ usub.memory }}M </td>
-							<td class="list center"> {{ usub.checkermessage }} </td>
-							{% endif %}
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
+		</div>
+		{% endif %}
+		<div class="block">
+			<div class="contitle"> 编译信息 </div>
+			<div class="content">
+				<pre><code>{{ record[6] }}</code></pre>
 			</div>
-			{% endif %}
-			<div class="block">
-				<div class="contitle"> 编译信息 </div>
-				<div class="content">
-					<pre><code>{{ urec['compilemessage'] }}</code></pre>
-				</div>
-			</div>
-			<div class="block">
-				<div class="contitle"> 源代码 </div>
-				<div class="content">
-					<pre><code class="cpp">{{ urec['code'] }}</code></pre>
-				</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 源代码 </div>
+			<div class="content">
+				<pre><code class="record[3]">{{ record[2] }}</code></pre>
 			</div>
 		</div>
 	</div>
-	<script> Resize(); </script>
-</body>
-</html>
+</div>
+{% endblock %}
