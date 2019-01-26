@@ -1,17 +1,7 @@
 import pymysql,redis
 import time,os,json,math
+from modules import *
 import compile,run,judge
-def Fromascii(s):
-	a = ""
-	s = s.split()
-	for i in s:
-		a += chr(int(i,16))
-	return a
-def Toascii(code):
-	a = ""
-	for i in code:
-		a += hex(ord(i)) + ' '
-	return a
 
 cpppath = "../tmp/a.cpp"
 
@@ -19,43 +9,35 @@ r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 db = pymysql.connect("localhost","intlsy","24","intoj")
 cur = db.cursor()
 
-def Startjudge(rid,origin):
-	origin['status'] = 1
-	cur.execute("UPDATE records SET content='%s' WHERE rid=%d" % (json.dumps(origin),rid))
-	db.commit()
 def Readrecord(rid):
-	cur.execute("SELECT * FROM records WHERE rid=%d"%runid)
+	cur.execute("SELECT * FROM records WHERE id=%d"%rid)
 	dbresult = cur.fetchone()
-	indexjson = dbresult[1]
-	index = json.loads(indexjson)
-	print("\033[42;37mRUNindex:\033[0m",index)
-	pid = index['pid']
-	code = Fromascii(index['code'])
-	return pid,code,index
+	print("\033[42;37mRUNindex:\033[0m",dbresult)
+	return dbresult[1],dbresult[2],dbresult
 def Writecode(code):
 	f = open(cpppath,"w")
 	f.write(code)
 	f.close()
+def Startjudge(rid):
+	cur.execute("UPDATE records SET status=1 WHERE id=%d" % rid)
+	db.commit()
 
-def Readproblem(pid):
-	cur.execute("SELECT * FROM problems WHERE pid=%d"%pid)
+def Readproblem(problem_id):
+	cur.execute("SELECT * FROM problems WHERE id=%d" % problem_id)
 	dbresult = cur.fetchone()
-	indexjson = dbresult[1]
-	index = json.loads(indexjson)
-	print("\033[42;37mPROindex:\033[0m",index)
-	return index['timelimit'],index['memorylimit']
+	print("\033[42;37mPROindex:\033[0m",dbresult)
+	return dbresult[7],dbresult[8]
 
-def CompileError(rid,mes,origin):
-	origin['status'] = 3
-	origin['compilemessage'] = Toascii(mes)
-	cur.execute("UPDATE records SET content='%s' WHERE rid=%d" % (json.dumps(origin),rid))
+def CompileError(runid,message):
+	cur.execute("UPDATE records SET status=3 WHERE id=%d" % runid)
+	cur.execute("UPDATE records SET compilation='%s' WHERE id=%d" % (Raw(message),runid))
 	db.commit()
 
 casescore = []
 def Getcasescore(cnt):
 	global casescore
 	casescore = []
-	casescore.append(23333)
+	casescore.append(-1)
 	left = 100
 	per = 100//cnt
 	for i in range(cnt-1):
@@ -63,15 +45,9 @@ def Getcasescore(cnt):
 		left -= per
 	casescore.append(left)
 
-def Report(rid,status,score,time,mem,subtask,compmes,origin):
-	origin['status'] = status
-	origin['score'] = score
-	origin['time'] = time
-	origin['memory'] = mem
-	origin['subtask'] = subtask
-	origin['compilemessage'] = Toascii(compmes)
-	print("\033[42;37mResult:\033[0m",origin)
-	cur.execute("UPDATE records SET content='%s' WHERE rid=%d" % (json.dumps(origin),rid))
+def Report(runid,status,score,time_usage,memory_usage,subtasks,comp_message):
+	cur.execute("UPDATE records SET status=%d,score=%d,time_usage=%d,memory_usage=%d,result='%s',compilation='%s' WHERE id=%d" % \
+				(status,score,time_usage,memory_usage,Raw(json.dumps(subtasks)),Raw(comp_message),runid))
 	db.commit()
 
 while True:
@@ -82,60 +58,64 @@ while True:
 	runid = int(runid)
 	print("\033[46;37mJudging runid:%d\033[0m"%runid)
 
-	(pid,code,origin) = Readrecord(runid)
-	Startjudge(runid,origin)
+	(problem_id,code,origin) = Readrecord(runid)
+	Startjudge(runid)
 	Writecode(code)
-	(timelim,memlim) = Readproblem(pid)
-	outputlim = 65536
+	(time_limit,memory_limit) = Readproblem(problem_id)
+	output_limit = 65536
 
-	comptimelim = 5000
-	compmemlim = 512
-	compoutputlim = 32768
-	(compcode,compmes) = compile.Compile(comptimelim,compmemlim,compoutputlim)
-	if( compcode != 10 ):
-		CompileError(runid,compmes,origin)
+	comp_time_limit = 5000
+	comp_memory_limit = 512
+	comp_output_limit = 32768
+	(comp_code,comp_message) = compile.Compile(comp_time_limit,comp_memory_limit,comp_output_limit)
+	if( comp_code != 10 ):
+		CompileError(runid,comp_message)
 		time.sleep(1)
 		continue
 
-	filepath = "../testdata/%d/" % pid
+	filepath = "../testdata/%d/" % problem_id
 	casecnt = int(  os.popen("cd %s;ls -l |grep \"^-\"|wc -l"%filepath).readline().strip() ) // 2
 	Getcasescore(casecnt)
 
-	subtask = {}
-	tottimeuse = totmemuse = totscore = 0
-	finalstatus = 11
+	subtasks = []
+	tot_time_usage = tot_memory_usage = tot_score = 0
+	final_status = 10
 	for i in range(1,casecnt+1):
 		inputfile = filepath + str(i) + ".in"
 		outputfile = "../tmp/out.out"
 		ansfile = filepath + str(i) + ".out"
-		(status,timeuse,memuse,exitcode,judgermessage) = run.Run(timelim,memlim,outputlim,inputfile,outputfile)
+		(status,time_usage,memory_usage,exitcode,judger_message) = run.Run(time_limit,memory_limit,output_limit,inputfile,outputfile)
 		if status != 10:
-			subtask[str(i)] = {
+			subtasks.append({
+				"id":i,
 				"status":status,
 				"score":0,
-				"fullscore":casescore[i],
-				"time":timeuse,
-				"memory":memuse,
-				"judgermessage":Toascii(judgermessage),
-				"checkermessage":Toascii("Skipped")
-			}
+				"full_score":casescore[i],
+				"time_usage":time_usage,
+				"memory_usage":memory_usage,
+				"judger_message":judger_message,
+				"checker_message":""
+			})
 		else:
-			(status,score,checkermessage) = judge.txtcompare.Compare(outputfile,ansfile,casescore[i])
-			subtask[str(i)] = {
+			(status,score,checker_message) = judge.txtcompare.Compare(outputfile,ansfile,casescore[i])
+			subtasks.append({
+				"id":i,
 				"status":status,
 				"score":score,
-				"fullscore":casescore[i],
-				"time":timeuse,
-				"memory":memuse,
-				"judgermessage":Toascii(judgermessage),
-				"checkermessage":Toascii(checkermessage)
-			}
-			totscore += score
-		tottimeuse += timeuse
-		totmemuse = max(totmemuse,memuse)
-		finalstatus = min(finalstatus,status)
-
-	print("\033[42;37mSubtask:\033[0m",subtask)
-	Report(runid,finalstatus,totscore,tottimeuse,totmemuse,subtask,compmes,origin)
+				"full_score":casescore[i],
+				"time_usage":time_usage,
+				"memory_usage":memory_usage,
+				"judger_message":judger_message,
+				"checker_message":checker_message
+			})
+			tot_score += score
+		tot_time_usage += time_usage
+		tot_memory_usage = max(tot_memory_usage,memory_usage)
+		final_status = min(final_status,status)
+	result = {
+		'subtasks':subtasks
+	}
+	print("\033[42;37mSubtask:\033[0m",result)
+	Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,result,comp_message)
 
 	time.sleep(1)

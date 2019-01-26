@@ -1,7 +1,9 @@
 from flask import *
 import pymysql
 import redis
+from ..modules import *
 
+#包含rejudge
 """
 提交过程:
 1. problem.html发出POST请求
@@ -14,20 +16,36 @@ import redis
 """
 
 def Submit(problemid,request):
+	code = Raw(request['code'])
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 	cur.execute("SELECT COUNT(*) FROM records;")
 	runid = int(cur.fetchone()[0])+1
-	index = "%d,%d,'%s','%s',0,0,'','{\"subtasks\":[]}',0,0" % (runid,problemid,request['code'],'cpp')
-	print(index)
+	index = "%d,%d,'%s','%s',0,0,'','{\"subtasks\":[]}',0,0,''" % (runid,problemid,code,'cpp')
+	# print(index)
 
 	cmd = "INSERT INTO records VALUES(%s);" % index
 	cur.execute(cmd)
+	db.commit()
+	db.close()
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))
 
+
+	return runid
+
+def Rejudge(id):
+	db = pymysql.connect("localhost","intlsy","24","intoj")
+	cur = db.cursor()
+	cur.execute("SELECT * FROM records WHERE id=%d"%id)
+	if cur.fetchone() == None: return False
+
+	cur.execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%d"%id)
 	db.commit()
 	db.close()
 
-	return runid
+	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
+	r.rpush('intoj-waiting',str(id))
+
+	return True

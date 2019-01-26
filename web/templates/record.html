@@ -5,7 +5,12 @@
 <div class="container">
 	<div class="ui main">
 		<div class="block">
-			<div class="contitle"> 评测记录R{{record[0]}}: <a href="/problem/{{record[1]}}" class="problemlink"> P{{record[1]}} </a> </div>
+			<form method="POST">
+			<div class="contitle"> 评测记录R{{record[0]}}:
+				<a href="/problem/{{record[1]}}" class="problemlink"> P{{record[1]}} </a>
+				<button type="submit" class="button button-small button-primary button-square" name="rejudge" style="float:right; margin-top: 2px;"> <i class="icon-repeat"></i> </button>
+			</div>
+			</form>
 		</div>
 		<div class="block">
 			<div class="content">
@@ -20,9 +25,9 @@
 					</tr>
 					<tr class="list">
 						<td class="list center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </td>
-						<td class="list center"> <span class="judge-{{ record[4] }}"> <i class="icon-{{ record[11] }}" aria-hidden="true"></i>  {{ record[10] }} </span> </td>
-						<td class="list center" style="color:{{record[12]}}"> {{ record[5] }} </td>
-						{% if record[10] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+						<td class="list center"> <span class="judge-{{ record[4] }}" long_or_short="long"> <i class="icon-{{ record[12] }}" aria-hidden="true"></i>  {{ record[11] }} </span> </td>
+						<td class="list center" style="color:{{record[13]}}"> {{ record[5] }} </td>
+						{% if record[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
 						<td class="list center"> {{ record[8] }}ms </td>
 						<td class="list center"> {{ record[9] }}M </td>
 						{% endif %}
@@ -44,16 +49,23 @@
 						<th></th>
 					</tr>
 					{% for subtask in subtasks %}
+					<div class="div_canclick" onclick="Div_click(this,event)">
 					<tr class="list">
 						<td class="list center"> #{{subtask['id']}} </td>
-						<td class="list center"> <span class="judge-{{ subtask['status'] }}"> <i class="icon-{{ subtask['status_icon'] }}" aria-hidden="true"></i>  {{ subtask['status_name'] }} </span> </td>
+						<td class="list center"> <span class="judge-{{ subtask['status'] }}" long_or_short="long"> <i class="icon-{{ subtask['status_icon'] }}" aria-hidden="true"></i>  {{ subtask['status_name'] }} </span> </td>
 						{% if subtask['status_name'] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
 						<td class="list center" style="color:{{subtask['score_color']}}"> {{ subtask['score'] }} </td>
 						<td class="list center"> {{ subtask['time_usage'] }}ms </td>
 						<td class="list center"> {{ subtask['memory_usage'] }}M </td>
-						<td class="list center"> {{ subtask['checker_message'] }} </td>
+						{% else %}
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						{% endif %}
+						<td class="list center"> {{ subtask['checker_message'] }} </td>
+						<td class="list center"> {{ subtask['judger_message'] }} </td>
 					</tr>
+					</div>
 					{% endfor %}
 				</table>
 			</div>
@@ -69,6 +81,12 @@
 			<div class="contitle"> 源代码 </div>
 			<div class="content">
 				<pre><code class="record[3]">{{ record[2] }}</code></pre>
+			</div>
+		</div>
+		<div class="block">
+			<div class="contitle"> 系统信息 </div>
+			<div class="content">
+				<pre><code>{{ record[10] }}</code></pre>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
-div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td{
-	font-family: sans-serif;
+div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td,input,textarea{
+	font-family: 'Fira Mono', 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', monospace;
 	font-size: 17px;
 }
 @keyframes Fade-in{
@@ -146,37 +146,6 @@ td.list{ text-align: left; }
 .list.center{ text-align: center; }
 th.smallfont{ font-size: 15px; }
 
-textarea.codeinput{
-	width: 100%;
-	height: 300px;
-	opacity: 0.8;
-	background-color: #33333388;
-	color: #ffffff;
-	tab-size: 4;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-}
-textarea.wordinput{
-	background-color: #fafafa;
-	width: 100%;
-	height: 200px;
-	tab-size: 4;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	border:0px;
-}
-input.submit{
-	opacity: 0.9;
-	margin: 10px auto;
-}
-input.titleinput{
-	width:230px;
-}
-input.numberinput{
-	margin: 10px;
-	width:100px;
-}
-
 .judge-0{ color: #888888; }		/* Waiting */
 .judge-1{ color: #66ccff; }		/* Running */
 .judge-2{ color: #aaaaaa; }		/* Unknown Error */
@@ -188,3 +157,53 @@ input.numberinput{
 .judge-8{ color:purple; }		/* Runtime Error */
 .judge-9{ color: forestgreen; }	/* Partical Accepted */
 .judge-10{ color: #00cc00; }	/* Accepted */
+
+.tag{
+	background-color: #cfcfcf;
+	font-size: 15px;
+	padding: 3px 8px;
+	margin-right: 10px;
+	border-radius: 8px;
+	position: relative;
+	top: 2px;
+}
+div.tagsblock{
+	padding: 0px 20px !important;
+	height: 30px;
+}
+div.tags{
+
+}
+
+textarea.codeinput{
+	width: 100%;
+	height: 300px;
+	opacity: 0.8;
+	background-color: #33333388;
+	color: #ffffff;
+}
+textarea.wordinput{
+	background-color: #fafafa;
+	width: 100%;
+	height: 200px;
+	border:0px;
+	font-size: 19px;
+}
+input.submit{
+	opacity: 0.9;
+	margin: 10px auto;
+}
+input.titleinput{
+	margin-left: 10px;
+	width:230px;
+}
+input.numberinput{
+	margin: 5px 10px;
+	width: 100px;
+}
+button.submitbutton{
+	margin-top: 20px;
+	width: 200px;
+	margin-left: calc(50% - 100px);
+	font-size: 19px;
+}

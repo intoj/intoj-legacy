@@ -14,7 +14,7 @@ def Compile(timelim,memlim,outputlim):
 		--max-real-time %f \
 		--max-memory %d \
 		--max-output %d \
-		g++ -DONLINE_JUDGE %s -o %s -lm -w -fmax-errors=5 \
+		g++ -O2 -DONLINE_JUDGE %s -o %s -lm -w -fmax-errors=5 \
 		3>&1 \
 		" % (timelim/1000.0,memlim*1024*1024,outputlim*1024,cpppath,exepath) )
 

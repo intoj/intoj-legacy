@@ -10,9 +10,8 @@
 		<div class="block">
 			<div class="content">
 				<form method="POST">
-					<span class="contitle"> 题目编号 </span> <input type="number" name="id" class="numberinput" autofocus required>
-					<div class="contitle"> 题目标题 </div>
-					<input type="text" name="title" class="titleinput" required>
+					<span class="contitle"> 题目编号 </span> <input type="number" name="id" class="numberinput" autofocus required> <br/>
+					<span class="contitle"> 题目标题 </span> <input type="text" name="title" class="titleinput" required>
 					<div class="contitle"> 题目描述 </div>
 					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
 					<div class="contitle"> 输入格式 </div>
@@ -26,7 +25,9 @@
 					<div class="contitle"> 时空限制 </div>
 					时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required> ms <br />
 					空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required> MB <br />
-					<input type="submit" value="Go!" class="submit"/>
+					<button type="submit" class="button button-action button submitbutton">
+						<i class="icon-pencil icon-spin"></i> 提交!
+					</button>
 				</form>
 			</div>
 		</div>

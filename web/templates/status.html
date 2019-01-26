@@ -21,9 +21,9 @@
 					<tr class="list">
 						<td class="list"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </td>
 						<td class="list"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </td>
-						<td class="list center"> <a href="/record/{{ ustatus[0] }}"> <span class="judge-{{ ustatus[4] }}"> <i class="icon-{{ ustatus[11] }}" aria-hidden="true"></i>  {{ ustatus[10] }} </span> </a> </td>
-						<td class="list center" style="color:{{ustatus[12]}}"> <a href="/record/{{ ustatus[0] }}" class="uncolored"> {{ ustatus[5] }} </a> </td>
-						{% if ustatus[10] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+						<td class="list center"> <a href="/record/{{ ustatus[0] }}"> <span class="judge-{{ ustatus[4] }}" long_or_short="long"> <i class="icon-{{ ustatus[12] }}" aria-hidden="true"></i>  {{ ustatus[11] }} </span> </a> </td>
+						<td class="list center" style="color:{{ustatus[13]}}"> <a href="/record/{{ ustatus[0] }}" class="uncolored"> {{ ustatus[5] }} </a> </td>
+						{% if ustatus[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
 						<td class="list center"> {{ ustatus[8] }}ms </td>
 						<td class="list center"> {{ ustatus[9] }}M </td>
 						{% endif %}

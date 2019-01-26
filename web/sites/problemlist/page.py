@@ -3,7 +3,6 @@ from .problemlist import *
 
 def Run():
 	problemlist = Getproblemlist()
-	print(problemlist)
 	for u in problemlist:
 		print(u)
 	return render_template('problemlist.html',problemlist=problemlist)

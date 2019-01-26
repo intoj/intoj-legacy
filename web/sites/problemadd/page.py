@@ -1,5 +1,6 @@
 from flask import *
 import pymysql
+from ..modules import *
 
 def Run():
 	return render_template("problemadd.html")
@@ -14,8 +15,8 @@ def Getid():
 def Submit(req):
 	id = Getid()
 	index = "'%s','%s','%s','%s','%s','%s',%s,%s" % \
-			(req['title'],req['description'],req['input_format'],req['output_format'],\
-			req['example'],req['limit_and_hint'],req['time_limit'],req['memory_limit'])
+			(Raw(req['title']),Raw(req['description']),Raw(req['input_format']),Raw(req['output_format']),\
+			Raw(req['example']),Raw(req['limit_and_hint']),Raw(req['time_limit']),Raw(req['memory_limit']))
 
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()

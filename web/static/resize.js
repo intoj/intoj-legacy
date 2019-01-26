@@ -29,18 +29,23 @@ function Resize(){
 		}
 	}
 
-	stateclassname = ["judge-Accepted","judge-Wrong","judge-Time","judge-Memory","judge-Runtime","judge-Waiting","judge-Running","judge-Compile","judge-Partical","judge-Unknown","judge-Hacked"]
-	longstate = ["Accepted","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Waiting","Running","Compile Error","Partical Accepted","Unknown Error","Hacked"]
-	shortstate= ["AC","WA","TLE","MLE","RE","Wait","Run","CE","PC","UKE","Hack"]
+	stateclassname = ["judge-0","judge-1","judge-2","judge-3","judge-4","judge-5","judge-6","judge-7","judge-8","judge-9","judge-10"]
+	longstate = ["Waiting","Running","Unknown Error","Compile Error","Hacked","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Partially Accepted","Accepted"]
+	shortstate = ["WJ","Run","UKE","CE","Hack","WA","TLE","MLE","RE","PC","AC"]
 	for( var i = 0 ; i < stateclassname.length ; i++ ){
 		a = document.getElementsByClassName(stateclassname[i]);
-		for( var j = 0 ; j < a.length ; j++ )
-			if( wid < 580 ){
-				if(!a[j].innerHTML.match(/shortstate[i]/))
+		for( var j = 0 ; j < a.length ; j++ ){
+			if( wid < 600 ){
+				if( a[j].attributes.long_or_short.nodeValue == "long" ){
 					a[j].innerHTML = a[j].innerHTML.replace(longstate[i],shortstate[i])
+					a[j].attributes.long_or_short.nodeValue = "short"
+				}
 			}else{
-				if(!a[j].innerHTML.match(longstate[i]))
+				if( a[j].attributes.long_or_short.nodeValue == "short" ){
 					a[j].innerHTML = a[j].innerHTML.replace(shortstate[i],longstate[i])
+					a[j].attributes.long_or_short.nodeValue = "long"
+				}
 			}
+		}
 	}
 }
