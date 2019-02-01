@@ -7,3 +7,4 @@ from . import newsubmit
 from . import record
 from . import problemadd
 from . import problemedit
+from . import problemdel

@@ -6,75 +6,95 @@
 	<div class="ui main">
 		<div class="block">
 			<form method="POST">
-			<div class="contitle"> 评测记录R{{record[0]}}:
-				<a href="/problem/{{record[1]}}" class="problemlink"> P{{record[1]}} </a>
+			<div class="contitle"> 评测记录R{{record[0]}}
 				<button type="submit" class="button button-small button-primary button-square" name="rejudge" style="float:right; margin-top: 2px;"> <i class="icon-repeat"></i> </button>
 			</div>
 			</form>
 		</div>
 		<div class="block">
 			<div class="content">
-				<table class="list">
-					<tr class="list">
-						<th class="onecolumn list center smallfont"> 题目 </th>
-						<th class="fourcolumn list center smallfont"> 状态 </th>
-						<th class="onehalfcolumn list center smallfont"> 得分 </th>
-						<th class="onecolumn list center smallfont"> 时间 </th>
-						<th class="onecolumn list center smallfont"> 内存 </th>
-						<th></th>
-					</tr>
-					<tr class="list">
-						<td class="list center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </td>
-						<td class="list center"> <span class="judge-{{ record[4] }}" long_or_short="long"> <i class="icon-{{ record[12] }}" aria-hidden="true"></i>  {{ record[11] }} </span> </td>
-						<td class="list center" style="color:{{record[13]}}"> {{ record[5] }} </td>
+				<div class="list">
+					<div class="listline">
+						<span class="listitem onewide center smallfont"> 题目 </span>
+						<span class="listitem fourwide center smallfont"> 状态 </span>
+						<span class="listitem onewide center smallfont"> 得分 </span>
+						<span class="listitem onewide center smallfont"> 时间 </span>
+						<span class="listitem onewide center smallfont"> 内存 </span>
+					</div>
+					<div class="listline">
+						<span class="listitem onewide center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </span>
+						<span class="listitem fourwide center">
+							<span class="judge-{{ record[4] }}" long_or_short="long">
+								<i class="icon-{{ record[12] }}" aria-hidden="true"></i>  {{ record[11] }}
+							</span>
+						</span>
+						<span class="listitem onewide center" style="color:{{record[13]}}"> {{ record[5] }} </span>
 						{% if record[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-						<td class="list center"> {{ record[8] }}ms </td>
-						<td class="list center"> {{ record[9] }}M </td>
+						<span class="listitem onewide center"> {{ record[8] }}ms </span>
+						<span class="listitem onewide center"> {{ record[9] }}M </span>
 						{% endif %}
-					</tr>
-				</table>
+					</div>
+				</div>
 			</div>
 		</div>
 		{%if record[10] != "Compile Error" %}
 		<div class="block">
 			<div class="contitle"> 测试点信息 </div>
 			<div class="content">
-				<table class="list">
-					<tr class="list">
-						<th class="onecolumn list center smallfont"> 编号 </th>
-						<th class="fourcolumn list center smallfont"> 状态 </th>
-						<th class="onehalfcolumn list center smallfont"> 得分 </th>
-						<th class="onecolumn list center smallfont"> 时间 </th>
-						<th class="onecolumn list center smallfont"> 内存 </th>
-						<th></th>
-					</tr>
+				<div class="list">
+					<div class="listline">
+						<span class="listitem onewide center smallfont"> 编号 </span>
+						<span class="listitem fourwide center smallfont"> 状态 </span>
+						<span class="listitem onewide center smallfont"> 得分 </span>
+						<span class="listitem onewide center smallfont"> 时间 </span>
+						<span class="listitem onewide center smallfont"> 内存 </span>
+					</div>
 					{% for subtask in subtasks %}
-					<div class="div_canclick" onclick="Div_click(this,event)">
-					<tr class="list">
-						<td class="list center"> #{{subtask['id']}} </td>
-						<td class="list center"> <span class="judge-{{ subtask['status'] }}" long_or_short="long"> <i class="icon-{{ subtask['status_icon'] }}" aria-hidden="true"></i>  {{ subtask['status_name'] }} </span> </td>
+					<div class="listline listline-animation" onclick="Click({{loop.index}})">
+						<span class="listitem onewide center"> #{{subtask['id']}} </span>
+						<span class="listitem fourwide center">
+							<span class="judge-{{ subtask['status'] }}" long_or_short="long">
+								<i class="icon-{{ subtask['status_icon'] }}" aria-hidden="true"></i>
+								{{ subtask['status_name'] }}
+							</span>
+						</span>
 						{% if subtask['status_name'] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-						<td class="list center" style="color:{{subtask['score_color']}}"> {{ subtask['score'] }} </td>
-						<td class="list center"> {{ subtask['time_usage'] }}ms </td>
-						<td class="list center"> {{ subtask['memory_usage'] }}M </td>
+						<span class="listitem onewide center" style="color:{{subtask['score_color']}}"> {{ subtask['score'] }} </span>
+						<span class="listitem onewide center"> {{ subtask['time_usage'] }}ms </span>
+						<span class="listitem onewide center"> {{ subtask['memory_usage'] }}M </span>
 						{% else %}
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<span class="listitem onewide center"> </span>
+						<span class="listitem onewide center"> </span>
+						<span class="listitem onewide center"> </span>
 						{% endif %}
-						<td class="list center"> {{ subtask['checker_message'] }} </td>
-						<td class="list center"> {{ subtask['judger_message'] }} </td>
-					</tr>
+					</div>
+					<div class="dropdown dropdown-{{loop.index}}" hidden="hidden" show_or_hide="hide">
+						<div class="markdown">
+{% if subtask['checker_message'] != "" %}
+### 比较器信息
+
+```plain
+{{ subtask['checker_message'] }}
+```
+{% endif %}
+{% if subtask['judger_message'] != "" %}
+### 评测器信息
+
+```plain
+{{ subtask['judger_message'] }}
+```
+{% endif %}
+						</div>
 					</div>
 					{% endfor %}
-				</table>
+				</div>
 			</div>
 		</div>
 		{% endif %}
 		<div class="block">
 			<div class="contitle"> 编译信息 </div>
 			<div class="content">
-				<pre><code>{{ record[6] }}</code></pre>
+				<pre><code class="plaintext">{{ record[6] }}</code></pre>
 			</div>
 		</div>
 		<div class="block">
@@ -83,12 +103,14 @@
 				<pre><code class="record[3]">{{ record[2] }}</code></pre>
 			</div>
 		</div>
+		{% if record[10] != "" %}
 		<div class="block">
 			<div class="contitle"> 系统信息 </div>
 			<div class="content">
-				<pre><code>{{ record[10] }}</code></pre>
+				<pre><code class="plaintext">{{ record[10] }}</code></pre>
 			</div>
 		</div>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

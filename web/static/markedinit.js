@@ -9,5 +9,10 @@ marked.setOptions({
 	smartypants: false,
 	xhtml: true,
 	sanitize: false,
-	highlight: function(code,lang){ return hljs.highlightAuto(code).value; }
+	highlight: function(code,lang){
+		if( lang == "plain" ){
+			return "<code class=\"hljs plaintext\">" + code + "</code>"
+		}
+		return hljs.highlightAuto(code).value;
+	}
 });

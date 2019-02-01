@@ -1,4 +1,4 @@
-div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td,input,textarea{
+div,p,li,ul,ol,tr,td,input,textarea{
 	font-family: 'Fira Mono', 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', monospace;
 	font-size: 17px;
 }
@@ -6,28 +6,22 @@ div,p,li,ul,body,head,a,h1,h2,h3,h4,h5,h6,ol,tr,td,input,textarea{
     0%{ opacity:0; }
     100%{ opacity:1; }
 }
-.onewidth{ flex: 1; }
-.twowidth{ flex: 2; }
+h3{
+	margin: 10px auto;
+}
+pre{
+	margin: 10px auto;
+}
 
 a{
-	color:#FF9900;
+	color:#4444ff;
 	text-decoration:none;
-	transition: all 0.4s;
+	transition: all 0.2s;
 }
-a:hover{
-	color: #FF0000;
-}
-a.problemlink{
-	font-size: 25px;
-	color: #55bbee;
-	transition: all 0.4s;
-}
-a.problemlink:hover{
-	color: #FF0000;
-}
-a.uncolored{
-	color:inherit
-}
+a:hover{ color: #FF0000; }
+a.problemlink:hover{ color: #FF0000; }
+a:focus{ outline:0; }
+a.uncolored{ color: inherit; }
 p code{
 	margin: auto 2px;
 	background-color: #00000014;
@@ -37,64 +31,57 @@ p code{
 
 body{
 	background-image: url('/static/pic/bg.jpg');
-	background-attachment:fixed;
-	background-position: center top;
-	background-size:cover;
+	background-attachment: fixed;
+	background-position: left top;
+	background-size: cover;
 	margin: 0;
 	animation: Fade-in 0.5s ease 0s 1;
 	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
 }
 
-.ui{
-	background-color: #ffffffee;
-	border-radius: 2px;
-}
-.container{
-	margin-left: auto; margin-right: auto;
-	height: fit-content;
-}
-div.filler{
-	display:inline;
-	background-color: #ffffff00;
-}
+/**************** topbar ****************/
 div.topbar{
 	position: fixed;
-	top:0;
+	top: 0;
 	height: 50px;
 	z-index: 233;
 	width: 100%;
 	margin: 0;
 }
-ul.topbar{
-	display: -webkit-flex;
+div.topbar-container{
 	display: flex;
-	margin-top: 0px;
+	margin: auto;
 	padding: 0;
-	font-weight: 400;
-	font-size: 20px;
 	height: 50px;
-	align-items: center;
 }
-li.topbaritem{
+span.topbaritem{
 	list-style-type:none;
-	text-align: center;
 	height: 50px;
 	transition: all 0.2s;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-li.topbaritem.selected{
+span.topbaritem.selected{
 	background-color: #ccccccee;
 }
-li.topbaritem:hover{
+span.topbaritem:hover{
 	background-color: #dadadaee;
 	cursor: pointer;
 }
-div.topbarword{
-	padding-top:8px;
-}
-img.icon{
-	height: 50px;
+div.topbarindex{
+	font-size: 20px;
 }
 
+/**************** ui ****************/
+div.ui{
+	background-color: #ffffffee;
+	border-radius: 2px;
+}
+div.container{
+	margin: auto;
+}
 div.main{
 	margin: calc(50px + 20px) auto 20px auto;
 	padding-top: 10px;
@@ -126,26 +113,41 @@ div.block{
 	background-color: #e8e8e899;
 	border-radius: 6px;
 }
-
-table.list{
-	width: 90%;
-	margin: auto;
-	border: none;
+div.dropdown{
+	background-color: #cfcfcf99;
+	padding: 1px 20px 8px 20px;
+	margin: 10px 10px;
+	margin-bottom: 20px;
+	height: auto;
 }
-th.list{
-	text-align: left;
-	font-size: 20px;
-	font-weight: 300;
-}
-th.onecolumn{ width: 60px; }
-th.onehalfcolumn{ width: 120px; }
-th.twocolumn{ width: 160px; }
-th.threecolumn{ width: 240px; }
-th.fourcolumn{ width: 320px; }
-td.list{ text-align: left; }
-.list.center{ text-align: center; }
-th.smallfont{ font-size: 15px; }
 
+/**************** list ****************/
+div.list{}
+div.listline{
+	display: flex;
+	align-items: center;
+	height: 40px;
+	transition: all 0.2s;
+}
+div.listline-hover-animation:hover,div.listline-animation:hover{
+	background-color: #dadada;
+}
+div.listline-active-animation:active,div.listline-animation:active{
+	background-color: #aaa;
+	transform: scale(1.02,1.02);
+}
+div.listline-active-animation,div.listline-animation{
+	cursor: pointer;
+}
+span.listitem{  }
+span.listitem.onewide{ width: 8%; }
+span.listitem.twowide{ width: 13%; }
+span.listitem.threewide{ width: 20%; }
+span.listitem.fourwide{ width: 25%; }
+span.listitem.fivewide{ width: 30%; }
+span.listitem.center{ text-align: center; }
+
+/**************** judge-state ****************/
 .judge-0{ color: #888888; }		/* Waiting */
 .judge-1{ color: #66ccff; }		/* Running */
 .judge-2{ color: #aaaaaa; }		/* Unknown Error */
@@ -154,15 +156,16 @@ th.smallfont{ font-size: 15px; }
 .judge-5{ color: red; }			/* Wrong Answer */
 .judge-6{ color: orange; }		/* Time Limit Exceed */
 .judge-7{ color: orange; }		/* Memory Limit Exceed */
-.judge-8{ color:purple; }		/* Runtime Error */
+.judge-8{ color: purple; }		/* Runtime Error */
 .judge-9{ color: forestgreen; }	/* Partical Accepted */
 .judge-10{ color: #00cc00; }	/* Accepted */
 
+/**************** tags ****************/
 .tag{
 	background-color: #cfcfcf;
 	font-size: 15px;
 	padding: 3px 8px;
-	margin-right: 10px;
+	margin-right: 7px;
 	border-radius: 8px;
 	position: relative;
 	top: 2px;
@@ -171,10 +174,8 @@ div.tagsblock{
 	padding: 0px 20px !important;
 	height: 30px;
 }
-div.tags{
 
-}
-
+/**************** input ****************/
 textarea.codeinput{
 	width: 100%;
 	height: 300px;
@@ -189,10 +190,10 @@ textarea.wordinput{
 	border:0px;
 	font-size: 19px;
 }
-input.submit{
+/* input.submit{
 	opacity: 0.9;
 	margin: 10px auto;
-}
+} */
 input.titleinput{
 	margin-left: 10px;
 	width:230px;
@@ -202,8 +203,10 @@ input.numberinput{
 	width: 100px;
 }
 button.submitbutton{
-	margin-top: 20px;
 	width: 200px;
-	margin-left: calc(50% - 100px);
 	font-size: 19px;
+	margin-left: calc(50% - 100px);
+	margin-top: 10px;
+	font-weight: 500;
+	letter-spacing: 1px;
 }

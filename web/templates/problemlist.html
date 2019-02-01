@@ -14,18 +14,18 @@
 		</div>
 		<div class="block">
 			<div class="content">
-				<table class="list">
-					<tr class="list">
-						<th class="onecolumn list"> 编号 </th>
-						<th class="list"> 题目名称 </th>
-					</tr>
+				<div class="list">
+					<div class="listline">
+						<span class="listitem twowide center"> 编号 </span>
+						<span class="listitem fivewide"> 题目名称 </span>
+					</div>
 					{% for uproblem in problemlist %}
-					<tr class="list">
-						<td class="list"> {{uproblem[0] }} </td>
-						<td class="list"> <a href="/problem/{{uproblem[0]}}"> {{ uproblem[1] }} </a> </td>
-					</tr>
+					<div class="listline listline-animation" onclick="window.location.href='/problem/{{uproblem[0]}}'">
+						<span class="listitem twowide center"> {{uproblem[0] }} </span>
+						<span class="listitem fivewide"> <a href="/problem/{{uproblem[0]}}"> {{ uproblem[1] }} </a> </span>
+					</div>
 					{% endfor %}
-				</table>
+				</div>
 			</div>
 		</div>
 	</div>

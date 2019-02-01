@@ -7,29 +7,32 @@
 		<div class="block">
 			<div class="contitle"> 实时评测记录 </div>
 			<div class="content">
-				<table class="list">
-					<tr class="list">
-						<th class="onecolumn list smallfont"> 编号 </th>
-						<th class="onecolumn list smallfont"> 题目 </th>
-						<th class="fourcolumn list center smallfont"> 状态 </th>
-						<th class="onehalfcolumn list center smallfont"> 得分 </th>
-						<th class="onecolumn list center smallfont"> 时间 </th>
-						<th class="onecolumn list center smallfont"> 内存 </th>
-						<th></th>
-					</tr>
+				<div class="list">
+					<div class="listline">
+						<span class="listitem onewide center smallfont"> 编号 </span>
+						<span class="listitem onewide center smallfont"> 题目 </span>
+						<span class="listitem fivewide center smallfont"> 状态 </span>
+						<span class="listitem twowide center smallfont"> 得分 </span>
+						<span class="listitem twowide center smallfont"> 时间 </span>
+						<span class="listitem twowide center smallfont"> 内存 </span>
+					</div>
 					{% for ustatus in statuslist %}
-					<tr class="list">
-						<td class="list"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </td>
-						<td class="list"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </td>
-						<td class="list center"> <a href="/record/{{ ustatus[0] }}"> <span class="judge-{{ ustatus[4] }}" long_or_short="long"> <i class="icon-{{ ustatus[12] }}" aria-hidden="true"></i>  {{ ustatus[11] }} </span> </a> </td>
-						<td class="list center" style="color:{{ustatus[13]}}"> <a href="/record/{{ ustatus[0] }}" class="uncolored"> {{ ustatus[5] }} </a> </td>
+					<div class="listline listline-animation" onclick="window.location.href='/record/{{ ustatus[0] }}'">
+						<span class="listitem onewide center"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </span>
+						<span class="listitem onewide center"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </span>
+						<span class="listitem fivewide center">
+							<span class="judge-{{ ustatus[4] }}" long_or_short="long">
+								<i class="icon-{{ ustatus[12] }}" aria-hidden="true"></i>  {{ ustatus[11] }}
+							</span>
+						</span>
+						<span class="listitem twowide center" style="color:{{ustatus[13]}}"> {{ ustatus[5] }} </span>
 						{% if ustatus[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-						<td class="list center"> {{ ustatus[8] }}ms </td>
-						<td class="list center"> {{ ustatus[9] }}M </td>
+						<span class="listitem twowide center"> {{ ustatus[8] }}ms </span>
+						<span class="listitem twowide center"> {{ ustatus[9] }}M </span>
 						{% endif %}
-					</tr>
+					</div>
 					{% endfor %}
-				</table>
+				</div>
 			</div>
 	</div>
 </div>

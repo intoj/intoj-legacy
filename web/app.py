@@ -53,3 +53,7 @@ def Problemedit(problemid):
 	else:
 		newid = sites.problemedit.page.Change(problemid,request.form)
 		return redirect('/problem/%d' % newid)
+
+@app.route('/problem/<int:problemid>/delete',methods=['GET'])
+def Problemdel(problemid):
+	return sites.problemdel.page.Deleteproblem(problemid)

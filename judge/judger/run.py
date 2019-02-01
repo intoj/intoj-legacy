@@ -24,7 +24,7 @@ def Run(timelim,memlim,outputlim,inputpath,outputpath):
 		message = open("../tmp/result.txt",'r').read()
 		# print(message)
 		time = math.floor(float(message[message.find("CPUTIME"):message.find("REALTIME")][7:].strip())*1000)
-		memory = round(int(message[:message.find("CPUTIME")][6:].strip())/1024.0/1024.0,2)
+		memory = round(int(message[:message.find("CPUTIME")][6:].strip())/1024/1024,2)
 		exitcode = int(message[message.find("TERMSIG"):message.find("EXCEED")][8:].strip())
 		exceed = message[message.find("EXCEED"):][6:].strip()
 

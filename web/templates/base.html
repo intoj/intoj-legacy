@@ -8,12 +8,12 @@
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
 	<script src="/static/tab.js"> </script>
-	<script src="/static/click.js"> </script>
+	<script src="/static/expand.js"> </script>
 
 	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
 
-	<link rel="stylesheet" href="/static/modules/highlight/solarized-light.css">
-	<script src="/static/modules/highlight/highlight.min.js"></script>
+	<link rel="stylesheet" href="/static/modules/highlight/styles/atom-one-light.css">
+	<script src="/static/modules/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 
 	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
@@ -22,17 +22,35 @@
 	<script src="/static/modules/marked/marked.min.js"></script>
 	<script src="/static/markedinit.js"> </script>
 
+	<script src="/static/modules/jquery/jquery.js"></script>
+
 	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
 </head>
 <body onresize="Resize()" onload="Render();">
 	<div class="ui topbar">
-		<ul class="topbar container">
-			<a href="/"> <li class="topbar topbaritem onewidth"> <img class="icon intoj" src="/static/pic/icon1.png" /> </li> </a>
-			<li class="topbar topbaritem onewidth {% block selected_home %}{% endblock %}" onclick="window.location.href='/'"> <div class="topbarword"> <i class="icon-home" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 首页 </div> </div> </li>
-			<li class="topbar topbaritem onewidth {% block selected_problem %}{% endblock %}" onclick="window.location.href='/problemlist'"> <div class="topbarword"> <i class="icon-list" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 题目 </div> </div> </li>
-			<li class="topbar topbaritem onewidth {% block selected_status %}{% endblock %}" onclick="window.location.href='/status'"> <div class="topbarword"> <i class="icon-tasks" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 评测 </div> </div> </li>
-			<li class="topbar topbaritem onewidth {% block selected_help %}{% endblock %}" onclick="window.location.href='/help'"> <div class="topbarword"> <i class="icon-question-sign" aria-hidden="true"></i> <div class="ui filler topbarfiller"> 帮助 </div> </div> </li>
-		</ul>
+		<div class="topbar-container container">
+			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
+			<span class="topbaritem onewidth {% block selected_home %}{% endblock %}" onclick="window.location.href='/'" style="flex: 2;">
+				<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
+					<span class="topbarword"> 首页 </span>
+				</div>
+			</span>
+			<span class="topbaritem onewidth {% block selected_problem %}{% endblock %}" onclick="window.location.href='/problemlist'" style="flex: 2;">
+				<div class="topbarindex"> <i class="icon-list" aria-hidden="true"></i>
+					<span class="topbarword"> 题目 </span>
+				</div>
+			</span>
+			<span class="topbaritem onewidth {% block selected_status %}{% endblock %}" onclick="window.location.href='/status'" style="flex: 2;">
+				<div class="topbarindex"> <i class="icon-tasks" aria-hidden="true"></i>
+					<span class="topbarword"> 评测 </span>
+				</div>
+			</span>
+			<span class="topbaritem onewidth {% block selected_help %}{% endblock %}" onclick="window.location.href='/help'" style="flex: 2;">
+				<div class="topbarindex"> <i class="icon-question-sign" aria-hidden="true"></i>
+					<span class="topbarword"> 帮助 </span>
+				</div>
+			</span>
+		</div>
 	</div>
 	{% block body %}
 	{% endblock %}

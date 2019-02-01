@@ -4,10 +4,9 @@ function Render(){
 		//console.log(a[i].innerHTML)
 		a[i].innerHTML = marked(a[i].innerHTML)
 		//console.log(a[i].innerHTML)
-		a[i].innerHTML = a[i].innerHTML.replace(/&amp;lt;/g,'<')
-		a[i].innerHTML = a[i].innerHTML.replace(/&amp;gt;/g,'>')
+		a[i].innerHTML = a[i].innerHTML.replace(/&amp;lt;/g,'<pre style="display:inline"><</pre>')
+		a[i].innerHTML = a[i].innerHTML.replace(/&amp;gt;/g,'<pre style="display:inline">></pre>')
 		a[i].innerHTML = a[i].innerHTML.replace(/&amp;amp;/g,'&')
-		a[i].innerHTML = a[i].innerHTML.replace(/<pre><code>.*<span class="hljs-section">.*/g,'')
 		//console.log(a[i].innerHTML)
 	}
 }

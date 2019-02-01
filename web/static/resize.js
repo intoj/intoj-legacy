@@ -12,10 +12,16 @@ function Resize(){
 		else ma[i].style.width = "100%"
 	}
 
-	a = document.getElementsByClassName("topbarfiller")
+	a = document.getElementsByClassName("topbarword")
 	for( var i = 0 ; i < a.length ; i++ ){
-		if( wid < 500 ) a[i].style = "font-size:0px";
-		else a[i].style = "font-size:20px";
+		if( wid < 500 ) a[i].style.display = "none";
+		else a[i].style.display = "inline";
+	}
+
+	a = document.getElementsByClassName("topbarindex")
+	for( var i = 0 ; i < a.length ; i++ ){
+		if( wid < 500 ) a[i].style.height = "28px";
+		else a[i].style.height = "35px";
 	}
 
 	a = document.getElementsByClassName("block");
