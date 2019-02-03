@@ -1,4 +1,4 @@
-function Close(obj,cnt){
+function Close(obj){
 	$(obj).slideUp("fast");
 	obj.attributes.show_or_hide.nodeValue = "hide"
 }
@@ -11,7 +11,7 @@ function Click(id){
 	classname = "dropdown-"+id.toString()
 	var obj = document.getElementsByClassName(classname)[0]
 	if( obj.attributes.show_or_hide.nodeValue == "show" ){
-		Close(obj,0)
+		Close(obj)
 	}else{
 		Expand(obj)
 	}

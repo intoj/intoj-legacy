@@ -5,10 +5,8 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	<script src="/static/resize.js"> </script>
-	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
-	<script src="/static/expand.js"> </script>
+
+	<script src="/static/modules/jquery/jquery.js"></script>
 
 	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
 
@@ -22,11 +20,15 @@
 	<script src="/static/modules/marked/marked.min.js"></script>
 	<script src="/static/markedinit.js"> </script>
 
-	<script src="/static/modules/jquery/jquery.js"></script>
-
 	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
+
+	<script src="/static/resize.js"> </script>
+	<script src="/static/render.js"> </script>
+	<script src="/static/tab.js"> </script>
+	<script src="/static/expand.js"> </script>
+	<script src="/static/footer.js"> </script>
 </head>
-<body onresize="Resize()" onload="Render();">
+<body onresize="Resize()" onload="Render();Footer_position();">
 	<div class="ui topbar">
 		<div class="topbar-container container">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
@@ -54,6 +56,8 @@
 	</div>
 	{% block body %}
 	{% endblock %}
-	<script> Resize(); </script>
+		<div id="footer">
+			intOJ powered by <a href="/about"> intOJ </a>
+		</div>
 </body>
 </html>

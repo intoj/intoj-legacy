@@ -5,7 +5,19 @@
 <div class="container">
 	<div class="ui main">
 		<div class="title"> P{{uproblem[0]}}. {{uproblem[1]}}</div>
-		<div class="block">
+		<div class="block tagsblock">
+			<span class="content tag tag-timelimit">时间限制:{{- uproblem[7] -}}ms</span>
+			<span class="content tag tag-memorylimit">空间限制:{{- uproblem[8] -}}M</span>
+			<span style="float:right">
+				<a href="{{uproblem[0]}}/edit"><button class="button button-primary button-square button-small">
+					<i class="icon-pencil"></i>
+				</button></a>
+				<a href="{{uproblem[0]}}/delete"><button class="button button-caution button-square button-small">
+					<i class="icon-trash"></i>
+				</button></a>
+			</span>
+		</div>
+		<div class="block" style="margin-top: 10px;">
 			<div class="contitle"> 题目描述 </div>
 			<div class="content markdown">
 				{{- uproblem[2] -}}
@@ -34,18 +46,6 @@
 			<div class="content markdown">
 				{{- uproblem[6] -}}
 			</div>
-		</div>
-		<div class="block tagsblock">
-			<span class="content tag tag-timelimit">时间限制:{{- uproblem[7] -}}ms</span>
-			<span class="content tag tag-memorylimit">空间限制:{{- uproblem[8] -}}M</span>
-			<span style="float:right">
-				<a href="{{uproblem[0]}}/edit"><button class="button button-primary button-square button-small">
-					<i class="icon-pencil"></i>
-				</button></a>
-				<a href="{{uproblem[0]}}/delete"><button class="button button-caution button-square button-small">
-					<i class="icon-trash"></i>
-				</button></a>
-			</span>
 		</div>
 		<div class="block">
 			<div class="contitle"> 提交代码 </div>

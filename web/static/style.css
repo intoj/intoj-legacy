@@ -52,6 +52,7 @@ div.topbar-container{
 	display: flex;
 	margin: auto;
 	padding: 0;
+	width: 90%;
 	height: 50px;
 }
 span.topbaritem{
@@ -121,6 +122,17 @@ div.dropdown{
 	height: auto;
 }
 
+/**************** footer ****************/
+#footer{
+	background: #ffffff88;
+	width: 100%;
+	height: 28px;
+	margin-top: 30px;
+	padding-top: 10px;
+	font-size: 16px;
+	text-align: center;
+}
+
 /**************** list ****************/
 div.list{}
 div.listline{
@@ -173,6 +185,9 @@ span.listitem.center{ text-align: center; }
 div.tagsblock{
 	padding: 0px 20px !important;
 	height: 30px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	background-color: #ffffff00 !important;
 }
 
 /**************** input ****************/

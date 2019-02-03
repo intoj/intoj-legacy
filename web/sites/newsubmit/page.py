@@ -17,6 +17,9 @@ from ..modules import *
 
 def Submit(problemid,request):
 	code = Raw(request['code'])
+	if len(code) < 10:
+		return -1,"这么短真的没问题?"
+
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 	cur.execute("SELECT COUNT(*) FROM records;")
@@ -32,8 +35,7 @@ def Submit(problemid,request):
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))
 
-
-	return runid
+	return runid,""
 
 def Rejudge(id):
 	db = pymysql.connect("localhost","intlsy","24","intoj")

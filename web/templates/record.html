@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		{%if record[10] != "Compile Error" %}
+		{%if record[11] != "Compile Error" %}
 		<div class="block">
 			<div class="contitle"> 测试点信息 </div>
 			<div class="content">
@@ -91,16 +91,18 @@
 			</div>
 		</div>
 		{% endif %}
+		{% if record[6] != "" %}
 		<div class="block">
 			<div class="contitle"> 编译信息 </div>
 			<div class="content">
 				<pre><code class="plaintext">{{ record[6] }}</code></pre>
 			</div>
 		</div>
+		{% endif %}
 		<div class="block">
 			<div class="contitle"> 源代码 </div>
 			<div class="content">
-				<pre><code class="record[3]">{{ record[2] }}</code></pre>
+				<pre><code class="{{record[3]}}">{{ record[2] }}</code></pre>
 			</div>
 		</div>
 		{% if record[10] != "" %}
