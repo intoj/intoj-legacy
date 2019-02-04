@@ -52,12 +52,17 @@
 					<span class="topbarword"> 帮助 </span>
 				</div>
 			</span>
+			<span class="topbaritem-noanimation" style="width:100px; flex-grow:0">
+				<button class="button button-small button-primary button-rounded button-border" style="width: 70px; padding: 0px 10px; font-size: 15px;" onclick="window.location.href='/login'">
+					登录
+				</button>
+			</span>
 		</div>
 	</div>
 	{% block body %}
 	{% endblock %}
-		<div id="footer">
-			intOJ powered by <a href="/about"> intOJ </a>
-		</div>
+	<div id="footer">
+		intOJ powered by <a href="/about"> intOJ </a>. @InterestingLSY 2018-2019
+	</div>
 </body>
 </html>

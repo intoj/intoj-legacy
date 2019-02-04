@@ -61,3 +61,10 @@ def Record(runid):
 		is_success = sites.newsubmit.page.Rejudge(runid)
 		if not is_success: return render_template('error.html',message="提交记录R%d没找着!\n可能是因为编号不对."%runid)
 		else: return redirect('/record/%d'%runid)
+
+@app.route('/login',methods=['GET','POST'])
+def Login():
+	if request.method == 'GET':
+		return sites.login.page.Run()
+	else:
+		pass
