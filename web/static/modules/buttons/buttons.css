@@ -1219,8 +1219,8 @@
 * (.button-primary, .button-secondary, etc.)
 */
 .button-dropdown.button-dropdown-primary .button-dropdown-list {
-  background: rgba(27, 154, 247, 0.95);
-  border-color: #0880d7; }
+  /*background: rgba(27, 154, 247, 0.95);*/
+/*border-color: #0880d7;*/ }
   .button-dropdown.button-dropdown-primary .button-dropdown-list .button-dropdown-divider {
     border-color: #0888e6; }
   .button-dropdown.button-dropdown-primary .button-dropdown-list > li > a {

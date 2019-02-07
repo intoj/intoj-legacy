@@ -4,11 +4,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
-	<link rel="stylesheet" type="text/css" href="/static/style.css" />
-
 	<script src="/static/modules/jquery/jquery.js"></script>
 
-	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/input.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/ui.css" />
 
 	<link rel="stylesheet" href="/static/modules/highlight/styles/atom-one-light.css">
 	<script src="/static/modules/highlight/highlight.pack.js"></script>
@@ -20,7 +21,9 @@
 	<script src="/static/modules/marked/marked.min.js"></script>
 	<script src="/static/markedinit.js"> </script>
 
-	<link rel="stylesheet" href="/static/modules/buttons/style.css" />
+	<link rel="stylesheet" href="/static/modules/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/static/modules/buttons/buttons.css" />
+	<script src="/static/modules/buttons/buttons.js"></script>
 
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
@@ -28,7 +31,7 @@
 	<script src="/static/expand.js"> </script>
 	<script src="/static/footer.js"> </script>
 </head>
-<body onresize="Resize()" onload="Render();Footer_position();">
+<body onresize="Resize()" onload="Render();Footer_position();Resize();">
 	<div class="ui topbar">
 		<div class="topbar-container container">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
@@ -52,17 +55,44 @@
 					<span class="topbarword"> 帮助 </span>
 				</div>
 			</span>
-			<span class="topbaritem-noanimation" style="width:100px; flex-grow:0">
-				<button class="button button-small button-primary button-rounded button-border" style="width: 70px; padding: 0px 10px; font-size: 15px;" onclick="window.location.href='/login'">
+			<span class="topbaritem-noanimation onewidth" style="flex: 2;">
+			</span>
+			{% if Is_Loggedin() %}
+			<span class="topbaritem" style="width:auto">
+				<span class="button-dropdown button-dropdown-primary" data-buttons="dropdown">
+					<button class="button button-large button-nobg" style="padding: 0px 10px; width:200px;">
+						{{- request.cookies['username'] -}} &nbsp; <i class="icon-caret-down"> </i>
+					</button>
+				  	<div class="button-dropdown-list is-below list" style="background-color: #eeeeee;">
+						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+								&nbsp; <i class="icon-home"></i> &nbsp;个人中心
+						</div>
+						<a class="uncolored" href="/logout">
+						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+								&nbsp; <i class="icon-off"></i> &nbsp;注销
+						</div>
+						</a>
+				  	</div>
+				</span>
+			</span>
+			{% else %}
+			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
+				<button class="button button-small button-primary button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;" onclick="window.location.href='/login'">
 					登录
 				</button>
 			</span>
+			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
+				<button class="button button-small button-highlight button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;" onclick="window.location.href='/register'">
+					注册
+				</button>
+			</span>
+			{% endif %}
 		</div>
 	</div>
 	{% block body %}
 	{% endblock %}
 	<div id="footer">
-		intOJ powered by <a href="/about"> intOJ </a>. @InterestingLSY 2018-2019
+		intOJ powered by <a href="/about">intOJ</a>. @InterestingLSY 2018-2019
 	</div>
 </body>
 </html>

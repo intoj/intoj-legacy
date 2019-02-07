@@ -1,8 +1,13 @@
-#export FLASK_ENV=development
 from flask import *
-import sys,time
+import sys,time,random
+import hashlib
 import sites
 app = Flask(__name__)
+
+
+@app.errorhandler(404)
+def Error_404(e):
+	return render_template('error.html',message="# $404\ not\ found$\n\n指挥官大人,您访问的页面......没有找到......QAQ.")
 
 @app.route('/')
 def Home():
@@ -65,6 +70,45 @@ def Record(runid):
 @app.route('/login',methods=['GET','POST'])
 def Login():
 	if request.method == 'GET':
-		return sites.login.page.Run()
+		return render_template('login.html')
 	else:
-		pass
+		is_success,message = sites.login.page.Can_Login(request.form)
+		if not is_success: return render_template('login.html',message=message)
+		else:
+			username = request.form['username']
+			session[username] = message
+			# 此时message就是clientkey
+			resp = Response(render_template('jumpto.html',link='/'))
+			resp.set_cookie('username',username,max_age=60*60*24*30)
+			resp.set_cookie('client_key',message,max_age=60*60*24*30)
+			return resp
+def Is_Loggedin():
+	try:
+		username = request.cookies['username']
+		client_key = request.cookies['client_key']
+		if session.get(username) != client_key: return 0
+		else: return 1
+	except: return 0
+app.add_template_global(Is_Loggedin,'Is_Loggedin')
+
+@app.route('/logout')
+def Logout():
+	try:
+		resp = Response(render_template('jumpto.html',link='/'))
+		resp.delete_cookie('username')
+		resp.delete_cookie('client_key')
+		return resp
+	except:
+		return render_template('jumpto.html',link='/')
+
+@app.route('/register',methods=['GET','POST'])
+def Register():
+	if request.method == 'GET':
+		print(request.cookies)
+		return render_template('register.html')
+	else:
+		is_success,message = sites.register.page.Register(request.form)
+		if not is_success: return render_template('register.html',message=message)
+		else: return redirect('/login')
+
+app.secret_key = '你知道就知道吧'

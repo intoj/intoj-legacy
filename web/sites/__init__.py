@@ -8,3 +8,4 @@ from . import newsubmit
 from . import status
 from . import record
 from . import login
+from . import register

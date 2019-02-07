@@ -1,0 +1,115 @@
+body{
+	background-image: url('/static/pic/bg.jpg');
+	background-attachment: fixed;
+	background-position: left top;
+	background-size: cover;
+	margin: 0;
+	animation: Fade-in 0.5s ease 0s 1;
+	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
+}
+/**************** topbar ****************/
+div.topbar{
+	position: fixed;
+	top: 0;
+	height: 50px;
+	z-index: 233;
+	width: 100%;
+	margin: 0;
+}
+div.topbar-container{
+	display: flex;
+	margin: auto;
+	padding: 0;
+	width: 90%;
+	height: 50px;
+}
+span.topbaritem,span.topbaritem-noanimation{
+	list-style-type:none;
+	height: 50px;
+	transition: all 0.2s;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+span.topbaritem.selected{
+	background-color: #ccccccee;
+}
+span.topbaritem:hover{
+	background-color: #dadadaee;
+	cursor: pointer;
+}
+div.topbarindex{
+	font-size: 20px;
+}
+
+/**************** ui ****************/
+div.ui{
+	background-color: #ffffffee;
+	border-radius: 2px;
+}
+div.container{
+	width: 1100px;
+	margin: auto;
+}
+div.main, div.main-noflex{
+	margin: calc(50px + 20px) auto 20px auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: calc(100% - 50px);
+	width: 90%;
+}
+div.title{
+	margin: auto;
+	width: 90%;
+	font-size: 35px;
+	text-align: center;
+	letter-spacing: 2px;
+}
+div.contitle{
+	margin: 10px auto;
+	font-size: 25px;
+	text-align: left;
+	margin-left: 6px;
+	color: #55bbee;
+}
+div.content{
+	margin: 7px auto;
+}
+div.block{
+	width:93%;
+	margin: 20px auto;
+	padding: 5px 20px;
+	background-color: #e8e8e899;
+	border-radius: 6px;
+}
+div.dropdown{
+	background-color: #cfcfcf99;
+	padding: 1px 20px 8px 20px;
+	margin: 10px 10px;
+	margin-bottom: 20px;
+	height: auto;
+}
+
+/**************** footer ****************/
+#footer{
+	background: #ffffff88;
+	width: 100%;
+	height: 22px;
+	margin-top: 30px;
+	padding-top: 5px;
+	font-size: 14px;
+	text-align: center;
+}
+
+div.login-input{
+	width: 85%;
+	margin: 10px auto;
+	display: flex;
+	border: 1px;
+	border-width: 1px;
+	border-color: #bbbbbb;
+	border-style: solid;
+	border-radius: 4px;
+	padding: 6px 12px;
+}
