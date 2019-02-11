@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} {{user[1]}} {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<div style="display: flex; justify-content: space-between; width: calc(93% + 40px); margin: auto;">
+			<div style="width: 30%; background-color: #e8e8e899;">
+				<img src="https://www.gravatar.com/avatar/{{user[7]}}.jpg?s=1000" style="width:100%" />
+				<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
+			</div>
+			<div class="block-mini" style="width: 30%">
+				<div class="contitle"> 个性签名 </div>
+				<div class="content markdown">
+{{user[6]}}
+				</div>
+				<div class="contitle"> 邮箱地址 </div>
+				<div class="content markdown">
+{{user[4]}}
+				</div>
+				<div class="contitle"> 性别 </div>
+				<div class="content markdown">
+{% if user[5] == 0 %} 男
+{% elif user[5] == 1 %} 女
+{% else %} 其他
+{% endif %}
+				</div>
+			</div>
+			<div class="block-mini" style="width: 30%">
+				<div class="contitle"> 统计 </div>
+				咕咕咕
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

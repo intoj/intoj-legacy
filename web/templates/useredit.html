@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} {{user[1]}} {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="ui main">
+		<form method="POST">
+		<div style="display: flex; justify-content: space-between; width: calc(93% + 40px); margin: auto;">
+			<div style="width: 30%; background-color: #e8e8e899;">
+				<img src="https://www.gravatar.com/avatar/{{user[7]}}.jpg?s=1000" style="width:100%" />
+				<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
+			</div>
+			<div class="block-mini" style="width: 30%">
+				<div class="contitle"> 个性签名 </div>
+				<div class="content markdown">
+<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="nameplate">{{user[6]}}</textarea>
+				</div>
+				<div class="contitle"> 邮箱地址 </div>
+				<div class="content markdown">
+<input type="email" name="title" class="titleinput" required value="{{user[4]}}">
+				</div>
+				<div class="contitle"> 性别 </div>
+				<div class="content markdown">
+{% if user[5] == 0 %} 男
+{% elif user[5] == 1 %} 女
+{% else %} 其他
+{% endif %}
+* 暂时改不了
+				</div>
+			</div>
+			<div class="block-mini" style="width: 30%">
+				<div class="contitle"> 统计 </div>
+				咕咕咕
+			</div>
+		</div>
+		<button type="submit" class="button button-action button-rounded submitbutton">
+			<i class="icon-pencil icon-spin"></i> 提交!
+		</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

@@ -1,3 +1,4 @@
+#coding:utf-8
 from flask import *
 import pymysql
 import redis
@@ -16,7 +17,7 @@ from ..modules import *
 """
 
 def Submit(problemid,request):
-	code = Raw(request['code'])
+	code = request['code']
 	if len(code) < 10:
 		return -1,"这么短真的没问题?"
 
@@ -24,11 +25,8 @@ def Submit(problemid,request):
 	cur = db.cursor()
 	cur.execute("SELECT COUNT(*) FROM records;")
 	runid = int(cur.fetchone()[0])+1
-	index = "%d,%d,'%s','%s',0,0,'','{\"subtasks\":[]}',0,0,''" % (runid,problemid,code,'cpp')
-	# print(index)
 
-	cmd = "INSERT INTO records VALUES(%s);" % index
-	cur.execute(cmd)
+	cur.execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'');",(runid,problemid,code,'cpp'))
 	db.commit()
 	db.close()
 
@@ -40,10 +38,10 @@ def Submit(problemid,request):
 def Rejudge(id):
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
-	cur.execute("SELECT * FROM records WHERE id=%d"%id)
+	cur.execute("SELECT * FROM records WHERE id=%s",id)
 	if cur.fetchone() == None: return False
 
-	cur.execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%d"%id)
+	cur.execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",id)
 	db.commit()
 	db.close()
 

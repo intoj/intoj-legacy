@@ -1,3 +1,4 @@
+#coding:utf-8
 from flask import *
 from ..modules import *
 from .read_database import *

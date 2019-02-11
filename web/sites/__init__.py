@@ -9,3 +9,5 @@ from . import status
 from . import record
 from . import login
 from . import register
+from . import userhome
+from . import useredit

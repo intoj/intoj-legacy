@@ -1,3 +1,4 @@
+#coding:utf-8
 from flask import *
 from .record import *
 import json

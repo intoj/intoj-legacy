@@ -77,8 +77,13 @@ div.content{
 	margin: 7px auto;
 }
 div.block{
-	width:93%;
+	width: 93%;
 	margin: 20px auto;
+	padding: 5px 20px;
+	background-color: #e8e8e899;
+	border-radius: 6px;
+}
+div.block-mini{
 	padding: 5px 20px;
 	background-color: #e8e8e899;
 	border-radius: 6px;

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} 添加题目 - intOJ {% endblock %}
+{% block title %} 添加题目 {% endblock %}
 {% block selected_problem %} selected {% endblock %}
 {% block body %}
 <div class="container">
@@ -13,15 +13,15 @@
 					<div class="contitle" style="display:inline"> 题目编号 </div> <input type="number" name="id" class="numberinput" autofocus required> <br/>
 					<div class="contitle" style="display:inline"> 题目标题 </div> <input type="text" name="title" class="titleinput" required>
 					<div class="contitle"> 题目描述 </div>
-					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
+					<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="description"></textarea>
 					<div class="contitle"> 输入格式 </div>
-					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="input_format"></textarea>
+					<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="input_format"></textarea>
 					<div class="contitle"> 输出格式 </div>
-					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="output_format"></textarea>
+					<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="output_format"></textarea>
 					<div class="contitle"> 样例 </div>
-					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="example"></textarea>
+					<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="example"></textarea>
 					<div class="contitle"> 数据范围与提示 </div>
-					<textarea class="wordinput" onkeydown="Tab(this,event)" spellcheck="false" name="limit_and_hint"></textarea> <br />
+					<textarea class="textinput" onkeydown="Tab(this,event)" spellcheck="false" name="limit_and_hint"></textarea> <br />
 					<div class="contitle"> 时空限制 </div>
 					时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required> ms <br />
 					空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required> MB <br />

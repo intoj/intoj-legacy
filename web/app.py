@@ -1,6 +1,7 @@
+#coding:utf-8
 from flask import *
 import sys,time,random
-import hashlib
+import hashlib,re
 import sites
 app = Flask(__name__)
 
@@ -111,4 +112,15 @@ def Register():
 		if not is_success: return render_template('register.html',message=message)
 		else: return redirect('/login')
 
-app.secret_key = '你知道就知道吧'
+@app.route('/user/<username>')
+def Userhome(username):
+	return sites.userhome.page.Run(username)
+@app.route('/user/<username>/edit',methods=['GET','POST'])
+def Useredit(username):
+	if request.method == 'GET':
+		return sites.useredit.page.Run(username)
+	else:
+		pass
+
+# app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
+app.secret_key = '你知道也没事反正我不用这个'

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{% block title %}{% endblock %}</title>
+	<title>{% block title %}{% endblock %} - intoj</title>
 	<link rel="icon" type="img/x-ico"  href="/static/pic/xicon.png" />
 	<script src="/static/modules/jquery/jquery.js"></script>
 
@@ -31,7 +31,7 @@
 	<script src="/static/expand.js"> </script>
 	<script src="/static/footer.js"> </script>
 </head>
-<body onresize="Resize()" onload="Render();Footer_position();Resize();">
+<body onresize="Resize();Footer_position();" onload="Render();Footer_position();Resize();">
 	<div class="ui topbar">
 		<div class="topbar-container container">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
@@ -64,9 +64,11 @@
 						{{- request.cookies['username'] -}} &nbsp; <i class="icon-caret-down"> </i>
 					</button>
 				  	<div class="button-dropdown-list is-below list" style="background-color: #eeeeee;">
+						<a class="uncolored" href="/user/{{request.cookies['username']}}">
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
 								&nbsp; <i class="icon-home"></i> &nbsp;个人中心
 						</div>
+						</a>
 						<a class="uncolored" href="/logout">
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
 								&nbsp; <i class="icon-off"></i> &nbsp;注销
@@ -92,7 +94,7 @@
 	{% block body %}
 	{% endblock %}
 	<div id="footer">
-		intOJ powered by <a href="/about">intOJ</a>. @InterestingLSY 2018-2019
+		intoj powered by <a href="/about">intoj</a>. @InterestingLSY 2018-2019
 	</div>
 </body>
 </html>

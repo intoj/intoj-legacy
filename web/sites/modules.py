@@ -1,3 +1,6 @@
+#coding:utf-8
+import hashlib,re
+
 tostatus = {
 	0:"Waiting",
 	1:"Running",
@@ -29,7 +32,7 @@ def Color(a,fullscore=100):
 	if a < fullscore*0.6: return "orange"
 	if a < fullscore: return "forestgreen"
 	return "#00ee00"
-	
+
 special_char = {
 '\'': r'\'',
 '\"': r'\"',
@@ -43,3 +46,8 @@ def Raw(origin):
 		try: ans += special_char[ch]
 		except: ans += ch
 	return ans
+
+def Email_Hash(s):
+	return hashlib.md5(s.strip().lower().encode('utf-8')).hexdigest()
+def Vaild_Username(username):
+	return re.match(r'[A-Za-z0-9_\-]+',username) != None and re.match(r'[A-Za-z0-9_\-]+',username).span()[1] == len(username)

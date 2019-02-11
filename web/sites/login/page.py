@@ -1,6 +1,7 @@
+#coding:utf-8
 from flask import *
 import pymysql
-import hashlib
+import hashlib,re
 from ..modules import *
 
 def Can_Login(req):
@@ -8,11 +9,13 @@ def Can_Login(req):
 
 	if username == '': return 0,'用户名不能为空'
 	if password == '': return 0,'密码不能为空'
+	if not Vaild_Username(username):
+		return 0,'用户名只能包含大小写字母,数字,下划线和减号'
 
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
 
-	cur.execute("SELECT * FROM users WHERE username='%s';"%username)
+	cur.execute("SELECT * FROM users WHERE username=%s;",username)
 	nowuser = cur.fetchone()
 	if nowuser == None: return 0,'并没有这个用户'
 

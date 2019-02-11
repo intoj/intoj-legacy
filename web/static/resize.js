@@ -14,7 +14,7 @@ function Resize(){
 
 	a = document.getElementsByClassName("topbarword")
 	for( var i = 0 ; i < a.length ; i++ ){
-		if( wid < 500 ) a[i].style.display = "none";
+		if( wid < 700 ) a[i].style.display = "none";
 		else a[i].style.display = "inline";
 	}
 
@@ -41,7 +41,7 @@ function Resize(){
 	for( var i = 0 ; i < stateclassname.length ; i++ ){
 		a = document.getElementsByClassName(stateclassname[i]);
 		for( var j = 0 ; j < a.length ; j++ ){
-			if( wid < 600 ){
+			if( wid < 750 ){
 				if( a[j].attributes.long_or_short.nodeValue == "long" ){
 					a[j].innerHTML = a[j].innerHTML.replace(longstate[i],shortstate[i])
 					a[j].attributes.long_or_short.nodeValue = "short"

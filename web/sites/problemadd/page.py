@@ -1,3 +1,4 @@
+#coding:utf-8
 from flask import *
 import pymysql
 from ..modules import *
@@ -14,14 +15,11 @@ def Getid():
 	return id
 def Submit(req):
 	id = Getid()
-	index = "'%s','%s','%s','%s','%s','%s',%s,%s" % \
-			(Raw(req['title']),Raw(req['description']),Raw(req['input_format']),Raw(req['output_format']),\
-			Raw(req['example']),Raw(req['limit_and_hint']),Raw(req['time_limit']),Raw(req['memory_limit']))
 
 	db = pymysql.connect("localhost","intlsy","24","intoj")
 	cur = db.cursor()
-	cmd = "INSERT INTO problems VALUES(%d,%s);" % (id,index)
-	cur.execute(cmd)
+	cur.execute("INSERT INTO problems VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s);",(id,Raw(req['title']),Raw(req['description']),Raw(req['input_format']),Raw(req['output_format']),\
+	Raw(req['example']),Raw(req['limit_and_hint']),Raw(req['time_limit']),Raw(req['memory_limit'])))
 
 	db.commit()
 	db.close()
