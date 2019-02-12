@@ -2,37 +2,35 @@
 {% block title %} 评测状态 {% endblock %}
 {% block selected_status %} selected {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="ui main">
-		<div class="block">
-			<div class="contitle"> 实时评测记录 </div>
-			<div class="content">
-				<div class="list">
-					<div class="listline">
-						<span class="listitem onewide center smallfont"> 编号 </span>
-						<span class="listitem onewide center smallfont"> 题目 </span>
-						<span class="listitem fivewide center smallfont"> 状态 </span>
-						<span class="listitem twowide center smallfont"> 得分 </span>
-						<span class="listitem twowide center smallfont"> 时间 </span>
-						<span class="listitem twowide center smallfont"> 内存 </span>
-					</div>
-					{% for ustatus in statuslist %}
-					<div class="listline listline-animation" onclick="window.location.href='/record/{{ ustatus[0] }}'">
-						<span class="listitem onewide center"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </span>
-						<span class="listitem onewide center"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </span>
-						<span class="listitem fivewide center">
-							<span class="judge-{{ ustatus[4] }}" long_or_short="long">
-								<i class="icon-{{ ustatus[12] }}" aria-hidden="true"></i>  {{ ustatus[11] }}
-							</span>
-						</span>
-						<span class="listitem twowide center" style="color:{{ustatus[13]}}"> {{ ustatus[5] }} </span>
-						{% if ustatus[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
-						<span class="listitem twowide center"> {{ ustatus[8] }}ms </span>
-						<span class="listitem twowide center"> {{ ustatus[9] }}M </span>
-						{% endif %}
-					</div>
-					{% endfor %}
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 实时评测记录 </div>
+		<div class="content">
+			<div class="list">
+				<div class="listline">
+					<span class="listitem onewide center smallfont"> 编号 </span>
+					<span class="listitem onewide center smallfont"> 题目 </span>
+					<span class="listitem fivewide center smallfont"> 状态 </span>
+					<span class="listitem twowide center smallfont"> 得分 </span>
+					<span class="listitem twowide center smallfont"> 时间 </span>
+					<span class="listitem twowide center smallfont"> 内存 </span>
 				</div>
+				{% for ustatus in statuslist %}
+				<div class="listline listline-animation" onclick="window.location.href='/record/{{ ustatus[0] }}'">
+					<span class="listitem onewide center"> <a href="/record/{{ ustatus[0] }}"> R{{ ustatus[0] }} </a> </span>
+					<span class="listitem onewide center"> <a href="/problem/{{ ustatus[1] }}"> P{{ ustatus[1] }} </a> </span>
+					<span class="listitem fivewide center">
+						<span class="judge-{{ ustatus[4] }}" long_or_short="long">
+							<i class="icon-{{ statusicon[ustatus[4]] }}" aria-hidden="true"></i>  {{ tostatus[ustatus[4]] }}
+						</span>
+					</span>
+					<span class="listitem twowide center" style="color:{{Score_Color(ustatus[5])}}"> {{ ustatus[5] }} </span>
+					{% if ustatus[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+					<span class="listitem twowide center"> {{ ustatus[8] }}ms </span>
+					<span class="listitem twowide center"> {{ ustatus[9] }}M </span>
+					{% endif %}
+				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

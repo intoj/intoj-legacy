@@ -50,10 +50,10 @@ div.ui{
 }
 div.container{
 	width: 1100px;
-	margin: auto;
+	margin: calc(50px + 20px) auto 0px auto;
 }
 div.main, div.main-noflex{
-	margin: calc(50px + 20px) auto 20px auto;
+	margin: 0px auto 20px auto;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	height: calc(100% - 50px);
@@ -73,6 +73,12 @@ div.contitle{
 	margin-left: 6px;
 	color: #55bbee;
 }
+div.contitle.error{
+	color: #ff0000 !important;
+}
+div.contitle.ok{
+	color: #55bbee !important;
+}
 div.content{
 	margin: 7px auto;
 }
@@ -82,6 +88,12 @@ div.block{
 	padding: 5px 20px;
 	background-color: #e8e8e899;
 	border-radius: 6px;
+}
+div.block.error{
+	background-color: #ff000033 !important;
+}
+div.block.ok{
+	background-color: #00ff0022 !important;
 }
 div.block-mini{
 	padding: 5px 20px;

@@ -1,34 +1,32 @@
 {% extends 'base.html' %}
 {% block title %} 登录 {% endblock %}
 {% block body %}
-<div class="container">
-	<div style="width: 500px; margin: auto">
-	<div class="ui main-noflex">
-		{% if message is defined %}
-			<div style="border-radius: 5px; width:90%; padding: 1px 10px 15px 10px; background-color: #ff000033; margin: 6px auto; font-size: 18px;">
-				<div class="contitle" style="color: #ff0000"> 错误 </div>
-				{{- message -}}
-			</div>
-		{% endif %}
-		<div class="title"> 登录 </div>
-		<form method="POST" autocomplete="on">
-			<div class="login-input">
-				<i class="icon-user icon-large"></i>
-				<input class="login-input" type="text" name="username" autofocus placeholder="用户名" style="margin: auto" maxlength="30">
-			</div>
-			<div class="login-input">
-				<i class="icon-lock icon-large"></i>
-				<input class="login-input" type="password" name="password" placeholder="密码" style="margin: auto" maxlength="60">
-			</div>
-			<button class="button button-action button-rounded submitbutton" type="submit"> 登录 </button>
-		</form>
-		<p style="text-align: center; color: #aaa; margin: 10px auto 5px auto; font-size: 15px;">
-			*请注意intoj允许您在不同设备上同时登录相同账户
-		</p>
-		<div style="text-align: center; color: #aaa;">
-			第一次来? <a href="/register">注册一下吧</a>
+<div style="width: 500px; margin: auto">
+<div class="ui main-noflex">
+	{% if message is defined %}
+		<div style="border-radius: 5px; width:90%; padding: 1px 10px 15px 10px; background-color: #ff000033; margin: 6px auto; font-size: 18px;">
+			<div class="contitle" style="color: #ff0000"> 错误 </div>
+			{{- message -}}
 		</div>
+	{% endif %}
+	<div class="title"> 登录 </div>
+	<form method="POST" autocomplete="on">
+		<div class="login-input">
+			<i class="icon-user icon-large"></i>
+			<input class="login-input" type="text" name="username" autofocus placeholder="用户名" style="margin: auto" maxlength="30">
+		</div>
+		<div class="login-input">
+			<i class="icon-lock icon-large"></i>
+			<input class="login-input" type="password" name="password" placeholder="密码" style="margin: auto" maxlength="60">
+		</div>
+		<button class="button button-action button-rounded submitbutton" type="submit"> 登录 </button>
+	</form>
+	<p style="text-align: center; color: #aaa; margin: 10px auto 5px auto; font-size: 15px;">
+		*请注意intoj允许您在不同设备上同时登录相同账户
+	</p>
+	<div style="text-align: center; color: #aaa;">
+		第一次来? <a href="/register">注册一下吧</a>
 	</div>
-	</div>
+</div>
 </div>
 {% endblock %}

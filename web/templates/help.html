@@ -2,12 +2,11 @@
 {% block title %} 帮助 {% endblock %}
 {% block selected_help %} selected {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="ui main">
-		<div class="title">帮助</div>
-		<div class="block">
-			<div class="contitle">评测</div>
-			<div class="content markdown">
+<div class="ui main">
+	<div class="title">帮助</div>
+	<div class="block">
+		<div class="contitle">评测</div>
+		<div class="content markdown">
 本OJ搭建在Ubuntu 18.10(64位)上,为Linux环境.
 
 编译命令:
@@ -19,11 +18,11 @@ C++11: `g++ -O2 -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax
 请注意 `-w` 代表编译器将不输出任何警告信息, `-fmax-errors=5` 表示编译器最多输出 $5$ 条错误信息.
 
 请使用标准输入输出
-			</div>
 		</div>
-		<div class="block">
-			<div class="contitle">评测状态</div>
-			<div class="content markdown">
+	</div>
+	<div class="block">
+		<div class="contitle">评测状态</div>
+		<div class="content markdown">
 | 状态 | 全称 | 中文解释 |
 | :-------: | :--------: | :--------: |
 | AC | Accept | ok,你的程序通过了! |
@@ -35,37 +34,36 @@ C++11: `g++ -O2 -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax
 | PE | Presentation Error | 格式错误 |
 | OLE | Output Limit Exceed | 输出超限 |
 | UKE | Unknown Error | 未知错误...评测出锅了 |
-			</div>
 		</div>
-		<div class="block">
-			<div class="contitle">新人求助,XXX那题,本机AC,提交RE/TLE/WA/CE/...</div>
-			<div class="content markdown">
+	</div>
+	<div class="block">
+		<div class="contitle">新人求助,XXX那题,本机AC,提交RE/TLE/WA/CE/...</div>
+		<div class="content markdown">
 评测机搭建在linux上,请使用`%lld`输出`long long`类型,使用`%llu`输出`unsigned long long`类型.
 
 linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`头文件.
 
 并检查数组是否越界. ~~原来CE只因为选错语言~~
-			</div>
 		</div>
-		<div class="block">
-			<div class="contitle">希望更丰富的展现?使用Markdown</div>
-			<div class="content markdown">
-			</div>
+	</div>
+	<div class="block">
+		<div class="contitle">希望更丰富的展现?使用Markdown</div>
+		<div class="content markdown">
 		</div>
-		<div class="block">
-			<div class="contitle">想打数学公式?使用$\LaTeX$</div>
-			<div class="content markdown">
-			</div>
+	</div>
+	<div class="block">
+		<div class="contitle">想打数学公式?使用$\LaTeX$</div>
+		<div class="content markdown">
 		</div>
-		<div class="block">
-			<div class="contitle">关于这个OnlineJudge</div>
-			<div class="content markdown">
+	</div>
+	<div class="block">
+		<div class="contitle">关于这个OnlineJudge</div>
+		<div class="content markdown">
 请访问 [关于 - intOJ](/about)
-			</div>
 		</div>
-		<div class="block">
-			<div class="contitle">祝你玩得开心!</div>
-		</div>
+	</div>
+	<div class="block">
+		<div class="contitle">祝你玩得开心!</div>
 	</div>
 </div>
 {% endblock %}

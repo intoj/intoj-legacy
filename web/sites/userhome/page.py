@@ -11,7 +11,8 @@ def Run(username):
 	db.close()
 
 	if userdata == None:
-		return render_template('error.html',message="用户 %s 不存在"%username)
+		flash('用户 %s 不存在'%username,'error')
+		return redirect('/')
 	else:
 		userdata = list(userdata)
 		userdata.append(Email_Hash(userdata[4]))

@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} 跳转中... {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="ui main">
-		<div class="block">
-			<div class="contitle"> 跳转中... </div>
-			<div class="content markdown">
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 跳转中... </div>
+		<div class="content markdown">
 正在跳转至{{link}}
-			</div>
 		</div>
 	</div>
-	<script>
-		window.location.href="{{link}}"
-	</script>
 </div>
+<script>
+	window.location.href="{{link}}"
+</script>
 {% endblock %}

@@ -25,15 +25,32 @@
 	<link rel="stylesheet" href="/static/modules/buttons/buttons.css" />
 	<script src="/static/modules/buttons/buttons.js"></script>
 
+	<link rel="stylesheet" href="/static/modules/codemirror/lib/codemirror.css"/>
+	<script src="/static/modules/codemirror/lib/codemirror.js"></script>
+	<!-- lang -->
+	<script src="/static/modules/codemirror/mode/clike/clike.js"></script>
+	<script src="/static/modules/codemirror/mode/python/python.js"></script>
+	<script src="/static/modules/codemirror/mode/markdown/markdown.js"></script>
+	<!-- fold and bracket -->
+	<link rel="stylesheet" href="/static/modules/codemirror/addon/fold/foldgutter.css"/>
+	<script src="/static/modules/codemirror/addon/fold/foldcode.js"></script>
+	<script src="/static/modules/codemirror/addon/fold/foldgutter.js"></script>
+	<script src="/static/modules/codemirror/addon/fold/brace-fold.js"></script>
+	<script src="/static/modules/codemirror/addon/fold/comment-fold.js"></script>
+	<script src="/static/modules/codemirror/addon/edit/matchbrackets.js"></script>
+	<!-- theme -->
+	<link rel="stylesheet" href="/static/modules/codemirror/theme/solarized.css"/>
+
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
-	<script src="/static/tab.js"> </script>
 	<script src="/static/expand.js"> </script>
 	<script src="/static/footer.js"> </script>
+	<script src="/static/cannotselect.js"> </script>
+	<script src="/static/codeinput.js"> </script>
 </head>
-<body onresize="Resize();Footer_position();" onload="Render();Footer_position();Resize();">
+<body onresize="Resize();Footer_position();" onload="Render();Codeinput();Footer_position();Resize();">
 	<div class="ui topbar">
-		<div class="topbar-container container">
+		<div class="topbar-container" style="width: 1100px; margin: 0px auto;">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
 			<span class="topbaritem onewidth {% block selected_home %}{% endblock %}" onclick="window.location.href='/'" style="flex: 2;">
 				<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
@@ -91,10 +108,40 @@
 			{% endif %}
 		</div>
 	</div>
-	{% block body %}
-	{% endblock %}
+	<div class="container">
+		{% with oks = get_flashed_messages(category_filter=["ok"]) %}
+			{% if oks %}
+				<div class="ui main">
+					<div class="block ok">
+						<div class="content markdown">
+						{% for ok in oks %}
+{{ok}}
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endwith %}
+		{% with errors = get_flashed_messages(category_filter=["error"]) %}
+			{% if errors %}
+				<div class="ui main">
+					<div class="block error">
+						<div class="contitle error"> 出了点事情... </div>
+						<div class="content markdown">
+						{% for error in errors %}
+{{error}}
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endwith %}
+		{% block body %}
+		{% endblock %}
+	</div>
 	<div id="footer">
 		intoj powered by <a href="/about">intoj</a>. @InterestingLSY 2018-2019
 	</div>
+	<script> Footer_position(); </script>
 </body>
 </html>

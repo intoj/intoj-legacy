@@ -6,5 +6,6 @@ from ..modules import *
 def Run(id):
 	uproblem = Getproblem(id)
 	if uproblem == None:
-		return render_template('error.html',message="题目 P%d 没找着!\n可能是因为编号不对."%id)
+		flash('题目 P%d 没找着!\n可能是因为编号不对.'%id,'error')
+		return redirect('/problemlist')
 	return render_template('problem.html',uproblem=uproblem)

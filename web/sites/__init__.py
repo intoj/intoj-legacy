@@ -11,3 +11,4 @@ from . import login
 from . import register
 from . import userhome
 from . import useredit
+from . import modules

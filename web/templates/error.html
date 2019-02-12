@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} 出锅啦 {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="ui main">
-		<div class="block">
-			<div class="contitle"> 出锅啦! </div>
-			<div class="content markdown">
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 出锅啦! </div>
+		<div class="content markdown">
 {{ message }}
-			</div>
 		</div>
-		<div class="block listline listline-animation" onclick="history.go(-1)" style="height: auto; justify-content: center">
-			<span style="font-size: 15px;"> 点我返回上一页 </span>
-		</div>
+	</div>
+	<div class="block listline listline-animation" onclick="history.go(-1)" style="height: auto; justify-content: center">
+		<span style="font-size: 15px;"> 点我返回上一页 </span>
 	</div>
 </div>
 {% endblock %}

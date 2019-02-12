@@ -27,7 +27,7 @@ statusicon = {
 	9:"legal",
 	10:"ok"
 }
-def Color(a,fullscore=100):
+def Score_Color(a,fullscore=100):
 	if a < fullscore*0.3: return "red"
 	if a < fullscore*0.6: return "orange"
 	if a < fullscore: return "forestgreen"

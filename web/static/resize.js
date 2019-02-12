@@ -39,18 +39,16 @@ function Resize(){
 	longstate = ["Waiting","Running","Unknown Error","Compile Error","Hacked","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Partially Accepted","Accepted"]
 	shortstate = ["WJ","Run","UKE","CE","Hack","WA","TLE","MLE","RE","PC","AC"]
 	for( var i = 0 ; i < stateclassname.length ; i++ ){
-		a = document.getElementsByClassName(stateclassname[i]);
-		for( var j = 0 ; j < a.length ; j++ ){
-			if( wid < 750 ){
-				if( a[j].attributes.long_or_short.nodeValue == "long" ){
-					a[j].innerHTML = a[j].innerHTML.replace(longstate[i],shortstate[i])
-					a[j].attributes.long_or_short.nodeValue = "short"
-				}
-			}else{
-				if( a[j].attributes.long_or_short.nodeValue == "short" ){
-					a[j].innerHTML = a[j].innerHTML.replace(shortstate[i],longstate[i])
-					a[j].attributes.long_or_short.nodeValue = "long"
-				}
+		a = $("."+stateclassname[i]);
+		if( wid < 750 ){
+			if( a.attr("long_or_short") == "long" ){
+				a.html(function(j,text){return text.replace(longstate[i],shortstate[i])})
+				a.attr("long_or_short","short")
+			}
+		}else{
+			if( a.attr("long_or_short") == "short" ){
+				a.html(function(j,text){return text.replace(shortstate[i],longstate[i])})
+				a.attr("long_or_short","long")
 			}
 		}
 	}

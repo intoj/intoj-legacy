@@ -1,43 +1,42 @@
 {% extends 'base.html' %}
 {% block title %} 注册 {% endblock %}
 {% block body %}
-<div class="container">
-	<div style="width: 500px; margin: auto">
-	<div class="ui main-noflex">
-		{% if message is defined %}
-			<div style="border-radius: 5px; width:90%; padding: 1px 10px 15px 10px; background-color: #ff000033; margin: 6px auto; font-size: 18px;">
-				<div class="contitle" style="color: #ff0000"> 错误 </div>
-				{{- message -}}
-			</div>
-		{% endif %}
-		<div class="title"> 注册 </div>
-		<form method="POST" autocomplete="on">
-			<div class="login-input">
-				<i class="icon-user icon-large"></i>
-				<input class="login-input" type="text" name="username" autofocus placeholder="用户名" style="margin: auto" maxlength="15">
-			</div>
-			<div class="login-input">
-				<i class="icon-lock icon-large"></i>
-				<input class="login-input" type="password" name="password" placeholder="密码" style="margin: auto" maxlength="60">
-			</div>
-			<div class="login-input">
-				<i class="icon-lock icon-large"></i>
-				<input class="login-input" type="password" name="ensure_password" placeholder="确认密码" style="margin: auto" maxlength="60">
-			</div>
-			<div class="login-input">
-				<i class="icon-envelope"></i>
-				<input class="login-input" type="email" name="email" placeholder="邮箱地址" style="margin: auto" maxlength="60">
-			</div>
-			<p style="text-align: center; color: #aaa; margin-top: 10px; font-size: 15px;">
-				*更多设置(性别、个性签名等), 请在注册后前往个人主页设置. <br />
-				请不要恶意注册.
-			</p>
-			<button class="button button-action button-rounded submitbutton" type="submit"> 注册 </button>
-		</form>
-		<div style="text-align: center; color: #aaa; margin-top: 10px;">
-			已有账号?<a href="/login">登录去吧</a>
+<div style="width: 500px; margin: auto">
+<div class="ui main-noflex">
+	{% if message is defined %}
+		<div style="border-radius: 5px; width:90%; padding: 1px 10px 15px 10px; background-color: #ff000033; margin: 6px auto; font-size: 18px;">
+			<div class="contitle" style="color: #ff0000"> 错误 </div>
+			{{- message -}}
 		</div>
+	{% endif %}
+	<div class="title"> 注册 </div>
+	<form method="POST" autocomplete="on">
+		<div class="login-input">
+			<i class="icon-user icon-large"></i>
+			<input class="login-input" type="text" name="username" autofocus placeholder="用户名" style="margin: auto" maxlength="15">
+		</div>
+		<div class="login-input">
+			<i class="icon-lock icon-large"></i>
+			<input class="login-input" type="password" name="password" placeholder="密码" style="margin: auto" maxlength="60">
+		</div>
+		<div class="login-input">
+			<i class="icon-lock icon-large"></i>
+			<input class="login-input" type="password" name="ensure_password" placeholder="确认密码" style="margin: auto" maxlength="60">
+		</div>
+		<div class="login-input">
+			<i class="icon-envelope"></i>
+			<input class="login-input" type="email" name="email" placeholder="邮箱地址" style="margin: auto" maxlength="60">
+		</div>
+		<p style="text-align: center; color: #aaa; margin-top: 10px; font-size: 15px;">
+			*更多设置(性别、个性签名等), 请在注册后前往个人主页设置. <br />
+			*我们将使用您的邮箱地址去获得<a href="https://cn.gravatar.com/" style="opacity: 0.6" target="_blank"> Gravatar </a> 头像, 请认真选择. <br />
+			请不要恶意注册.
+		</p>
+		<button class="button button-action button-rounded submitbutton" type="submit"> 注册 </button>
+	</form>
+	<div style="text-align: center; color: #aaa; margin-top: 10px;">
+		已有账号?<a href="/login">登录去吧</a>
 	</div>
-	</div>
+</div>
 </div>
 {% endblock %}

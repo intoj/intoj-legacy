@@ -28,7 +28,7 @@ def Compile(timelim,memlim,outputlim):
 
 		exitcode = int(message[message.find("EXITCODE"):message.find("TERMSIG")][8:].strip())
 		if exitcode == 0:
-			return(10,"编译成功")
+			return(10,"")
 
 		compmessage = message[:message.find("MEMORY")].strip()
 		return (3,compmessage)
