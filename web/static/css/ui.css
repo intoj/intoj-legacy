@@ -17,10 +17,10 @@ div.topbar{
 	margin: 0;
 }
 div.topbar-container{
+	max-width: 1100px;
 	display: flex;
 	margin: auto;
 	padding: 0;
-	width: 90%;
 	height: 50px;
 }
 span.topbaritem,span.topbaritem-noanimation{

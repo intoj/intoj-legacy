@@ -14,7 +14,7 @@ function Resize(){
 
 	a = document.getElementsByClassName("topbarword")
 	for( var i = 0 ; i < a.length ; i++ ){
-		if( wid < 700 ) a[i].style.display = "none";
+		if( wid < 800 ) a[i].style.display = "none";
 		else a[i].style.display = "inline";
 	}
 
