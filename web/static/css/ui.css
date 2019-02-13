@@ -91,9 +91,15 @@ div.block{
 }
 div.block.error{
 	background-color: #ff000033 !important;
+	width: calc( 100% - 40px ) !important;
+	margin: 0px 0px !important;
+	padding: 1px 20px !important;
 }
 div.block.ok{
 	background-color: #00ff0022 !important;
+	width: calc( 100% - 40px ) !important;
+	margin: 0px 0px !important;
+	padding: 1px 20px !important;
 }
 div.block-mini{
 	padding: 5px 20px;

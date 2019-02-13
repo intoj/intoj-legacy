@@ -111,7 +111,7 @@
 	<div class="container">
 		{% with oks = get_flashed_messages(category_filter=["ok"]) %}
 			{% if oks %}
-				<div class="ui main">
+				<div class="ui main" style="padding: 2px;">
 					<div class="block ok">
 						<div class="content markdown">
 						{% for ok in oks %}
@@ -124,7 +124,7 @@
 		{% endwith %}
 		{% with errors = get_flashed_messages(category_filter=["error"]) %}
 			{% if errors %}
-				<div class="ui main">
+				<div class="ui main" style="padding: 2px;">
 					<div class="block error">
 						<div class="contitle error"> 出了点事情... </div>
 						<div class="content markdown">
