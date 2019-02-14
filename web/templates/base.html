@@ -41,14 +41,21 @@
 	<!-- theme -->
 	<link rel="stylesheet" href="/static/modules/codemirror/theme/solarized.css"/>
 
+	<script src="/static/modules/messager/build/js/messenger.js"></script>
+	<link rel="stylesheet" href="/static/modules/messager/build/css/messenger.css"/>
+	<link rel="stylesheet" href="/static/modules/messager/build/css/messenger-theme-air.css"/>
+	<link rel="stylesheet" href="/static/modules/messager/build/css/messenger-theme-flat.css"/>
+
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
 	<script src="/static/expand.js"> </script>
 	<script src="/static/footer.js"> </script>
 	<script src="/static/cannotselect.js"> </script>
 	<script src="/static/codeinput.js"> </script>
+	<script src="/static/messager.js"> </script>
 </head>
-<body onresize="Resize();Footer_position();" onload="Render();Codeinput();Footer_position();Resize();">
+<body onresize="Resize();Footer_position();" onload="Render();Resize();Footer_position();">
+	<script> Messagerinit(); </script>
 	<div class="ui topbar">
 		<div class="topbar-container" style="margin: 0px auto;">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
@@ -85,6 +92,10 @@
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
 								&nbsp; <i class="icon-home"></i> &nbsp;个人中心
 						</div>
+						<a class="uncolored" href="/user/{{request.cookies['username']}}/edit">
+						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+								&nbsp; <i class="icon-edit"></i> &nbsp;编辑资料
+						</div>
 						</a>
 						<a class="uncolored" href="/logout">
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
@@ -108,40 +119,19 @@
 			{% endif %}
 		</div>
 	</div>
+	{% for ok in get_flashed_messages(category_filter=["ok"]) %}
+		<script> Message_Ok('{{ok}}') </script>
+	{% endfor %}
+	{% for error in get_flashed_messages(category_filter=["error"]) %}
+		<script> Message_Error('{{error}}') </script>
+	{% endfor %}
 	<div class="container">
-		{% with oks = get_flashed_messages(category_filter=["ok"]) %}
-			{% if oks %}
-				<div class="ui main" style="padding: 2px;">
-					<div class="block ok">
-						<div class="content markdown">
-						{% for ok in oks %}
-{{ok}}
-						{% endfor %}
-						</div>
-					</div>
-				</div>
-			{% endif %}
-		{% endwith %}
-		{% with errors = get_flashed_messages(category_filter=["error"]) %}
-			{% if errors %}
-				<div class="ui main" style="padding: 2px;">
-					<div class="block error">
-						<div class="contitle error"> 出了点事情... </div>
-						<div class="content markdown">
-						{% for error in errors %}
-{{error}}
-						{% endfor %}
-						</div>
-					</div>
-				</div>
-			{% endif %}
-		{% endwith %}
 		{% block body %}
 		{% endblock %}
 	</div>
 	<div id="footer">
 		intoj powered by <a href="/about">intoj</a>. @InterestingLSY 2018-2019
 	</div>
-	<script> Footer_position(); </script>
+	<script> Codeinput(); Footer_position(); </script>
 </body>
 </html>

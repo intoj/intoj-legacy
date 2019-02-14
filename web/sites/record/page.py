@@ -7,7 +7,7 @@ from ..modules import *
 def Run(id):
 	record = Getrecord(id)
 	if record == None:
-		flash('提交记录R%d没找着!\n可能是因为编号不对.'%id,'error')
+		flash(r'### 提交记录R%d没找着! \n 可能是因为编号不对.'%id,'error')
 		return redirect('/status')
 
 	record = list(record)

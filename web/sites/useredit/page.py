@@ -11,8 +11,17 @@ def Run(username):
 	db.close()
 
 	if userdata == None:
-		return render_template('error.html',message="用户 %s 不存在"%username)
+		flash('用户 %s 不存在'%username,'error')
+		return redirect('/')
 	else:
 		userdata = list(userdata)
-		userdata.append(Email_Hash(userdata[4]))
 		return render_template('useredit.html',user=userdata)
+
+def Useredit(username,req):
+	db = pymysql.connect("localhost","intlsy","24","intoj")
+	cur = db.cursor()
+
+	cur.execute("UPDATE users SET `nameplate`=%s,`email`=%s WHERE username=%s;",(req['nameplate'],req['email'],username))
+
+	db.commit()
+	db.close()

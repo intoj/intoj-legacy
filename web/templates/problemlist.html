@@ -6,8 +6,8 @@
 	<div class="block">
 		<div class="contitle">
 			题目列表
-			<a href="problemadd"><button class="button button-primary button-small" style="float:right; margin-top:3px">
-				<i class="icon-plus"></i>添加题目
+			<a href="/problemadd"><button class="button button-primary button-small button-rounded" style="float:right; margin-top:3px; font-size: 14px;">
+				<i class="icon-plus"></i> 添加题目
 			</button></a>
 		</div>
 	</div>
@@ -15,8 +15,8 @@
 		<div class="content">
 			<div class="list">
 				<div class="listline">
-					<span class="listitem twowide center"> 编号 </span>
-					<span class="listitem fivewide"> 题目名称 </span>
+					<span class="listitem twowide center smallfont"> 编号 </span>
+					<span class="listitem fivewide smallfont"> 题目名称 </span>
 				</div>
 				{% for uproblem in problemlist %}
 				<div class="listline listline-animation" onclick="window.location.href='/problem/{{uproblem[0]}}'">

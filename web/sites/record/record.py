@@ -8,5 +8,4 @@ def Getrecord(id):
 	cur.execute("SELECT * FROM records WHERE id=%s;",id)
 	urecord = cur.fetchone()
 	db.close()
-	print(urecord)
 	return urecord

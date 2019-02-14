@@ -12,6 +12,8 @@ def Submit(req):
 	cur = db.cursor()
 	id = req['id']
 	if req['id'] != '':
+		if int(req['id']) < 0:
+			return 0,0,'编号不可以为负'
 		cur.execute('SELECT COUNT(*) FROM problems WHERE id=%s',req['id'])
 		count = int(cur.fetchone()[0])
 		if count > 0:

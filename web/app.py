@@ -8,10 +8,12 @@ app = Flask(__name__)
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
 app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
+app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 
 @app.errorhandler(404)
 def Error_404(e):
-	return render_template('error.html',message="# 404 not found\n\n指挥官大人,您访问的页面......没有找到......QAQ.")
+	flash(r'## 404 not found \n指挥官大人,您访问的页面......没有找到......QAQ.','error')
+	return redirect('/')
 
 @app.route('/')
 def Home():
@@ -77,7 +79,7 @@ def Record(runid):
 	else:
 		is_success = sites.newsubmit.page.Rejudge(runid)
 		if not is_success:
-			flash('提交记录R%d没找着!\n可能是因为编号不对.'%runid,'error')
+			flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%runid,'error')
 			return redirect('/status')
 		else:
 			flash('成功重测.','ok')
@@ -90,7 +92,8 @@ def Login():
 	else:
 		is_success,message = sites.login.page.Can_Login(request.form)
 		if not is_success:
-			return render_template('login.html',message=message)
+			flash(message,'error')
+			return render_template('login.html')
 		else:
 			username = request.form['username']
 			session[username] = message
@@ -126,7 +129,9 @@ def Register():
 		return render_template('register.html')
 	else:
 		is_success,message = sites.register.page.Register(request.form)
-		if not is_success: return render_template('register.html',message=message)
+		if not is_success:
+			flash(message,'error')
+			return render_template('register.html')
 		else:
 			flash('注册成功','ok')
 			return redirect('/login')
@@ -139,7 +144,9 @@ def Useredit(username):
 	if request.method == 'GET':
 		return sites.useredit.page.Run(username)
 	else:
-		pass
+		sites.useredit.page.Useredit(username,request.form)
+		flash('修改成功','ok')
+		return redirect('/user/%s'%username)
 
 # app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
 app.secret_key = '你知道也没事反正我不用这个'

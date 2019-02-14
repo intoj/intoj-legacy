@@ -15,5 +15,4 @@ def Run(username):
 		return redirect('/')
 	else:
 		userdata = list(userdata)
-		userdata.append(Email_Hash(userdata[4]))
 		return render_template('userhome.html',user=userdata)
