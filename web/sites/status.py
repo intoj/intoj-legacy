@@ -1,10 +1,9 @@
 #coding:utf-8
 from flask import *
-from .statuslist import *
-from ..modules import *
+import db,modules
 
 def Run():
-	statuslist = list(Getstatuslist())
+	statuslist = list(db.Read_Recordlist())
 	for i in range(len(statuslist)):
 		statuslist[i] = list(statuslist[i])
 		uscore = statuslist[i][5]

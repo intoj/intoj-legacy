@@ -49,12 +49,11 @@
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
 	<script src="/static/expand.js"> </script>
-	<script src="/static/footer.js"> </script>
 	<script src="/static/cannotselect.js"> </script>
 	<script src="/static/codeinput.js"> </script>
 	<script src="/static/messager.js"> </script>
 </head>
-<body onresize="Resize();Footer_position();" onload="Render();Resize();Footer_position();">
+<body onresize="Resize();" onload="Render();Resize();">
 	<script> Messagerinit(); </script>
 	<div class="ui topbar">
 		<div class="topbar-container" style="margin: 0px auto;">
@@ -129,9 +128,6 @@
 		{% block body %}
 		{% endblock %}
 	</div>
-	<div id="footer">
-		intoj powered by <a href="/about">intoj</a>. @InterestingLSY 2018-2019
-	</div>
-	<script> Codeinput(); Footer_position(); </script>
+	<script> Codeinput(); </script>
 </body>
 </html>

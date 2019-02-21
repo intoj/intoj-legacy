@@ -1,11 +1,10 @@
 #coding:utf-8
 from flask import *
-from .record import *
 import json
-from ..modules import *
+import db,modules
 
 def Run(id):
-	record = Getrecord(id)
+	record = db.Read_Record(id)
 	if record == None:
 		flash(r'### 提交记录R%d没找着! \n 可能是因为编号不对.'%id,'error')
 		return redirect('/status')

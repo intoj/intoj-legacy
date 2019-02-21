@@ -1,14 +1,9 @@
 #coding:utf-8
 from flask import *
-import pymysql
-from ..modules import *
+import db,modules
 
 def Run(username):
-	db = pymysql.connect("localhost","intlsy","24","intoj")
-	cur = db.cursor()
-	cur.execute("SELECT * FROM users WHERE username=%s;",username)
-	userdata = cur.fetchone()
-	db.close()
+	userdata = db.Fetchone("SELECT * FROM users WHERE username=%s;",username)
 
 	if userdata == None:
 		flash('用户 %s 不存在'%username,'error')

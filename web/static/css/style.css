@@ -2,8 +2,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 	border:none;
 }
 div,p,li,ul,ol,tr,td,input,textarea{
-	font-family: 'Fira Mono', 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', monospace;
-	font-size: 16px;
+	font-family: monospace;
+	font-size: 16.5px;
 }
 @keyframes Fade-in{
     0%{ opacity:0; }

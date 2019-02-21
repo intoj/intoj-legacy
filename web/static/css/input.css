@@ -17,6 +17,7 @@ textarea.markdowninput{
 	opacity: 0.9;
 	margin: 10px auto;
 } */
+input{outline: none;}
 input.titleinput{
 	margin-left: 10px;
 	width:230px;
@@ -81,4 +82,14 @@ input.login-input{
 	width: 90%;
 	border-width: 0px;
 	background-color: #ffffff00;
+}
+div.login-input{
+	width: 85%;
+	margin: 10px auto;
+	display: flex;
+	border-width: 1px;
+	border-color: #bbbbbb;
+	border-style: solid;
+	border-radius: 4px;
+	padding: 6px 12px;
 }

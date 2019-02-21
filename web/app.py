@@ -1,8 +1,12 @@
 #coding:utf-8
 from flask import *
-import sys,time,random
+import sys,os,time,random
 import hashlib,re
+workpath = os.path.dirname(os.path.abspath(sys.argv[1]))
+print(workpath)
+sys.path.insert(0,os.path.join(workpath,'sites'))
 import sites
+
 app = Flask(__name__)
 
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
@@ -17,44 +21,44 @@ def Error_404(e):
 
 @app.route('/')
 def Home():
-	return sites.home.page.Run()
+	return sites.home.Run()
 
 @app.route('/problemlist')
 def Problemlist():
-	return sites.problemlist.page.Run()
+	return sites.problemlist.Run()
 @app.route('/problem/<int:problemid>',methods=['GET','POST'])
 def Problem(problemid):
 	if request.method == 'GET':
-		return sites.problem.page.Run(int(problemid))
+		return sites.problem.Run(int(problemid))
 	else:
-		runid,message = sites.newsubmit.page.Submit(int(problemid),request.form)
+		runid,message = sites.newsubmit.Submit(int(problemid),request.form)
 		if runid == -1:
 			flash(message,'error')
-			return sites.problem.page.Run(int(problemid))
+			return sites.problem.Run(int(problemid))
 		else: return redirect('/record/%d'%runid)
 @app.route('/problemadd',methods=['GET','POST'])
 def Problemadd():
 	if request.method == 'GET':
-		return sites.problemadd.page.Run()
+		return sites.problemadd.Run()
 	else:
-		is_success,id,message = sites.problemadd.page.Submit(request.form)
+		is_success,id,message = sites.problemadd.Submit(request.form)
 		if not is_success:
 			flash(message,'error')
-			return sites.problemadd.page.Run()
+			return sites.problemadd.Run()
 		return redirect('/problem/%s' % id)
 @app.route('/problem/<int:problemid>/edit',methods=['GET','POST'])
 def Problemedit(problemid):
 	if request.method == 'GET':
-		return sites.problemedit.page.Run(problemid)
+		return sites.problemedit.Run(problemid)
 	else:
-		is_success,newid,message = sites.problemedit.page.Change(problemid,request.form)
+		is_success,newid,message = sites.problemedit.Change(problemid,request.form)
 		if not is_success:
 			flash(message,'error')
-			return sites.problemedit.page.Run(problemid)
+			return sites.problemedit.Run(problemid)
 		return redirect('/problem/%s' % newid)
 @app.route('/problem/<int:problemid>/delete',methods=['GET'])
 def Problemdel(problemid):
-	return sites.problemdel.page.Deleteproblem(problemid)
+	return sites.problemdel.Deleteproblem(problemid)
 
 @app.route('/error/<message>')
 def Error(message):
@@ -62,7 +66,7 @@ def Error(message):
 
 @app.route('/status')
 def Status():
-	return sites.status.page.Run()
+	return sites.status.Run()
 
 @app.route('/help')
 def Help():
@@ -75,9 +79,9 @@ def About():
 @app.route('/record/<int:runid>',methods=['GET','POST'])
 def Record(runid):
 	if request.method == 'GET':
-		return sites.record.page.Run(runid)
+		return sites.record.Run(runid)
 	else:
-		is_success = sites.newsubmit.page.Rejudge(runid)
+		is_success = sites.newsubmit.Rejudge(runid)
 		if not is_success:
 			flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%runid,'error')
 			return redirect('/status')
@@ -90,7 +94,7 @@ def Login():
 	if request.method == 'GET':
 		return render_template('login.html')
 	else:
-		is_success,message = sites.login.page.Can_Login(request.form)
+		is_success,message = sites.login.Can_Login(request.form)
 		if not is_success:
 			flash(message,'error')
 			return render_template('login.html')
@@ -128,7 +132,7 @@ def Register():
 		print(request.cookies)
 		return render_template('register.html')
 	else:
-		is_success,message = sites.register.page.Register(request.form)
+		is_success,message = sites.register.Register(request.form)
 		if not is_success:
 			flash(message,'error')
 			return render_template('register.html')
@@ -138,13 +142,13 @@ def Register():
 
 @app.route('/user/<username>')
 def Userhome(username):
-	return sites.userhome.page.Run(username)
+	return sites.userhome.Run(username)
 @app.route('/user/<username>/edit',methods=['GET','POST'])
 def Useredit(username):
 	if request.method == 'GET':
-		return sites.useredit.page.Run(username)
+		return sites.useredit.Run(username)
 	else:
-		sites.useredit.page.Useredit(username,request.form)
+		sites.useredit.Useredit(username,request.form)
 		flash('修改成功','ok')
 		return redirect('/user/%s'%username)
 

@@ -53,9 +53,9 @@ div.container{
 	margin: calc(50px + 20px) auto 0px auto;
 }
 div.main, div.main-noflex{
-	margin: 0px auto 20px auto;
+	margin: 0px auto;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 	height: calc(100% - 50px);
 	width: 90%;
 }
@@ -81,6 +81,9 @@ div.contitle.ok{
 }
 div.content{
 	margin: 7px auto;
+}
+div.markdown{
+	line-height: 27px;
 }
 div.block{
 	width: 93%;
@@ -123,16 +126,4 @@ div.dropdown{
 	padding-top: 5px;
 	font-size: 14px;
 	text-align: center;
-}
-
-div.login-input{
-	width: 85%;
-	margin: 10px auto;
-	display: flex;
-	border: 1px;
-	border-width: 1px;
-	border-color: #bbbbbb;
-	border-style: solid;
-	border-radius: 4px;
-	padding: 6px 12px;
 }
