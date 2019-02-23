@@ -11,6 +11,9 @@
 			<form method="POST">
 				<div class="contitle" style="display:inline"> 题目编号 </div> <input type="number" name="id" class="numberinput" style="width: 230px;" placeholder="留空以不变"> <br/>
 				<div class="contitle" style="display:inline"> 题目标题 </div> <input type="text" name="title" class="titleinput" required value="{{uproblem[1]}}">
+				<div class="contitle"> 时空限制 </div>
+				时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required value="{{uproblem[7]}}"> ms <br />
+				空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required value="{{uproblem[8]}}"> MB <br />
 				<div class="contitle"> 题目描述 </div>
 				<textarea class="markdowninput" name="description">{{uproblem[2]}}</textarea>
 				<div class="contitle"> 输入格式 </div>
@@ -21,9 +24,6 @@
 				<textarea class="markdowninput" name="example">{{uproblem[5]}}</textarea>
 				<div class="contitle"> 数据范围与提示 </div>
 				<textarea class="markdowninput" name="limit_and_hint">{{uproblem[6]}}</textarea>
-				<div class="contitle"> 时空限制 </div>
-				时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required value="{{uproblem[7]}}"> ms <br />
-				空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required value="{{uproblem[8]}}"> MB <br />
 				<button type="submit" class="button button-action button-rounded submitbutton">
 					<i class="icon-pencil icon-spin"></i> 提交!
 				</button>

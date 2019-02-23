@@ -25,7 +25,7 @@
 						</span>
 					</span>
 					<span class="listitem twowide center" style="color:{{Score_Color(ustatus[5])}}"> {{ ustatus[5] }} </span>
-					{% if ustatus[11] not in ["Waiting","Running","Runtime Error","Compile Error","Unknown Error"] %}
+					{% if tostatus[ustatus[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
 					<span class="listitem twowide center"> {{ ustatus[8] }}ms </span>
 					<span class="listitem twowide center"> {{ ustatus[9] }}M </span>
 					{% endif %}

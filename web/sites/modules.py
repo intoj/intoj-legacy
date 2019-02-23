@@ -28,10 +28,12 @@ statusicon = {
 	10:"ok"
 }
 def Score_Color(a,fullscore=100):
-	if a < fullscore*0.3: return "red"
-	if a < fullscore*0.6: return "orange"
-	if a < fullscore: return "forestgreen"
-	return "#00ee00"
+	if a <= fullscore/2:
+		g = int( (a/fullscore) * (255+255-80) )
+		return "rgb(255,%d,0)" % g
+	else:
+		r = int( (1.0-a/fullscore) * (255+255) )
+		return "rgb(%d,220,0)" % r
 
 special_char = {
 '\'': r'\'',

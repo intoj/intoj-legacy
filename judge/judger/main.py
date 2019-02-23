@@ -1,37 +1,24 @@
+#coding:utf-8
 import pymysql,redis
 import time,os,json,math
 from modules import *
 import compile,run,judge
+import db
 
 cpppath = "../tmp/a.cpp"
 
-r=redis.Redis(host='localhost',port=6379,decode_responses=True)
-db = pymysql.connect("localhost","intlsy","24","intoj")
-cur = db.cursor()
+def Redis_Read():
+	global redis_con
+	try:
+		return redis_con.lpop('intoj-waiting')
+	except:
+		redis_con = redis.Redis(host='localhost',port=6379,decode_responses=True)
+		return redis_con.lpop('intoj-waiting')
 
-def Readrecord(rid):
-	cur.execute("SELECT * FROM records WHERE id=%d"%rid)
-	dbresult = cur.fetchone()
-	print("\033[42;37mRUNindex:\033[0m",dbresult)
-	return dbresult[1],dbresult[2],dbresult
 def Writecode(code):
 	f = open(cpppath,"w")
 	f.write(code)
 	f.close()
-def Startjudge(rid):
-	cur.execute("UPDATE records SET status=1 WHERE id=%d" % rid)
-	db.commit()
-
-def Readproblem(problem_id):
-	cur.execute("SELECT * FROM problems WHERE id=%d" % problem_id)
-	dbresult = cur.fetchone()
-	print("\033[42;37mPROindex:\033[0m",dbresult)
-	return dbresult[7],dbresult[8]
-
-def CompileError(runid,message):
-	cur.execute("UPDATE records SET status=3 WHERE id=%d" % runid)
-	cur.execute("UPDATE records SET compilation='%s' WHERE id=%d" % (Raw(message),runid))
-	db.commit()
 
 casescore = []
 def Getcasescore(cnt):
@@ -45,23 +32,20 @@ def Getcasescore(cnt):
 		left -= per
 	casescore.append(left)
 
-def Report(runid,status,score,time_usage,memory_usage,subtasks,comp_message):
-	cur.execute("UPDATE records SET status=%d,score=%d,time_usage=%d,memory_usage=%d,result='%s',compilation='%s' WHERE id=%d" % \
-				(status,score,time_usage,memory_usage,Raw(json.dumps(subtasks)),Raw(comp_message),runid))
-	db.commit()
-
 while True:
-	runid = r.lpop('intoj-waiting')
-	if runid == None: continue
-	# r.lpush('intoj-waiting',runid)
+	runid = Redis_Read()
+	if runid == None:
+		time.sleep(0.2)
+		continue
+	# redis_con.lpush('intoj-waiting',runid)
 
 	runid = int(runid)
 	print("\033[46;37mJudging runid:%d\033[0m"%runid)
 
-	(problem_id,code,origin) = Readrecord(runid)
-	Startjudge(runid)
+	(problem_id,code,origin) = db.Readrecord(runid)
+	db.Startjudge(runid)
 	Writecode(code)
-	(time_limit,memory_limit) = Readproblem(problem_id)
+	(time_limit,memory_limit) = db.Readproblem(problem_id)
 	output_limit = 65536
 
 	comp_time_limit = 5000
@@ -69,7 +53,7 @@ while True:
 	comp_output_limit = 32768
 	(comp_code,comp_message) = compile.Compile(comp_time_limit,comp_memory_limit,comp_output_limit)
 	if( comp_code != 10 ):
-		CompileError(runid,comp_message)
+		db.CompileError(runid,comp_message)
 		time.sleep(1)
 		continue
 
@@ -78,6 +62,21 @@ while True:
 	Getcasescore(casecnt)
 
 	subtasks = []
+	for i in range(1,casecnt+1):
+		nowstatus = 0
+		if i == 1: nowstatus = 1
+		subtasks.append({
+			"id":i,
+			"status":nowstatus,
+			"score":0,
+			"full_score":casescore[i],
+			"time_usage":0,
+			"memory_usage":0,
+			"judger_message": '',
+			"checker_message": ''
+		})
+	db.Report(runid,1,0,0,0,{'subtasks':subtasks},comp_message)
+
 	tot_time_usage = tot_memory_usage = tot_score = 0
 	final_status = 10
 	for i in range(1,casecnt+1):
@@ -86,7 +85,7 @@ while True:
 		ansfile = filepath + str(i) + ".out"
 		(status,time_usage,memory_usage,exitcode,judger_message) = run.Run(time_limit,memory_limit,output_limit,inputfile,outputfile)
 		if status != 10:
-			subtasks.append({
+			subtasks[i-1] = {
 				"id":i,
 				"status":status,
 				"score":0,
@@ -95,10 +94,10 @@ while True:
 				"memory_usage":memory_usage,
 				"judger_message":judger_message,
 				"checker_message":""
-			})
+			}
 		else:
 			(status,score,checker_message) = judge.txtcompare.Compare(outputfile,ansfile,casescore[i])
-			subtasks.append({
+			subtasks[i-1] = {
 				"id":i,
 				"status":status,
 				"score":score,
@@ -107,15 +106,16 @@ while True:
 				"memory_usage":memory_usage,
 				"judger_message":judger_message,
 				"checker_message":checker_message
-			})
+			}
 			tot_score += score
 		tot_time_usage += time_usage
 		tot_memory_usage = max(tot_memory_usage,memory_usage)
 		final_status = min(final_status,status)
-	result = {
-		'subtasks':subtasks
-	}
+		if i != casecnt:
+			subtasks[i]["status"] = 1
+		db.Report(runid,1,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
+
 	print("\033[42;37mSubtask:\033[0m",result)
-	Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,result,comp_message)
+	db.Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
 	time.sleep(1)

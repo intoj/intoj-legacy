@@ -1,0 +1,42 @@
+<div id="subtasks">
+{% for subtask in subtasks %}
+<div class="listline listline-animation" onclick="Click({{loop.index}});">
+	<span class="listitem onewide center"> #{{subtask['id']}} </span>
+	<span class="listitem fourwide center">
+		<span class="judge-{{ subtask['status'] }}" long_or_short="long">
+			<i class="icon-{{ statusicon[subtask['status']] }}" aria-hidden="true"></i>
+			{{ tostatus[subtask['status']] }}
+		</span>
+	</span>
+	{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
+	<span class="listitem onewide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
+		{{ subtask['score'] }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{subtask['full_score']}}</span>
+	</span>
+	<span class="listitem onewide center"> {{ subtask['time_usage'] }}ms </span>
+	<span class="listitem onewide center"> {{ subtask['memory_usage'] }}M </span>
+	{% else %}
+	<span class="listitem onewide center"> </span>
+	<span class="listitem onewide center"> </span>
+	<span class="listitem onewide center"> </span>
+	{% endif %}
+</div>
+<div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
+	<div class="markdown">
+{% if subtask['checker_message'] != "" %}
+### 比较器信息
+
+```plain
+{{ subtask['checker_message'] }}
+```
+{% endif %}
+{% if subtask['judger_message'] != "" %}
+### 评测器信息
+
+```plain
+{{ subtask['judger_message'] }}
+```
+{% endif %}
+	</div>
+</div>
+{% endfor %}
+</div>

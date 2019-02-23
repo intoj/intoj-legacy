@@ -3,8 +3,9 @@ from flask import *
 import sys,os,time,random
 import hashlib,re
 workpath = os.path.dirname(os.path.abspath(sys.argv[1]))
-print(workpath)
-sys.path.insert(0,os.path.join(workpath,'sites'))
+sitespath = os.path.join(workpath,'sites')
+if sitespath not in sys.path:
+	sys.path.insert(0,sitespath)
 import sites
 
 app = Flask(__name__)
@@ -88,6 +89,9 @@ def Record(runid):
 		else:
 			flash('成功重测.','ok')
 			return redirect('/record/%d'%runid)
+@app.route('/record/<int:runid>/ref')
+def Record_Refresh(runid):
+	return sites.record.Refresh(runid)
 
 @app.route('/login',methods=['GET','POST'])
 def Login():

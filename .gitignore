@@ -3,3 +3,5 @@
 *.in
 *.out
 **/result
+**/tmp
+judge/testdata*

@@ -1,0 +1,12 @@
+<span class="listitem onewide center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </span>
+<span class="listitem fourwide center">
+	<span class="judge-{{ record[4] }}" long_or_short="long">
+		<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
+	</span>
+</span>
+<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ record[5] }} </span>
+{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
+<span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
+<span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>
+{% endif %}
+<span hidden="true" id="status"> {{record[4]}} </span>

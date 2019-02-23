@@ -1,3 +1,4 @@
+#coding:utf-8
 special_char = {
 '\'': r'\'',
 '\"': r'\"',
