@@ -22,6 +22,6 @@ def Change(origin_id,req):
 	db.Execute("UPDATE problems SET `id`=%s,`title`=%s,`description`=%s,`input_format`=%s,`output_format`=%s,\
 			`example`=%s,`limit_and_hint`=%s,`time_limit`=%s,`memory_limit`=%s\
 			 WHERE id=%s;",(id,req['title'],req['description'],req['input_format'],req['output_format'],
- 			req['example'],req['limit_and_hint'],req['time_limit'],req['memory_limit'],id))
+ 			req['example'],req['limit_and_hint'],req['time_limit'],req['memory_limit'],origin_id))
 
 	return 1,int(id),''

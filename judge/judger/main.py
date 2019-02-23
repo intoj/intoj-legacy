@@ -115,7 +115,6 @@ while True:
 			subtasks[i]["status"] = 1
 		db.Report(runid,1,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
-	print("\033[42;37mSubtask:\033[0m",result)
 	db.Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
 	time.sleep(1)
