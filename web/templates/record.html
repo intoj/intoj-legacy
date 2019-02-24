@@ -15,14 +15,15 @@
 			<div class="list">
 				<div class="listline">
 					<span class="listitem onewide center smallfont"> 题目 </span>
-					<span class="listitem fourwide center smallfont"> 状态 </span>
+					<span class="listitem fivewide center smallfont"> 状态 </span>
 					<span class="listitem onewide center smallfont"> 得分 </span>
 					<span class="listitem onewide center smallfont"> 时间 </span>
 					<span class="listitem onewide center smallfont"> 内存 </span>
+					<span class="listitem threewide center smallfont"> 提交者 </span>
 				</div>
 				<div class="listline" onselectstart="return false;" id="overview">
 					<span class="listitem onewide center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </span>
-					<span class="listitem fourwide center">
+					<span class="listitem fivewide center">
 						<span class="judge-{{ record[4] }}" long_or_short="long">
 							<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
 						</span>
@@ -31,7 +32,11 @@
 					{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
 					<span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
 					<span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>
+					{% else %}
+					<span class="listitem onewide center" id="overview_time_usage"> </span>
+					<span class="listitem onewide center" id="overview_memory_usage"> </span>
 					{% endif %}
+					<span class="listitem threewide center"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
 					<span hidden="true" id="status"> {{record[4]}} </span>
 				</div>
 			</div>
@@ -44,7 +49,7 @@
 			<div class="list">
 				<div class="listline">
 					<span class="listitem onewide center smallfont"> 编号 </span>
-					<span class="listitem fourwide center smallfont"> 状态 </span>
+					<span class="listitem fivewide center smallfont"> 状态 </span>
 					<span class="listitem onewide center smallfont"> 得分 </span>
 					<span class="listitem onewide center smallfont"> 时间 </span>
 					<span class="listitem onewide center smallfont"> 内存 </span>
@@ -53,7 +58,7 @@
 				{% for subtask in subtasks %}
 				<div class="listline listline-animation" onclick="Click({{loop.index}});">
 					<span class="listitem onewide center"> #{{subtask['id']}} </span>
-					<span class="listitem fourwide center">
+					<span class="listitem fivewide center">
 						<span class="judge-{{ subtask['status'] }}" long_or_short="long">
 							<i class="icon-{{ statusicon[subtask['status']] }}" aria-hidden="true"></i>
 							{{ tostatus[subtask['status']] }}

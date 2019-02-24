@@ -20,8 +20,8 @@
 				</div>
 				{% for uproblem in problemlist %}
 				<div class="listline listline-animation" onclick="window.location.href='/problem/{{uproblem[0]}}'">
-					<span class="listitem twowide center"> {{uproblem[0] }} </span>
-					<span class="listitem fivewide"> <a href="/problem/{{uproblem[0]}}"> {{ uproblem[1] }} </a> </span>
+					<span class="listitem twowide center"> #{{uproblem[0]}} </span>
+					<span class="listitem fivewide"> <a href="/problem/{{uproblem[0]}}"> {{uproblem[1]}} </a> </span>
 				</div>
 				{% endfor %}
 			</div>

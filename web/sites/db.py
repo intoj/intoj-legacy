@@ -24,6 +24,13 @@ def Read_Problemlist(order='id'):
 	End_Connect(db,cur)
 	return problemlist
 
+def Read_Contestlist():
+	db,cur = Is_Connect()
+	cur.execute("SELECT * FROM contests ORDER BY id DESC")
+	contestlist = cur.fetchall()
+	End_Connect(db,cur)
+	return contestlist
+
 def Read_Record(id):
 	db,cur = Is_Connect()
 	cur.execute("SELECT * FROM records WHERE id=%s;",id)
@@ -58,3 +65,9 @@ def Fetchone(cmd,arg=None):
 	ret = cur.fetchone()
 	End_Connect(db,cur)
 	return ret
+
+def User_Privilege(username,privilege_id):
+	user = Read_User_Byname(username)
+	if user == None: return 0
+	if user[7]: return 1
+	return user[privilege_id+7]

@@ -1,6 +1,5 @@
 #coding:utf-8
 from flask import *
-import pymysql
 import hashlib,re
 import db,modules
 

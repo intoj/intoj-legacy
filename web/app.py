@@ -15,6 +15,9 @@ app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 
+@app.route('/error/<message>')
+def Error(message):
+	return render_template('error.html',message=message)
 @app.errorhandler(404)
 def Error_404(e):
 	flash(r'## 404 not found \n指挥官大人,您访问的页面......没有找到......QAQ.','error')
@@ -32,13 +35,19 @@ def Problem(problemid):
 	if request.method == 'GET':
 		return sites.problem.Run(int(problemid))
 	else:
-		runid,message = sites.newsubmit.Submit(int(problemid),request.form)
+		if not Is_Loggedin():
+			flash('请先登录','error')
+			return sites.problem.Run(int(problemid))
+		runid,message = sites.newsubmit.Submit(int(problemid),request.form,request.cookies['username'])
 		if runid == -1:
 			flash(message,'error')
 			return sites.problem.Run(int(problemid))
 		else: return redirect('/record/%d'%runid)
 @app.route('/problemadd',methods=['GET','POST'])
 def Problemadd():
+	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
+		flash('无此权限','error')
+		return redirect('/problemlist')
 	if request.method == 'GET':
 		return sites.problemadd.Run()
 	else:
@@ -49,6 +58,9 @@ def Problemadd():
 		return redirect('/problem/%s' % id)
 @app.route('/problem/<int:problemid>/edit',methods=['GET','POST'])
 def Problemedit(problemid):
+	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
+		flash('无此权限','error')
+		return redirect('/problem/%d'%problemid)
 	if request.method == 'GET':
 		return sites.problemedit.Run(problemid)
 	else:
@@ -59,11 +71,14 @@ def Problemedit(problemid):
 		return redirect('/problem/%s' % newid)
 @app.route('/problem/<int:problemid>/delete',methods=['GET'])
 def Problemdel(problemid):
+	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
+		flash('无此权限','error')
+		return redirect('/problem/%d'%problemid)
 	return sites.problemdel.Deleteproblem(problemid)
 
-@app.route('/error/<message>')
-def Error(message):
-	return render_template('error.html',message=message)
+@app.route('/contestlist')
+def Contestlist():
+	return sites.contestlist.Run()
 
 @app.route('/status')
 def Status():
@@ -82,6 +97,9 @@ def Record(runid):
 	if request.method == 'GET':
 		return sites.record.Run(runid)
 	else:
+		if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
+			flash('无此权限','error')
+			return sites.record.Run(runid)
 		is_success = sites.newsubmit.Rejudge(runid)
 		if not is_success:
 			flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%runid,'error')
@@ -149,6 +167,9 @@ def Userhome(username):
 	return sites.userhome.Run(username)
 @app.route('/user/<username>/edit',methods=['GET','POST'])
 def Useredit(username):
+	if not Is_Loggedin() or ( username != request.cookies['username'] and not sites.db.User_Privilege(request.cookies['username'],1) ):
+		flash('没有权限','error')
+		return sites.userhome.Run(username)
 	if request.method == 'GET':
 		return sites.useredit.Run(username)
 	else:

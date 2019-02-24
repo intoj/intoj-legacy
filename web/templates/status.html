@@ -14,6 +14,7 @@
 					<span class="listitem twowide center smallfont"> 得分 </span>
 					<span class="listitem twowide center smallfont"> 时间 </span>
 					<span class="listitem twowide center smallfont"> 内存 </span>
+					<span class="listitem threewide center smallfont"> 提交者 </span>
 				</div>
 				{% for ustatus in statuslist %}
 				<div class="listline listline-animation" onclick="window.location.href='/record/{{ ustatus[0] }}'">
@@ -28,7 +29,11 @@
 					{% if tostatus[ustatus[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
 					<span class="listitem twowide center"> {{ ustatus[8] }}ms </span>
 					<span class="listitem twowide center"> {{ ustatus[9] }}M </span>
+					{% else %}
+					<span class="listitem twowide center">  </span>
+					<span class="listitem twowide center">  </span>
 					{% endif %}
+					<span class="listitem threewide center"> <a href="/user/{{ ustatus[11] }}"> {{ ustatus[11] }} </a> </span>
 				</div>
 				{% endfor %}
 			</div>

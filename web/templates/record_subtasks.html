@@ -2,7 +2,7 @@
 {% for subtask in subtasks %}
 <div class="listline listline-animation" onclick="Click({{loop.index}});">
 	<span class="listitem onewide center"> #{{subtask['id']}} </span>
-	<span class="listitem fourwide center">
+	<span class="listitem fivewide center">
 		<span class="judge-{{ subtask['status'] }}" long_or_short="long">
 			<i class="icon-{{ statusicon[subtask['status']] }}" aria-hidden="true"></i>
 			{{ tostatus[subtask['status']] }}
