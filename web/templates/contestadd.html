@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} 添加比赛 {% endblock %}
+{% block selected_contest %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 新建比赛 </div>
+	</div>
+	<div class="block">
+		<div class="content">
+			<form method="POST">
+				<div class="contitle"> 比赛标题 </div>
+				<input type="text" name="title" class="wideinput" required> <br />
+				<div class="contitle"> 比赛副标题 </div>
+				<input type="text" name="subtitle" class="wideinput">
+				<div class="contitle"> 时间 </div>
+				开始时间: <input type="text" name="begin_time" value="{{current_date}}" placeholder="yyyy-mm-dd hh:mm:ss" required> <br />
+				结束时间: <input type="text" name="end_time" value="{{current_date}}" placeholder="yyyy-mm-dd hh:mm:ss" required> <br />
+				<div class="contitle"> 比赛说明 </div>
+				<textarea class="markdowninput" name="description"></textarea>
+				<div class="contitle"> 赛制 </div>
+				* 目前只支持 oi-intoj 赛制
+				<div class="contitle"> 比赛题目 </div>
+				<input type="text" name="problems" placeholder="输入题目编号,不要带井字号,逗号分隔" class="wideinput" required> <br />
+				<button type="submit" class="button button-action button-rounded submitbutton">
+					<i class="icon-pencil icon-spin"></i> 提交!
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -22,6 +22,11 @@ input.titleinput{
 	margin-left: 10px;
 	width:230px;
 }
+input.wideinput{
+	width: 100%;
+	height: 25px;
+	font-size: 17px;
+}
 input.numberinput{
 	margin: 5px 10px;
 	width: 100px;

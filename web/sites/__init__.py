@@ -1,3 +1,4 @@
+from . import contestadd
 from . import contestlist
 from . import db
 from . import home

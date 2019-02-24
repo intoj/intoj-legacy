@@ -8,13 +8,13 @@
 		<div class="content">
 			<div class="list">
 				<div class="listline">
-					<span class="listitem onewide center smallfont"> 编号 </span>
-					<span class="listitem onewide center smallfont"> 题目 </span>
-					<span class="listitem fivewide center smallfont"> 状态 </span>
-					<span class="listitem twowide center smallfont"> 得分 </span>
-					<span class="listitem twowide center smallfont"> 时间 </span>
-					<span class="listitem twowide center smallfont"> 内存 </span>
-					<span class="listitem threewide center smallfont"> 提交者 </span>
+					<span class="listitem onewide center"> 编号 </span>
+					<span class="listitem onewide center"> 题目 </span>
+					<span class="listitem fivewide center"> 状态 </span>
+					<span class="listitem twowide center"> 得分 </span>
+					<span class="listitem twowide center"> 时间 </span>
+					<span class="listitem twowide center"> 内存 </span>
+					<span class="listitem threewide center"> 提交者 </span>
 				</div>
 				{% for ustatus in statuslist %}
 				<div class="listline listline-animation" onclick="window.location.href='/record/{{ ustatus[0] }}'">

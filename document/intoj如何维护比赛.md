@@ -14,11 +14,11 @@
 
 - 2 副标题
 
-- 3 描述
+- 3 开始时间
 
-- 4 开始时间
+- 4 结束时间
 
-- 5 结束时间
+- 5 描述
 
 - 6 赛制 (json)
 
@@ -26,7 +26,7 @@
 
 - 8 problems (json)
 
-- 9 admins (json列表)
+- 9 admins (json列表) (暂不支持)
 
 ### 赛制
 
@@ -92,12 +92,10 @@ problems可以是:
 // oi-intoj赛制下:
 [
 	{
-		"id": 2,
-		"score": 100
+		"id": 2
 	},
 	{
-		"id": 3,
-		"score": 100
+		"id": 3
 	}
 ]
 ```
@@ -109,6 +107,7 @@ CREATE TABLE contests(
 	subtitle VARCHAR(100),
 	begin_time VARCHAR(50),
 	end_time VARCHAR(50),
+	description TEXT,
 	rule TEXT,
 	holder_name VARCHAR(20),
 	problems TEXT,

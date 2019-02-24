@@ -69,7 +69,7 @@ def Problemedit(problemid):
 			flash(message,'error')
 			return sites.problemedit.Run(problemid)
 		return redirect('/problem/%s' % newid)
-@app.route('/problem/<int:problemid>/delete',methods=['GET'])
+@app.route('/problem/<int:problemid>/delete')
 def Problemdel(problemid):
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
 		flash('无此权限','error')
@@ -79,6 +79,20 @@ def Problemdel(problemid):
 @app.route('/contestlist')
 def Contestlist():
 	return sites.contestlist.Run()
+@app.route('/contestadd',methods=['GET','POST'])
+def Contestadd():
+	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],3):
+		flash('无此权限','error')
+		return redirect('/contestlist')
+	if request.method == 'GET':
+		return sites.contestadd.Run()
+	else:
+		is_success,contest_id,message = sites.contestadd.Contestadd(request.form)
+		if not is_success:
+			flash(message,'error')
+			return sites.contestadd.Run()
+		flash('添加成功','ok')
+		return redirect('/contest/%d'%contest_id)
 
 @app.route('/status')
 def Status():
