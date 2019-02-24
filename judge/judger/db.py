@@ -1,3 +1,4 @@
+#coding: utf-8
 import pymysql,json
 
 db_password = '24'
@@ -17,6 +18,7 @@ def Readproblem(id):
 	dbresult = cur.fetchone()
 	print("\033[42;37mPROindex:\033[0m",dbresult)
 	End_Connect()
+	if dbresult == None: raise ValueError("无此题目")
 	return dbresult[7],dbresult[8]
 
 def Readrecord(id):
@@ -25,6 +27,7 @@ def Readrecord(id):
 	dbresult = cur.fetchone()
 	print("\033[42;37mRUNindex:\033[0m",dbresult)
 	End_Connect()
+	if dbresult == None: raise ValueError("无此记录")
 	return dbresult[1],dbresult[2],dbresult
 
 def Startjudge(rid):
@@ -33,10 +36,10 @@ def Startjudge(rid):
 	db.commit()
 	End_Connect()
 
-def Report(runid,status,score,time_usage,memory_usage,subtasks,comp_message):
+def Report(runid,status=2,score=0,time_usage=0,memory_usage=0,subtasks={'subtasks':[]},comp_message='',system_message=''):
 	Is_Connect()
-	cur.execute("UPDATE records SET status=%s,score=%s,time_usage=%s,memory_usage=%s,result=%s,compilation=%s WHERE id=%s",
-				(status,score,time_usage,memory_usage,json.dumps(subtasks),comp_message,runid))
+	cur.execute("UPDATE records SET status=%s,score=%s,time_usage=%s,memory_usage=%s,result=%s,compilation=%s,system_message=%s WHERE id=%s",
+				(status,score,time_usage,memory_usage,json.dumps(subtasks),comp_message,system_message,runid))
 	db.commit()
 	End_Connect()
 

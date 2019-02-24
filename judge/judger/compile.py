@@ -26,15 +26,15 @@ def Compile(timelim,memlim,outputlim):
 			return(3,"编译爆内存...但愿你不是在攻击")
 		if exceed == "OUTPUT":
 			return(3,"编译器输出了太多东西...建议本机编译一下试试")
-
+		
 		exitcode = int(message[message.find("EXITCODE"):message.find("TERMSIG")][8:].strip())
 		if exitcode == 0:
 			return(10,"")
 
 		compmessage = message[:message.find("MEMORY")].strip()
 		return (3,compmessage)
-	except:
-		return (2,"在编译时出现 Unknown♂Error")
+	except Exception as a:
+		return (2,"在编译时出现 Unknown♂Error:\n%s"%a)
 
 if __name__ == '__main__':
 	print(Compile(5000,256,65536))
