@@ -16,10 +16,12 @@ div.listline-active-animation,div.listline-animation{
 	cursor: pointer;
 }
 span.listitem{  }
+span.listitem.halfwide{ width: 4%; }
 span.listitem.onewide{ width: 8%; }
 span.listitem.twowide{ width: 13%; }
 span.listitem.threewide{ width: 20%; }
 span.listitem.fourwide{ width: 25%; }
 span.listitem.fivewide{ width: 30%; }
+span.listitem.sixwide{ width: 35%; }
 span.listitem.center{ text-align: center; }
 span.smallfont{ font-size: 14px; /*font-weight: bold;*/ }

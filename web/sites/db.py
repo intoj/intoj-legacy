@@ -24,6 +24,12 @@ def Read_Problemlist(order='id'):
 	End_Connect(db,cur)
 	return problemlist
 
+def Read_Contest(id):
+	db,cur = Is_Connect()
+	cur.execute("SELECT * FROM contests where id=%s",id)
+	contest = cur.fetchone()
+	End_Connect(db,cur)
+	return contest
 def Read_Contestlist():
 	db,cur = Is_Connect()
 	cur.execute("SELECT * FROM contests ORDER BY id DESC")

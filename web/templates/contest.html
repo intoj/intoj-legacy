@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} {{contest[1]}} {% endblock %}
+{% block selected_contest %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div style="display: flex; justify-content: space-between; width: calc(93% + 40px); margin: 10px auto;">
+		<div class="block-mini" style="width: 66%;">
+			{% if contest[2] != '' %}
+			<div class="contitle" style="text-align: center" style="font-size: 34px;"> {{contest[1]}} </div>
+			<div class="content" style="text-align: center"> ————{{contest[2]}} </div>
+			{% else %}
+			<div class="contitle" style="text-align: center; font-size: 34px; width: 100%; margin-top: 17px;"> {{contest[1]}} </div>
+			{% endif %}
+		</div>
+		<div class="block-mini" style="width: 25%; display:flex; justify-content: center; flex-direction: column">
+			<div class="content"> 开始于 {{contest[3]}} </div>
+			<div class="content"> 结束于 {{contest[4]}} </div>
+		</div>
+	</div>
+	<div style="display: flex; justify-content: space-between; width: calc(93% + 40px); margin: 15px auto;">
+		<div class="block-mini" style="width: 35%; padding: 15px 0px; display: flex; flex-direction: column; justify-content: center;">
+			{% for problem in problems %}
+			<div class="listline listline-animation" style="width: 100%; justify-content: center; margin: 5px auto;">
+				<span class="listitem center " style="width: 20%"> #{{loop.index}} </span>
+				<span class="listitem center" style="width: 60%"> {{problem[1]}} </span>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="block-mini" style="width: 60%">
+			<div class="contitle"> 比赛描述 </div>
+			<div class="content markdown">
+{{contest[5]}}
+
+*本场比赛采用 {{rule_name}} 赛制.*
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -93,6 +93,9 @@ def Contestadd():
 			return sites.contestadd.Run()
 		flash('添加成功','ok')
 		return redirect('/contest/%d'%contest_id)
+@app.route('/contest/<int:id>')
+def Contest(id):
+	return sites.contest.Run(id)
 
 @app.route('/status')
 def Status():

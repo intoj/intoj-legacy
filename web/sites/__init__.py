@@ -1,3 +1,4 @@
+from . import contest
 from . import contestadd
 from . import contestlist
 from . import db
