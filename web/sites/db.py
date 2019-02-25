@@ -36,6 +36,15 @@ def Read_Contestlist():
 	contestlist = cur.fetchall()
 	End_Connect(db,cur)
 	return contestlist
+def Read_Contest_Submissions(contest_id,username=None):
+	db,cur = Is_Connect()
+	if username == None:
+		cur.execute("SELECT * FROM records WHERE contest_id=%s",contest_id)
+	else:
+		cur.execute("SELECT * FROM records WHERE contest_id=%s AND username=%s",(contest_id,username))
+	submissions = cur.fetchall()
+	End_Connect(db,cur)
+	return submissions
 
 def Read_Record(id):
 	db,cur = Is_Connect()

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} 评测状态 {% endblock %}
-{% block selected_status %} selected {% endblock %}
+{% block title %} 我的提交 - {{contest[1]}} {% endblock %}
+{% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 实时评测记录 </div>
+		<div class="contitle"> 我的提交 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="window.location.href='/contest/{{contest[0]}}'"> 返回比赛 </button> </div>
 		<div class="content">
 			<div class="list">
 				<div class="listline">
@@ -16,10 +16,10 @@
 					<span class="listitem twowide center"> 内存 </span>
 					<span class="listitem threewide center"> 提交者 </span>
 				</div>
-				{% for status in statuslist if not status[12]%}
+				{% for status in statuslist %}
 				<div class="listline listline-animation" onclick="window.location.href='/record/{{ status[0] }}'">
 					<span class="listitem onewide center"> <a href="/record/{{ status[0] }}"> R{{ status[0] }} </a> </span>
-					<span class="listitem onewide center"> <a href="/problem/{{ status[1] }}"> P{{ status[1] }} </a> </span>
+					<span class="listitem onewide center"> <a href="/contest/{{status[12]}}/problem/{{status[1]}}"> P{{ status[1] }} </a> </span>
 					<span class="listitem fivewide center">
 						<span class="judge-{{ status[4] }}" long_or_short="long">
 							<i class="icon-{{ statusicon[status[4]] }}" aria-hidden="true"></i>  {{ tostatus[status[4]] }}

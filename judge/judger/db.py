@@ -12,23 +12,23 @@ def End_Connect():
 	cur.close()
 	db.close()
 
-def Readproblem(id):
+def Read_Problem(id):
 	Is_Connect()
 	cur.execute("SELECT * FROM problems WHERE id=%d" % id)
-	dbresult = cur.fetchone()
-	print("\033[42;37mPROindex:\033[0m",dbresult)
+	problem = cur.fetchone()
+	print("\033[42;37mPROindex:\033[0m",problem)
 	End_Connect()
-	if dbresult == None: raise ValueError("无此题目")
-	return dbresult[7],dbresult[8]
+	if problem == None: raise ValueError("无此题目")
+	return problem
 
-def Readrecord(id):
+def Read_Record(id):
 	Is_Connect()
 	cur.execute("SELECT * FROM records WHERE id=%d"%id)
-	dbresult = cur.fetchone()
-	print("\033[42;37mRUNindex:\033[0m",dbresult)
+	record = cur.fetchone()
+	print("\033[42;37mRUNindex:\033[0m",record)
 	End_Connect()
-	if dbresult == None: raise ValueError("无此记录")
-	return dbresult[1],dbresult[2],dbresult
+	if record == None: raise ValueError("无此记录")
+	return record
 
 def Startjudge(rid):
 	Is_Connect()

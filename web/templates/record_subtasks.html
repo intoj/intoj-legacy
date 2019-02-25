@@ -10,7 +10,7 @@
 	</span>
 	{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
 	<span class="listitem onewide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
-		{{ subtask['score'] }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{subtask['full_score']}}</span>
+		{{ Toint(subtask['score']) }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
 	</span>
 	<span class="listitem onewide center"> {{ subtask['time_usage'] }}ms </span>
 	<span class="listitem onewide center"> {{ subtask['memory_usage'] }}M </span>

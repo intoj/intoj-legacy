@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} {{problem[1]}} {% endblock %}
+{% block selected_contest %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="block-mini-box">
+		<div class="block-mini" style="width: 66%;" onclick="window.location.href='/contest/{{contest[0]}}'">
+			<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
+			<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
+		</div>
+		<div class="block-mini" style="width: 25%;">
+			<div class="content"> 开始于 {{contest[3]}} </div>
+			<div class="content"> 结束于 {{contest[4]}} </div>
+		</div>
+	</div>
+	<div class="title"> {{problem[1]}}</div>
+	<div class="block tagsblock">
+		<span class="content tag tag-timelimit">时间限制:{{- problem[7] -}}ms</span>
+		<span class="content tag tag-memorylimit">空间限制:{{- problem[8] -}}M</span>
+	</div>
+	{% if problem[2] != '' %}
+	<div class="block" style="margin-top: 10px;">
+		<div class="contitle"> 题目描述 </div>
+		<div class="content markdown">
+			{{- problem[2] -}}
+		</div>
+	</div>
+	{% endif %}
+	{% if problem[3] != '' %}
+	<div class="block">
+		<div class="contitle"> 输入格式 </div>
+		<div class="content markdown">
+			{{- problem[3] -}}
+		</div>
+	</div>
+	{% endif %}
+	{% if problem[4] != '' %}
+	<div class="block">
+		<div class="contitle"> 输出格式 </div>
+		<div class="content markdown">
+			{{- problem[4] -}}
+		</div>
+	</div>
+	{% endif %}
+	{% if problem[5] != '' %}
+	<div class="block">
+		<div class="contitle"> 样例 </div>
+		<div class="content markdown">
+			{{- problem[5] -}}
+		</div>
+	</div>
+	{% endif %}
+	{% if problem[6] != '' %}
+	<div class="block">
+		<div class="contitle"> 提示与说明 </div>
+		<div class="content markdown">
+			{{- problem[6] -}}
+		</div>
+	</div>
+	{% endif %}
+	<div class="block">
+		<div class="contitle"> 提交代码 </div>
+		<div class="content">
+			<form method="POST">
+				<textarea class="codeinput" name="code"></textarea>
+				<button type="submit" class="button button-action button-rounded submitbutton">
+					<i class="icon-pencil icon-spin"></i> 提交!
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

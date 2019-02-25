@@ -132,18 +132,18 @@ CREATE TABLE contests(
 detail:
 
 ```json
-[
-	{
+{
+	"2": {
 		"record_id": 10,
 		"score": 100,
 		"submit_cnt": 1
 	},
-	{
+	"3": {
 		"record_id": 11,
 		"score": 233,
 		"submit_cnt": 100
 	}
-]
+}
 ```
 
 ```sql

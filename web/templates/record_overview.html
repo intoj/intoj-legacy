@@ -4,7 +4,7 @@
 		<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
 	</span>
 </span>
-<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ record[5] }} </span>
+<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
 {% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
 <span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
 <span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>

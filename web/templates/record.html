@@ -22,13 +22,17 @@
 					<span class="listitem threewide center"> 提交者 </span>
 				</div>
 				<div class="listline" onselectstart="return false;" id="overview">
-					<span class="listitem onewide center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </span>
+					{% if record[12] == 0 %}
+					<span class="listitem onewide center"> <a href="/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+					{% else %}
+					<span class="listitem onewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+					{% endif %}
 					<span class="listitem fivewide center">
 						<span class="judge-{{ record[4] }}" long_or_short="long">
 							<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
 						</span>
 					</span>
-					<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ record[5] }} </span>
+					<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
 					{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
 					<span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
 					<span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>
@@ -66,7 +70,7 @@
 					</span>
 					{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
 					<span class="listitem onewide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
-						{{ subtask['score'] }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{subtask['full_score']}}</span>
+						{{ Toint(subtask['score']) }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{subtask['full_score']}}</span>
 					</span>
 					<span class="listitem onewide center"> {{ subtask['time_usage'] }}ms </span>
 					<span class="listitem onewide center"> {{ subtask['memory_usage'] }}M </span>
@@ -76,6 +80,7 @@
 					<span class="listitem onewide center"> </span>
 					{% endif %}
 				</div>
+				{% if record[12] == 0 %}
 				<div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
 					<div class="markdown">
 {% if subtask['checker_message'] != "" %}
@@ -94,6 +99,7 @@
 {% endif %}
 					</div>
 				</div>
+				{% endif %}
 				{% endfor %}
 				</div>
 			</div>

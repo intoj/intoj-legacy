@@ -1,22 +1,23 @@
 #coding:utf-8
 from flask import *
 import pymysql,redis
-import db,modules
+import db,modules,problem
 
 #包含rejudge
 
-def Submit(problemid,request,username,contest_id=0):
-	code = request['code']
+def Submit(problemid,req,contest_id=0):
+	code = req['code']
 	if len(code) < 10:
-		return -1,"这么短真的没问题?"
+		flash('这么短真的没问题?','error')
+		return problem.Run(problemid)
 
 	runid = int(db.Fetchone("SELECT COUNT(*) FROM records;")[0]) + 1
-	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s);",(runid,problemid,code,'cpp',username,contest_id))
+	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id))
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))
 
-	return runid,""
+	return redirect('/record/%d'%runid)
 
 def Rejudge(id):
 	if db.Fetchone("SELECT * FROM records WHERE id=%s",id) == None: return False

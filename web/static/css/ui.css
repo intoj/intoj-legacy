@@ -4,7 +4,7 @@ body{
 	background-position: left top;
 	background-size: cover;
 	margin: 0;
-	animation: Fade-in 0.5s ease 0s 1;
+	animation: Fade-in 0.4s ease 0s 1;
 	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
 }
 /**************** topbar ****************/
@@ -115,6 +115,12 @@ div.dropdown{
 	margin: 10px 10px;
 	margin-bottom: 20px;
 	height: auto;
+}
+div.block-mini-box{
+	display: flex;
+	justify-content: space-between;
+	width: calc(93% + 40px);
+	margin: 10px auto;
 }
 
 /**************** footer ****************/

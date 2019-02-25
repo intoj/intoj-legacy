@@ -16,7 +16,7 @@
 			<div class="list">
 				<div class="listline">
 					<span class="listitem halfwide center"> 编号 </span>
-					<span class="listitem threewide center"> 比赛名称 </span>
+					<span class="listitem fourwide center"> 比赛名称 </span>
 					<span class="listitem sixwide center"> 描述 </span>
 					<span class="listitem threewide center"> 开始时间 </span>
 					<span class="listitem threewide center"> 结束时间 </span>
@@ -24,7 +24,7 @@
 				{% for contest in contestlist %}
 				<div class="listline listline-animation" onclick="window.location.href='/contest/{{contest[0]}}'">
 					<span class="listitem halfwide center"> #{{contest[0]}} </span>
-					<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}"> {{contest[1]}} </a> </span>
+					<span class="listitem fourwide center"> <a href="/contest/{{contest[0]}}"> {{contest[1]}} </a> </span>
 					<span class="listitem sixwide center"> {{contest[2]}} </span>
 					<span class="listitem threewide center smallfont"> {{contest[3]}} </span>
 					<span class="listitem threewide center smallfont"> {{contest[4]}} </span>

@@ -14,6 +14,7 @@ app.add_template_global(sites.modules.Score_Color,'Score_Color')
 app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
+app.add_template_global(sites.modules.Toint,'Toint')
 
 @app.route('/error/<message>')
 def Error(message):
@@ -38,11 +39,7 @@ def Problem(problemid):
 		if not Is_Loggedin():
 			flash('请先登录','error')
 			return sites.problem.Run(int(problemid))
-		runid,message = sites.newsubmit.Submit(int(problemid),request.form,request.cookies['username'])
-		if runid == -1:
-			flash(message,'error')
-			return sites.problem.Run(int(problemid))
-		else: return redirect('/record/%d'%runid)
+		return sites.newsubmit.Submit(int(problemid),request.form)
 @app.route('/problemadd',methods=['GET','POST'])
 def Problemadd():
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
@@ -96,6 +93,21 @@ def Contestadd():
 @app.route('/contest/<int:id>')
 def Contest(id):
 	return sites.contest.Run(id)
+@app.route('/contest/<int:contest_id>/problem/<int:problem_id>',methods=['GET','POST'])
+def Contest_Problem(contest_id,problem_id):
+	if not Is_Loggedin():
+		flash('请先登录','error')
+		return redirect('/contest/%d'%contest_id)
+	if request.method == 'GET':
+		return sites.contest_problem.Run(contest_id,problem_id)
+	else:
+		return sites.contest_problem.Submit(contest_id,problem_id,request.form)
+@app.route('/contest/<int:contest_id>/submissions/my')
+def Contest_Submissions_My(contest_id):
+	if not Is_Loggedin():
+		flash('请先登录','error')
+		return redirect('/contest/%d'%contest_id)
+	return sites.contest_submissions.Submissions_My(contest_id)
 
 @app.route('/status')
 def Status():

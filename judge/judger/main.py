@@ -6,6 +6,10 @@ import compile,run,judge
 import db
 
 cpppath = "../tmp/a.cpp"
+output_limit = 65536
+comp_time_limit = 5000
+comp_memory_limit = 512
+comp_output_limit = 32768
 
 def Redis_Read():
 	global redis_con
@@ -43,19 +47,17 @@ while True:
 	print("\033[46;37mJudging runid:%d\033[0m"%runid)
 
 	try:
-		(problem_id,code,origin) = db.Readrecord(runid)
+		record = db.Read_Record(runid)
+		problem_id, code = record[1], record[2]
 		db.Startjudge(runid)
 		Writecode(code)
-		(time_limit,memory_limit) = db.Readproblem(problem_id)
-		output_limit = 65536
+		problem = db.Read_Problem(problem_id)
+		time_limit, memory_limit = problem[7], problem[8]
 
-		comp_time_limit = 5000
-		comp_memory_limit = 512
-		comp_output_limit = 32768
 		(comp_code,comp_message) = compile.Compile(comp_time_limit,comp_memory_limit,comp_output_limit)
 		if( comp_code != 10 ):
 			db.Report(runid,status=comp_code,comp_message=comp_message)
-			time.sleep(1)
+			time.sleep(0.2)
 			continue
 
 		filepath = "../testdata/%d/" % problem_id
@@ -118,7 +120,7 @@ while True:
 
 		db.Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
-		time.sleep(1)
+		time.sleep(0.3)
 	except Exception as error_message:
 		print("\033[41;37mERROR!\033[0m",error_message)
 		db.Report(runid,system_message=str(error_message))

@@ -1,4 +1,5 @@
 #coding:utf-8
+from flask import *
 import hashlib,re
 
 tostatus = {
@@ -53,3 +54,13 @@ def Email_Hash(s):
 	return hashlib.md5(s.strip().lower().encode('utf-8')).hexdigest()
 def Vaild_Username(username):
 	return re.match(r'[A-Za-z0-9_\-]+',username) != None and re.match(r'[A-Za-z0-9_\-]+',username).span()[1] == len(username)
+
+def Toint(x):
+	return int(x) if int(x)==x else x
+def Is_Loggedin():
+	try:
+		username = request.cookies['username']
+		client_key = request.cookies['client_key']
+		if session.get(username) != client_key: return 0
+		else: return 1
+	except: return 0
