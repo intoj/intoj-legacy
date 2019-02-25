@@ -4,11 +4,14 @@
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<form method="POST">
 		<div class="contitle"> 评测记录R{{record[0]}}
+			{% if record[12] %}  - {{contest[1]}}
+			<button class="button button-rounded button-primary button-small" style="font-size: 15px; margin-left: 40px;" onclick="history.go(-1)"> 返回上一页 </button>
+			{% endif %}
+			<form method="POST" style="display: inline">
 			<button type="submit" class="button button-small button-primary button-square button-rounded" name="rejudge" style="float:right; margin-top: 3px;"> <i class="icon-repeat"></i> </button>
+			</form>
 		</div>
-		</form>
 	</div>
 	<div class="block">
 		<div class="content">
@@ -22,26 +25,7 @@
 					<span class="listitem threewide center"> 提交者 </span>
 				</div>
 				<div class="listline" onselectstart="return false;" id="overview">
-					{% if record[12] == 0 %}
-					<span class="listitem onewide center"> <a href="/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
-					{% else %}
-					<span class="listitem onewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
-					{% endif %}
-					<span class="listitem fivewide center">
-						<span class="judge-{{ record[4] }}" long_or_short="long">
-							<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
-						</span>
-					</span>
-					<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
-					{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
-					<span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>
-					{% else %}
-					<span class="listitem onewide center" id="overview_time_usage"> </span>
-					<span class="listitem onewide center" id="overview_memory_usage"> </span>
-					{% endif %}
-					<span class="listitem threewide center"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
-					<span hidden="true" id="status"> {{record[4]}} </span>
+					{% include 'record_overview.html' %}
 				</div>
 			</div>
 		</div>
@@ -59,48 +43,7 @@
 					<span class="listitem onewide center"> 内存 </span>
 				</div>
 				<div id="subtasks">
-				{% for subtask in subtasks %}
-				<div class="listline listline-animation" onclick="Click({{loop.index}});">
-					<span class="listitem onewide center"> #{{subtask['id']}} </span>
-					<span class="listitem fivewide center">
-						<span class="judge-{{ subtask['status'] }}" long_or_short="long">
-							<i class="icon-{{ statusicon[subtask['status']] }}" aria-hidden="true"></i>
-							{{ tostatus[subtask['status']] }}
-						</span>
-					</span>
-					{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem onewide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
-						{{ Toint(subtask['score']) }}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{subtask['full_score']}}</span>
-					</span>
-					<span class="listitem onewide center"> {{ subtask['time_usage'] }}ms </span>
-					<span class="listitem onewide center"> {{ subtask['memory_usage'] }}M </span>
-					{% else %}
-					<span class="listitem onewide center"> </span>
-					<span class="listitem onewide center"> </span>
-					<span class="listitem onewide center"> </span>
-					{% endif %}
-				</div>
-				{% if record[12] == 0 %}
-				<div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
-					<div class="markdown">
-{% if subtask['checker_message'] != "" %}
-### 比较器信息
-
-```plain
-{{ subtask['checker_message'] }}
-```
-{% endif %}
-{% if subtask['judger_message'] != "" %}
-### 评测器信息
-
-```plain
-{{ subtask['judger_message'] }}
-```
-{% endif %}
-					</div>
-				</div>
-				{% endif %}
-				{% endfor %}
+				{% include 'record_subtasks.html' %}
 				</div>
 			</div>
 		</div>

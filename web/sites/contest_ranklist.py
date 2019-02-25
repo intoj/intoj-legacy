@@ -1,0 +1,35 @@
+from flask import *
+import db,modules
+
+def Run(contest_id):
+	contest = db.Read_Contest(contest_id)
+	if contest == None:
+		flash('不存在的比赛','error')
+		return modules.Page_Back()
+
+	problems = json.loads(contest[8])
+	problems = list(map( lambda x: db.Read_Problem(x['id']) , problems ))
+	problems.sort( key = lambda x: x[0] )
+
+	ranklist = db.Read_Contest_Ranklist(contest_id)
+	if ranklist == None:
+		return render_template('contest_ranklist.html',contest=contest,ranklist=None)
+
+	def Loadjson(x):
+		x = list(x)
+		if x[3] == '':
+			x[3] = { 'score': 0, 'submit_cnt': 0 }
+			return x
+		x[3] = json.loads(x[3])
+		score = submit_cnt = 0
+		for problem_id_str,results in x[3].items():
+			problem_id = int(problem_id_str)
+			score += results['score']
+			submit_cnt += results['submit_cnt']
+		x[3]['score'] = score
+		x[3]['submit_cnt'] = submit_cnt
+		return x
+	ranklist = list(map( Loadjson , ranklist ))
+	ranklist.sort( key = lambda x: (-x[3]['score'],x[3]['submit_cnt']) )
+
+	return render_template('contest_ranklist.html',contest=contest,ranklist=ranklist,problems=problems,full_score=300)

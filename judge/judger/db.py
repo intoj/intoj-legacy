@@ -43,9 +43,21 @@ def Report(runid,status=2,score=0,time_usage=0,memory_usage=0,subtasks={'subtask
 	db.commit()
 	End_Connect()
 
-def CompileError(runid,message):
+def Read_Contest_Player(username,contest_id):
 	Is_Connect()
-	cur.execute("UPDATE records SET status=3 WHERE id=%s",runid)
-	cur.execute("UPDATE records SET compilation=%s WHERE id=%s",(message,runid))
+	cur.execute("SELECT * FROM contest_players WHERE username=%s AND contest_id=%s",(username,contest_id))
+	info = cur.fetchone()
+	End_Connect()
+	if info == None: return {}
+	else: return json.loads(info[3])
+
+def Save_Contest_Player(username,contest_id,info):
+	info = json.dumps(info)
+	Is_Connect()
+	cur.execute("SELECT COUNT(*) FROM contest_players WHERE username=%s AND contest_id=%s",(username,contest_id))
+	if cur.fetchone()[0] == 0:
+		cur.execute("INSERT INTO contest_players VALUES(NULL,%s,%s,%s)",(username,contest_id,info))
+	else:
+		cur.execute("UPDATE contest_players SET detail=%s WHERE username=%s AND contest_id=%s",(info,username,contest_id))
 	db.commit()
 	End_Connect()

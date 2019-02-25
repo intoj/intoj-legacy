@@ -1,9 +1,10 @@
 button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
 	border:none;
 }
-div,p,li,ul,ol,tr,td,input,textarea{
-	font-family: monospace;
+.ui.header, .ui.button, .ui.input input, .ui.menu, .ui.form input:not([type]), .ui.form input[type="date"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="file"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="text"], .ui.form input[type="time"], .ui.form input[type="url"], h1, h2, h3, h4, h5, body{
+	font-family: Lato, -apple-system, 'PingFang SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft Yahei', 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
 	font-size: 16.5px;
+	letter-spacing: 1.1px;
 }
 @keyframes Fade-in{
     0%{ opacity:0; }

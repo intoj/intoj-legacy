@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} 排行榜 - {{contest[1]}} {% endblock %}
+{% block selected_contest %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 排行榜 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="window.location.href='/contest/{{contest[0]}}'"> 返回比赛 </button> </div>
+	</div>
+	<div class="block">
+		<div class="listline">
+			<span class="listitem onewide center"> 排名 </span>
+			<span class="listitem threewide center"> 用户名 </span>
+			{% for problem in problems %}
+			<span class="listitem threewide center"> {{loop.index}}.{{problem[1]}} </span>
+			{% endfor %}
+			<span class="listitem threewide center"> 总分 </span>
+		</div>
+		{% for player in ranklist %}
+		<div class="listline listline-animation" style="height: 60px;">
+			<span class="listitem onewide center"> {{loop.index}} </span>
+			<span class="listitem threewide center"> <a href='/user/{{player[1]}}'> {{player[1]}} </a> </span>
+			{% for problem in problems %}
+				{% set problem_id = problem[0]|string %}
+				{% if problem_id in player[3] %}
+					<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
+						<a href="/record/{{player[3][problem_id]['record_id']}}">
+							<div style="color:{{Score_Color(player[3][problem_id]['score'])}}"> {{player[3][problem_id]['score']}} </div>
+							<div style="font-size: 11px; color: #777; margin-top: 4px;"> {{player[3][problem_id]['submit_cnt']}} </div>
+						</a>
+					</span>
+				{% else %}
+					<span class="listitem threewide center">  </span>
+				{% endif %}
+			{% endfor %}
+			<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
+				<div style="color:{{Score_Color(player[3]['score'],full_score)}}"> {{player[3]['score']}} </div>
+				<div style="font-size: 11px; color: #777; margin-top: 4px;"> {{player[3]['submit_cnt']}} </div>
+			</span>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

@@ -1,4 +1,8 @@
-<span class="listitem onewide center"> <a href="/problem/{{ record[1] }}"> P{{ record[1] }} </a> </span>
+{% if record[12] == 0 %}
+<span class="listitem onewide center"> <a href="/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+{% else %}
+<span class="listitem onewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+{% endif %}
 <span class="listitem fivewide center">
 	<span class="judge-{{ record[4] }}" long_or_short="long">
 		<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}

@@ -119,6 +119,15 @@ while True:
 			db.Report(runid,1,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
 		db.Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
+		if record[12] != 0 and final_status >= 4:
+			contest_player_info = db.Read_Contest_Player(record[11],record[12])
+			submit_cnt = (1 if(str(problem_id) not in contest_player_info) else contest_player_info[str(problem_id)]["submit_cnt"]+1)
+			contest_player_info[str(problem_id)] = {
+				"record_id": runid,
+				"score": tot_score,
+				"submit_cnt": submit_cnt
+			}
+			db.Save_Contest_Player(record[11],record[12],contest_player_info)
 
 		time.sleep(0.3)
 	except Exception as error_message:

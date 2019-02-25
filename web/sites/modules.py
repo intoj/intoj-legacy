@@ -64,3 +64,8 @@ def Is_Loggedin():
 		if session.get(username) != client_key: return 0
 		else: return 1
 	except: return 0
+
+def Referrer():
+	return '/' if request.referrer == None else request.referrer
+def Page_Back():
+	return redirect(Referrer())

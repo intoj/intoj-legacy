@@ -81,9 +81,11 @@ div.contitle.ok{
 }
 div.content{
 	margin: 7px auto;
+	line-height: 30px;
 }
 div.markdown{
-	line-height: 27px;
+	line-height: 30px;
+	letter-spacing: 1.1px;
 }
 div.block{
 	width: 93%;

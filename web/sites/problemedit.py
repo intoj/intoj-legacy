@@ -6,7 +6,7 @@ def Run(id):
 	uproblem = db.Read_Problem(id)
 	if uproblem == None:
 		flash(r'### 题目 P%d 没找着! \n 可能是因为编号不对.'%pid,'error')
-		return redirect('/problemlist')
+		return modules.Page_Back()
 	return render_template("problemedit.html",uproblem=uproblem)
 
 def Change(origin_id,req):

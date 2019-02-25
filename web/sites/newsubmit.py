@@ -9,7 +9,7 @@ def Submit(problemid,req,contest_id=0):
 	code = req['code']
 	if len(code) < 10:
 		flash('这么短真的没问题?','error')
-		return problem.Run(problemid)
+		return modules.Page_Back()
 
 	runid = int(db.Fetchone("SELECT COUNT(*) FROM records;")[0]) + 1
 	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id))

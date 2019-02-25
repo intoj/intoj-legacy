@@ -7,7 +7,7 @@ def Run(username):
 
 	if userdata == None:
 		flash('用户 %s 不存在'%username,'error')
-		return redirect('/')
+		return modules.Page_Back()
 	else:
 		userdata = list(userdata)
 		return render_template('userhome.html',user=userdata)

@@ -38,13 +38,13 @@ def Problem(problemid):
 	else:
 		if not Is_Loggedin():
 			flash('请先登录','error')
-			return sites.problem.Run(int(problemid))
+			return sites.modules.Page_Back()
 		return sites.newsubmit.Submit(int(problemid),request.form)
 @app.route('/problemadd',methods=['GET','POST'])
 def Problemadd():
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
 		flash('无此权限','error')
-		return redirect('/problemlist')
+		return sites.modules.Page_Back()
 	if request.method == 'GET':
 		return sites.problemadd.Run()
 	else:
@@ -57,7 +57,7 @@ def Problemadd():
 def Problemedit(problemid):
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
 		flash('无此权限','error')
-		return redirect('/problem/%d'%problemid)
+		return sites.modules.Page_Back()
 	if request.method == 'GET':
 		return sites.problemedit.Run(problemid)
 	else:
@@ -70,7 +70,7 @@ def Problemedit(problemid):
 def Problemdel(problemid):
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
 		flash('无此权限','error')
-		return redirect('/problem/%d'%problemid)
+		return sites.modules.Page_Back()
 	return sites.problemdel.Deleteproblem(problemid)
 
 @app.route('/contestlist')
@@ -80,7 +80,7 @@ def Contestlist():
 def Contestadd():
 	if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],3):
 		flash('无此权限','error')
-		return redirect('/contestlist')
+		return sites.modules.Page_Back()
 	if request.method == 'GET':
 		return sites.contestadd.Run()
 	else:
@@ -97,7 +97,7 @@ def Contest(id):
 def Contest_Problem(contest_id,problem_id):
 	if not Is_Loggedin():
 		flash('请先登录','error')
-		return redirect('/contest/%d'%contest_id)
+		return sites.modules.Page_Back()
 	if request.method == 'GET':
 		return sites.contest_problem.Run(contest_id,problem_id)
 	else:
@@ -106,9 +106,11 @@ def Contest_Problem(contest_id,problem_id):
 def Contest_Submissions_My(contest_id):
 	if not Is_Loggedin():
 		flash('请先登录','error')
-		return redirect('/contest/%d'%contest_id)
+		return sites.modules.Page_Back()
 	return sites.contest_submissions.Submissions_My(contest_id)
-
+@app.route('/contest/<int:contest_id>/ranklist')
+def Contest_Ranklist(contest_id):
+	return sites.contest_ranklist.Run(contest_id)
 @app.route('/status')
 def Status():
 	return sites.status.Run()
@@ -128,7 +130,7 @@ def Record(runid):
 	else:
 		if not Is_Loggedin() or not sites.db.User_Privilege(request.cookies['username'],2):
 			flash('无此权限','error')
-			return sites.record.Run(runid)
+			return sites.modules.Page_Back()
 		is_success = sites.newsubmit.Rejudge(runid)
 		if not is_success:
 			flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%runid,'error')
@@ -170,17 +172,16 @@ app.add_template_global(Is_Loggedin,'Is_Loggedin')
 @app.route('/logout')
 def Logout():
 	try:
-		resp = Response(render_template('jumpto.html',link='/'))
+		resp = Response(render_template('jumpto.html',link=sites.modules.Referrer()))
 		resp.delete_cookie('username')
 		resp.delete_cookie('client_key')
 		return resp
 	except:
-		return render_template('jumpto.html',link='/')
+		return sites.modules.Page_Back()
 
 @app.route('/register',methods=['GET','POST'])
 def Register():
 	if request.method == 'GET':
-		print(request.cookies)
 		return render_template('register.html')
 	else:
 		is_success,message = sites.register.Register(request.form)
@@ -198,7 +199,7 @@ def Userhome(username):
 def Useredit(username):
 	if not Is_Loggedin() or ( username != request.cookies['username'] and not sites.db.User_Privilege(request.cookies['username'],1) ):
 		flash('没有权限','error')
-		return sites.userhome.Run(username)
+		return sites.modules.Page_Back()
 	if request.method == 'GET':
 		return sites.useredit.Run(username)
 	else:
