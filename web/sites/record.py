@@ -31,7 +31,7 @@ def Refresh(id):
 	subtasks = result['subtasks']
 
 	record_html = render_template("record_overview.html",record=record)
-	subtasks_html = render_template("record_subtasks.html",subtasks=subtasks)
+	subtasks_html = render_template("record_subtasks.html",subtasks=subtasks,record=record)
 
 	ret = {
 		'record': record,

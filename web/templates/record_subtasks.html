@@ -19,6 +19,7 @@
 	<span class="listitem onewide center"> </span>
 	{% endif %}
 </div>
+{% if not record[12] %}
 <div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
 	<div class="markdown">
 {% if subtask['checker_message'] != "" %}
@@ -37,4 +38,5 @@
 {% endif %}
 	</div>
 </div>
+{% endif %}
 {% endfor %}
