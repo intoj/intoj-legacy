@@ -15,6 +15,7 @@ app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 app.add_template_global(sites.modules.Toint,'Toint')
+app.add_template_global(sites.db.User_Privilege,'User_Privilege')
 
 @app.route('/error/<message>')
 def Error(message):
@@ -108,6 +109,9 @@ def Contest_Submissions_My(contest_id):
 		flash('请先登录','error')
 		return sites.modules.Page_Back()
 	return sites.contest_submissions.Submissions_My(contest_id)
+@app.route('/contest/<int:contest_id>/submissions')
+def Contest_Submissions_All(contest_id):
+	return sites.contest_submissions.Submissions_All(contest_id)
 @app.route('/contest/<int:contest_id>/ranklist')
 def Contest_Ranklist(contest_id):
 	return sites.contest_ranklist.Run(contest_id)
@@ -172,12 +176,12 @@ app.add_template_global(Is_Loggedin,'Is_Loggedin')
 @app.route('/logout')
 def Logout():
 	try:
-		resp = Response(render_template('jumpto.html',link=sites.modules.Referrer()))
+		resp = Response(render_template('jumpto.html',link='/'))
 		resp.delete_cookie('username')
 		resp.delete_cookie('client_key')
 		return resp
 	except:
-		return sites.modules.Page_Back()
+		return redirect('/')
 
 @app.route('/register',methods=['GET','POST'])
 def Register():

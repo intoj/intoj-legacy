@@ -1,16 +1,5 @@
 function Resize(){
 	wid = document.body.clientWidth
-	a = document.getElementsByClassName("container")
-	for( var i = 0 ; i < a.length ; i++ ){
-		if( wid < 1100 ) a[i].style.width = "100%"
-		else a[i].style.width = "1100px"
-	}
-
-	a = document.getElementsByClassName("main")
-	for( var i = 0 ; i < a.length ; i++ ){
-		if( wid < 1200 ) a[i].style.width = "95%"
-		else a[i].style.width = "100%"
-	}
 
 	a = document.getElementsByClassName("topbarword")
 	for( var i = 0 ; i < a.length ; i++ ){

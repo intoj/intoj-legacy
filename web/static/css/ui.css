@@ -4,7 +4,7 @@ body{
 	background-position: left top;
 	background-size: cover;
 	margin: 0;
-	animation: Fade-in 0.4s ease 0s 1;
+	/* animation: Fade-in 0.1s ease 0s 1; */
 	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
 }
 /**************** topbar ****************/
@@ -33,10 +33,10 @@ span.topbaritem,span.topbaritem-noanimation{
 	align-items: center;
 }
 span.topbaritem.selected{
-	background-color: #ccccccee;
+	background-color: #cccccc;
 }
 span.topbaritem:hover{
-	background-color: #dadadaee;
+	background-color: #dadada;
 	cursor: pointer;
 }
 div.topbarindex{
@@ -45,11 +45,13 @@ div.topbarindex{
 
 /**************** ui ****************/
 div.ui{
-	background-color: #ffffffee;
+	background-color: #f1f1f1;
+	background-color: #ffffffee !important;
 	border-radius: 2px;
 }
 div.container{
-	width: 1100px;
+	max-width: 1100px;
+	width: 100%;
 	margin: calc(50px + 20px) auto 0px auto;
 }
 div.main, div.main-noflex{
@@ -57,7 +59,7 @@ div.main, div.main-noflex{
 	padding-top: 10px;
 	padding-bottom: 5px;
 	height: calc(100% - 50px);
-	width: 90%;
+	width: 100%;
 }
 div.title{
 	margin: auto;
@@ -91,6 +93,7 @@ div.block{
 	width: 93%;
 	margin: 20px auto;
 	padding: 5px 20px;
+	background-color: #ededed;
 	background-color: #e8e8e899;
 	border-radius: 6px;
 }

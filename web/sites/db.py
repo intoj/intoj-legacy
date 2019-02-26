@@ -3,6 +3,19 @@ import pymysql
 
 db_password = '24'
 
+def Generate_Limitation(limitation,allowed=[]):
+	answer = ''
+	arg = []
+	for key,value in limitation.items():
+		if value == None or key not in allowed: continue
+		if answer != '': answer += " AND "
+		operator = '=' if allowed[key][0] == 'eq' else '>=' if allowed[key][0] == 'ge' else '<='
+		answer += '%s%s%%s' % (allowed[key][1],operator)
+		arg.append(value)
+	if answer != '':
+		answer = 'WHERE ' + answer
+	return answer,arg
+
 def Is_Connect():
 	db = pymysql.connect("localhost","intlsy",db_password,"intoj")
 	cur = db.cursor()
@@ -23,6 +36,27 @@ def Read_Problemlist(order='id'):
 	problemlist = cur.fetchall()
 	End_Connect(db,cur)
 	return problemlist
+def Read_Submissions(limitation=None):
+	allowed = {
+		'id': ('eq','id'),
+		'problem_id': ('eq','problem_id'),
+		'language': ('eq','language'),
+		'status': ('eq','status'),
+		'min_score': ('ge','score'),
+		'max_score': ('le','score'),
+		'username': ('eq','username'),
+		'contest_id': ('eq','contest_id')
+	}
+	db,cur = Is_Connect()
+	if limitation != None:
+		lim,arg = Generate_Limitation(limitation,allowed)
+		cmd = "SELECT * FROM records %s ORDER BY id DESC" % lim
+		cur.execute(cmd,arg)
+	else:
+		cur.execute("SELECT * FROM records ORDER BY id DESC")
+	submissions = cur.fetchall()
+	End_Connect(db,cur)
+	return submissions
 
 def Read_Contest(id):
 	db,cur = Is_Connect()
@@ -36,15 +70,6 @@ def Read_Contestlist():
 	contestlist = cur.fetchall()
 	End_Connect(db,cur)
 	return contestlist
-def Read_Contest_Submissions(contest_id,username=None):
-	db,cur = Is_Connect()
-	if username == None:
-		cur.execute("SELECT * FROM records WHERE contest_id=%s ORDER BY id DESC",contest_id)
-	else:
-		cur.execute("SELECT * FROM records WHERE contest_id=%s AND username=%s ORDER BY id DESC",(contest_id,username))
-	submissions = cur.fetchall()
-	End_Connect(db,cur)
-	return submissions
 def Read_Contest_Ranklist(contest_id):
 	db,cur = Is_Connect()
 	cur.execute("SELECT * FROM contest_players WHERE contest_id=%s",contest_id)
@@ -59,19 +84,13 @@ def Read_Record(id):
 	urecord = cur.fetchone()
 	End_Connect(db,cur)
 	return urecord
-def Read_Recordlist():
-	db,cur = Is_Connect()
-	cur.execute("SELECT * FROM records ORDER BY id DESC")
-	recordlist = cur.fetchall()
-	End_Connect(db,cur)
-	return recordlist
 
 def Read_User_Byname(username):
 	db,cur = Is_Connect()
 	cur.execute("SELECT * FROM users WHERE username=%s;",username)
-	uuser = cur.fetchone()
+	user = cur.fetchone()
 	End_Connect(db,cur)
-	return uuser
+	return user
 
 def Execute(cmd,arg=None):
 	db,cur = Is_Connect()
@@ -89,6 +108,7 @@ def Fetchone(cmd,arg=None):
 	return ret
 
 def User_Privilege(username,privilege_id):
+	if username == None: return 0
 	user = Read_User_Byname(username)
 	if user == None: return 0
 	if user[7]: return 1

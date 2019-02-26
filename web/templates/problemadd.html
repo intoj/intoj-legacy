@@ -10,7 +10,8 @@
 		<div class="content">
 			<form method="POST">
 				<div class="contitle" style="display:inline"> 题目编号 </div> <input type="number" name="id" class="numberinput" style="width: 230px;" autofocus placeholder="留空以自动判断"> <br/>
-				<div class="contitle" style="display:inline"> 题目标题 </div> <input type="text" name="title" class="titleinput" required>
+				<div class="contitle" style="display:inline"> 题目标题 </div> <input type="text" name="title" class="titleinput" required> <br />
+				<input type="checkbox" name="is_public"> 是否公开
 				<div class="contitle"> 时空限制 </div>
 				时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required> ms <br />
 				空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required> MB <br />

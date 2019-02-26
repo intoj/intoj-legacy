@@ -3,8 +3,7 @@ from flask import *
 import db,modules
 
 def Run(username):
-	userdata = db.Fetchone("SELECT * FROM users WHERE username=%s;",username)
-
+	userdata = db.Read_User_Byname(username)
 	if userdata == None:
 		flash('用户 %s 不存在'%username,'error')
 		return modules.Page_Back()

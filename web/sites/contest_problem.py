@@ -25,4 +25,11 @@ def Run(contest_id,problem_id):
 def Submit(contest_id,problem_id,req):
 	is_exist,ret = Is_Exist(contest_id,problem_id)
 	if not is_exist: return ret
+
+	contest = ret[1]
+	end_time = datetime.datetime.strptime(contest[4],'%Y-%m-%d %H:%M:%S')
+	if end_time < datetime.datetime.now():
+		flash('比赛已经结束','error')
+		return modules.Page_Back()
+
 	return newsubmit.Submit(problem_id,req,contest_id)

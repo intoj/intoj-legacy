@@ -22,13 +22,15 @@
 					<span class="listitem threewide center"> 结束时间 </span>
 				</div>
 				{% for contest in contestlist %}
-				<div class="listline listline-animation" onclick="window.location.href='/contest/{{contest[0]}}'">
-					<span class="listitem halfwide center"> #{{contest[0]}} </span>
-					<span class="listitem fourwide center"> <a href="/contest/{{contest[0]}}"> {{contest[1]}} </a> </span>
-					<span class="listitem sixwide center"> {{contest[2]}} </span>
-					<span class="listitem threewide center smallfont"> {{contest[3]}} </span>
-					<span class="listitem threewide center smallfont"> {{contest[4]}} </span>
-				</div>
+				<a href="/contest/{{contest[0]}}">
+					<div class="listline listline-animation">
+						<span class="listitem halfwide center" style="color: initial"> #{{contest[0]}} </span>
+						<span class="listitem fourwide center"> {{contest[1]}} </span>
+						<span class="listitem sixwide center" style="color: initial"> {{contest[2]}} </span>
+						<span class="listitem threewide center smallfont" style="color: initial"> {{contest[3]}} </span>
+						<span class="listitem threewide center smallfont" style="color: initial"> {{contest[4]}} </span>
+					</div>
+				</a>
 				{% endfor %}
 			</div>
 		</div>

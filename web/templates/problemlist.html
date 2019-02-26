@@ -18,11 +18,19 @@
 					<span class="listitem twowide center"> 编号 </span>
 					<span class="listitem fivewide"> 题目名称 </span>
 				</div>
-				{% for problem in problemlist if problem[9]%}
-				<div class="listline listline-animation" onclick="window.location.href='/problem/{{problem[0]}}'">
-					<span class="listitem twowide center"> #{{problem[0]}} </span>
-					<span class="listitem fivewide"> <a href="/problem/{{problem[0]}}"> {{problem[1]}} </a> </span>
-				</div>
+				{% set Can_View_Hidden = User_Privilege(request.cookies.get('username'),2) %}
+				{% for problem in problemlist if problem[9] or Can_View_Hidden %}
+				<a href="/problem/{{problem[0]}}">
+					<div class="listline listline-animation">
+					<span class="listitem twowide center" style="color: initial"> #{{problem[0]}} </span>
+					<span class="listitem fivewide">
+						{{problem[1]}}
+						{% if problem[9] != 1 %}
+							<span style="font-size: 12px; color: #000" class="tag"> 未公开 </span>
+						{% endif %}
+					</span>
+					</div>
+				</a>
 				{% endfor %}
 			</div>
 		</div>
