@@ -4,10 +4,12 @@
 {% block body %}
 <div class="ui main">
 	<div class="block-mini-box">
-		<div class="block-mini" style="width: 66%;" onclick="window.location.href='/contest/{{contest[0]}}'">
-			<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
-			<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
-		</div>
+		<a href="/contest/{{contest[0]}}" class="uncolored" style="width: 69%;">
+			<div class="block-mini">
+				<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
+				<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
+			</div>
+		</a>
 		<div class="block-mini" style="width: 25%;">
 			<div class="content"> 开始于 {{contest[3]}} </div>
 			<div class="content"> 结束于 {{contest[4]}} </div>
@@ -15,8 +17,15 @@
 	</div>
 	<div class="title"> {{problem[1]}}</div>
 	<div class="block tagsblock">
-		<span class="content tag tag-timelimit">时间限制:{{- problem[7] -}}ms</span>
-		<span class="content tag tag-memorylimit">空间限制:{{- problem[8] -}}M</span>
+		<div class="button-group">
+			<a href="#submit_code">
+				<button class="button button-primary button-rounded button-small" style="font-size: 17px; font-weight: 500;"> 提交 </button>
+			</a>
+		</div>
+		<div style="float: right">
+			<span class="content tag tag-timelimit">时间限制:{{- problem[7] -}}ms</span>
+			<span class="content tag tag-memorylimit">空间限制:{{- problem[8] -}}M</span>
+		</div>
 	</div>
 	{% if problem[2] != '' %}
 	<div class="block" style="margin-top: 10px;">
@@ -58,7 +67,7 @@
 		</div>
 	</div>
 	{% endif %}
-	<div class="block">
+	<div class="block" id="submit_code">
 		<div class="contitle"> 提交代码 </div>
 		<div class="content">
 			<form method="POST">

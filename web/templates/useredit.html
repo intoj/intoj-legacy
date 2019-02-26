@@ -18,12 +18,10 @@
 				<input type="email" name="email" class="titleinput" required value="{{user[4]}}">
 			</div>
 			<div class="contitle"> 性别 </div>
-			<div class="content markdown">
-{% if user[5] == 0 %} 男
-{% elif user[5] == 1 %} 女
-{% else %} 其他
-{% endif %}
-* 暂时改不了
+			<div class="content">
+				<input type="radio" name="sex" value="0" {% if user[5] == 0 %} checked {% endif %}> ♂ <br />
+				<input type="radio" name="sex" value="1" {% if user[5] == 1 %} checked {% endif %}> ♀ <br />
+				<input type="radio" name="sex" value="2" {% if user[5] not in [0,1] %} checked {% endif %}> Unknown <br />
 			</div>
 		</div>
 	</div>

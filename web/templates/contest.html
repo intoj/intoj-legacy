@@ -20,10 +20,12 @@
 	<div class="block-mini-box">
 		<div class="block-mini" style="width: 35%; padding: 15px 0px; display: flex; flex-direction: column; justify-content: center;">
 			{% for problem in problems %}
-			<div class="listline listline-animation" style="width: 100%; justify-content: center; margin: 5px auto;" onclick="window.location.href='/contest/{{contest[0]}}/problem/{{problem[0]}}'">
-				<span class="listitem center " style="width: 20%"> #{{loop.index}} </span>
-				<span class="listitem center" style="width: 60%"> {{problem[1]}} </span>
-			</div>
+			<a href="/contest/{{contest[0]}}/problem/{{problem[0]}}" class="uncolored">
+				<div class="listline listline-animation" style="width: 100%; justify-content: center; margin: 5px auto;">
+					<span class="listitem center " style="width: 20%"> #{{loop.index}} </span>
+					<span class="listitem center" style="width: 60%"> {{problem[1]}} </span>
+				</div>
+			</a>
 			{% endfor %}
 		</div>
 		<div class="block-mini" style="width: 60%">
@@ -37,8 +39,9 @@
 	</div>
 	<div class="block-mini-box">
 		<div class="button-group">
-			<button type="button" class="button button-primary button-rounded" style="font-size: 17px" onclick="window.location.href='/contest/{{contest[0]}}/submissions/my'"> 我的提交 </button>
-			<button type="button" class="button button-primary button-rounded" style="font-size: 17px" onclick="window.location.href='/contest/{{contest[0]}}/ranklist'"> 排行榜 </button>
+			<a href="/contest/{{contest[0]}}/submissions/my" class="button button-primary button-rounded" > 我的提交 </a>
+			<a href="/contest/{{contest[0]}}/submissions" class="button button-primary button-rounded"> 所有提交 </a>
+			<a href="/contest/{{contest[0]}}/ranklist" class="button button-primary button-rounded"> 排行榜 </a>
 		</div>
 	</div>
 </div>

@@ -9,6 +9,7 @@ def Run(contest_id):
 
 	problems = json.loads(contest[8])
 	problems = list(map( lambda x: db.Read_Problem(x['id']) , problems ))
+	# print(problems)
 	problems.sort( key = lambda x: x[0] )
 
 	ranklist = db.Read_Contest_Ranklist(contest_id)
@@ -32,4 +33,10 @@ def Run(contest_id):
 	ranklist = list(map( Loadjson , ranklist ))
 	ranklist.sort( key = lambda x: (-x[3]['score'],x[3]['submit_cnt']) )
 
+	length = len(ranklist)
+	for i in range(length):
+		if i != 0 and ranklist[i][3]['score'] == ranklist[i-1][3]['score'] and ranklist[i][3]['submit_cnt'] == ranklist[i-1][3]['submit_cnt']:
+			ranklist[i][3]['rank'] = ranklist[i-1][3]['rank']
+		else:
+			ranklist[i][3]['rank'] = i+1
 	return render_template('contest_ranklist.html',contest=contest,ranklist=ranklist,problems=problems,full_score=300)

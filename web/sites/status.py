@@ -3,5 +3,5 @@ from flask import *
 import db,modules
 
 def Run():
-	statuslist = list(db.Read_Recordlist())
+	statuslist = db.Read_Submissions(request.args)
 	return render_template('status.html',statuslist=statuslist)

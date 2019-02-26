@@ -13,7 +13,7 @@ def Run(id):
 		end_time = datetime.datetime.strptime(db.Read_Contest(record[12])[4],'%Y-%m-%d %H:%M:%S')
 		now_time = datetime.datetime.now()
 		if now_time < end_time:
-			if not modules.Is_Loggedin() or request.cookies['username'] != record[11]:
+			if not modules.Is_Loggedin() or ( request.cookies['username'] != record[11] and not db.User_Privilege(request.cookies['username'],3) ):
 				flash('这是比赛时的提交, 您无权查看','error')
 				return modules.Page_Back()
 

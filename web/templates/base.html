@@ -15,8 +15,13 @@
 	<script src="/static/modules/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 
-	<script type="text/javascript" async src="/static/modules/Mathjax/MathJax.js?config=default"></script>
-	<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+		onload="renderMathInElement(document.body,{delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]})"></script>
+	<script>
+
+	</script>
 
 	<script src="/static/modules/marked/marked.min.js"></script>
 	<script src="/static/markedinit.js"> </script>
@@ -46,6 +51,10 @@
 	<link rel="stylesheet" href="/static/modules/messager/build/css/messenger-theme-air.css"/>
 	<link rel="stylesheet" href="/static/modules/messager/build/css/messenger-theme-flat.css"/>
 
+	<link href="http://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
+	<script src="http://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
+	<script src="/static/modules/icheck/icheck_init.js"></script>
+
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
 	<script src="/static/expand.js"> </script>
@@ -54,36 +63,46 @@
 	<script src="/static/messager.js"> </script>
 	<script src="/static/record_ajax.js"> </script>
 </head>
-<body onresize="Resize();" onload="Render();Resize();Cannotselect();">
+<body onresize="Resize();" onload="Render();Resize();Cannotselect();Icheck_Init()">
 	<script> Messagerinit(); </script>
 	<div class="ui topbar">
 		<div class="topbar-container" style="margin: 0px auto;">
-			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"/> </span> </a>
-			<span class="topbaritem onewidth {% block selected_home %}{% endblock %}" onclick="window.location.href='/'" style="flex: 2;">
-				<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
-					<span class="topbarword"> 首页 </span>
-				</div>
-			</span>
-			<span class="topbaritem onewidth {% block selected_problem %}{% endblock %}" onclick="window.location.href='/problemlist'" style="flex: 2;">
-				<div class="topbarindex"> <i class="icon-list" aria-hidden="true"></i>
-					<span class="topbarword"> 题目 </span>
-				</div>
-			</span>
-			<span class="topbaritem onewidth {% block selected_contest %}{% endblock %}" onclick="window.location.href='/contestlist'" style="flex: 2;">
-				<div class="topbarindex"> <i class="icon-fire" aria-hidden="true"></i>
-					<span class="topbarword"> 比赛 </span>
-				</div>
-			</span>
-			<span class="topbaritem onewidth {% block selected_status %}{% endblock %}" onclick="window.location.href='/status'" style="flex: 2;">
-				<div class="topbarindex"> <i class="icon-tasks" aria-hidden="true"></i>
-					<span class="topbarword"> 评测 </span>
-				</div>
-			</span>
-			<span class="topbaritem onewidth {% block selected_help %}{% endblock %}" onclick="window.location.href='/help'" style="flex: 2;">
-				<div class="topbarindex"> <i class="icon-question-sign" aria-hidden="true"></i>
-					<span class="topbarword"> 帮助 </span>
-				</div>
-			</span>
+			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"> </img> </span> </a>
+			<a href="/" style="flex: 2;" class="uncolored">
+				<span class="topbaritem onewidth {% block selected_home %}{% endblock %}">
+					<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
+						<span class="topbarword"> 首页 </span>
+					</div>
+				</span>
+			</a>
+			<a href="/problemlist" style="flex: 2;" class="uncolored">
+				<span class="topbaritem onewidth {% block selected_problem %}{% endblock %}">
+					<div class="topbarindex"> <i class="icon-list" aria-hidden="true"></i>
+						<span class="topbarword"> 题目 </span>
+					</div>
+				</span>
+			</a>
+			<a href="/contestlist" style="flex: 2;" class="uncolored">
+				<span class="topbaritem onewidth {% block selected_contest %}{% endblock %}">
+					<div class="topbarindex"> <i class="icon-fire" aria-hidden="true"></i>
+						<span class="topbarword"> 比赛 </span>
+					</div>
+				</span>
+			</a>
+			<a href="/status" style="flex: 2;" class="uncolored">
+				<span class="topbaritem onewidth {% block selected_status %}{% endblock %}">
+					<div class="topbarindex"> <i class="icon-tasks" aria-hidden="true"></i>
+						<span class="topbarword"> 评测 </span>
+					</div>
+				</span>
+			</a>
+			<a href="/help" style="flex: 2;" class="uncolored">
+				<span class="topbaritem onewidth {% block selected_help %}{% endblock %}">
+					<div class="topbarindex"> <i class="icon-question-sign" aria-hidden="true"></i>
+						<span class="topbarword"> 帮助 </span>
+					</div>
+				</span>
+			</a>
 			<span class="topbaritem-noanimation onewidth" style="flex: 2;">
 			</span>
 			{% if Is_Loggedin() %}
@@ -97,6 +116,7 @@
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
 								&nbsp; <i class="icon-home"></i> &nbsp;个人中心
 						</div>
+						</a>
 						<a class="uncolored" href="/user/{{request.cookies['username']}}/edit">
 						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
 								&nbsp; <i class="icon-edit"></i> &nbsp;编辑资料
@@ -112,14 +132,18 @@
 			</span>
 			{% else %}
 			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
-				<button class="button button-small button-primary button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;" onclick="window.location.href='/login'">
-					登录
-				</button>
+				<a href="/login" class="uncolored">
+					<button class="button button-small button-primary button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;">
+						登录
+					</button>
+				</a>
 			</span>
 			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
-				<button class="button button-small button-highlight button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;" onclick="window.location.href='/register'">
-					注册
-				</button>
+				<a href="/register" class="uncolored">
+					<button class="button button-small button-highlight button-rounded button-border" style="border-width:1px; width: 70px; padding: 0px 10px; font-size: 16px;">
+						注册
+					</button>
+				</a>
 			</span>
 			{% endif %}
 		</div>

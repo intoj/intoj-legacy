@@ -25,9 +25,9 @@ a{
 	transition: all 0.2s;
 }
 a:hover{ color: #FF0000; }
-a.problemlink:hover{ color: #FF0000; }
 a:focus{ outline:0; }
 a.uncolored{ color: inherit; }
+a.full{ width: 100%; display: block; }
 p code{
 	margin: auto 2px;
 	background-color: #00000014;
@@ -52,14 +52,16 @@ p code{
 .tag{
 	background-color: #cfcfcf;
 	font-size: 15px;
-	padding: 3px 8px;
+	padding: 1px 8px;
 	margin-right: 7px;
-	border-radius: 8px;
-	position: relative;
-	top: 2px;
+	border-radius: 5px;
+}
+.tag-red{
+	background-color: #ee3333 !important;
+	color: #fff !important;
 }
 div.tagsblock{
-	padding: 0px 20px !important;
+	padding: 0px 0px !important;
 	height: 30px;
 	margin-top: 0px;
 	margin-bottom: 10px;

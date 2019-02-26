@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-{% block title %} 我的提交 - {{contest[1]}} {% endblock %}
+{% if my %} {% set name="我的" %} {% else %} {% set name="所有" %} {% endif %}
+{% block title %} {{name}}提交 - {{contest[1]}} {% endblock %}
 {% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 我的提交 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="window.location.href='/contest/{{contest[0]}}'"> 返回比赛 </button> </div>
+		<div class="contitle"> {{name}}提交 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 		<div class="content">
 			<div class="list">
 				<div class="listline">
@@ -17,23 +18,27 @@
 					<span class="listitem threewide center"> 提交者 </span>
 				</div>
 				{% for status in statuslist %}
-				<div class="listline listline-animation" onclick="window.location.href='/record/{{ status[0] }}'">
-					<span class="listitem onewide center"> <a href="/record/{{ status[0] }}"> R{{ status[0] }} </a> </span>
-					<span class="listitem onewide center"> <a href="/contest/{{status[12]}}/problem/{{status[1]}}"> P{{ status[1] }} </a> </span>
+				<div class="listline listline-animation">
+					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> R{{status[0]}} </a> </span>
+					<span class="listitem onewide center"> <a href="/contest/{{status[12]}}/problem/{{status[1]}}"> P{{status[1]}} </a> </span>
 					<span class="listitem fivewide center">
-						<span class="judge-{{ status[4] }}" long_or_short="long">
-							<i class="icon-{{ statusicon[status[4]] }}" aria-hidden="true"></i>  {{ tostatus[status[4]] }}
-						</span>
+						<a href="/record/{{status[0]}}" class="uncolored full">
+							<span class="judge-{{status[4]}}" long_or_short="long">
+								<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>  {{tostatus[status[4]]}}
+							</span>
+						</a>
 					</span>
-					<span class="listitem twowide center" style="color:{{Score_Color(status[5])}}"> {{ Toint(status[5]) }} </span>
+					<span class="listitem twowide center" style="color:{{Score_Color(status[5])}};">
+						<a href="/record/{{status[0]}}" class="uncolored full"> {{Toint(status[5])}} </a>
+					</span>
 					{% if tostatus[status[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem twowide center"> {{ status[8] }}ms </span>
-					<span class="listitem twowide center"> {{ status[9] }}M </span>
+					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full"> {{ status[8] }}ms </a> </span>
+					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full"> {{ status[9] }}M </a> </span>
 					{% else %}
-					<span class="listitem twowide center">  </span>
-					<span class="listitem twowide center">  </span>
+					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
+					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
 					{% endif %}
-					<span class="listitem threewide center"> <a href="/user/{{ status[11] }}"> {{ status[11] }} </a> </span>
+					<span class="listitem threewide center"> <a href="/user/{{status[11]}}"> {{ status[11] }} </a> </span>
 				</div>
 				{% endfor %}
 			</div>

@@ -11,4 +11,4 @@ def Run(id):
 		if not modules.Is_Loggedin() or not db.User_Privilege(request.cookies['username'],2):
 			flash('无此权限','error')
 			return modules.Page_Back()
-	return render_template('problem.html',uproblem=problem)
+	return render_template('problem.html',problem=problem)
