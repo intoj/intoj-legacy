@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} 评测记录R{{record[0]}} {% endblock %}
+{% block title %} 评测记录 #{{record[0]}} {% endblock %}
 {% block selected_status %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 评测记录R{{record[0]}}
+		<div class="contitle"> 评测记录 #{{record[0]}}
 			{% if record[12] %}  - {{contest[1]}}
 			<button class="button button-rounded button-primary button-small" style="font-size: 15px; margin-left: 40px;" onclick="history.go(-1)"> 返回上一页 </button>
 			{% endif %}
@@ -17,12 +17,14 @@
 		<div class="content">
 			<div class="list">
 				<div class="listline">
-					<span class="listitem onewide center"> 题目 </span>
-					<span class="listitem fivewide center"> 状态 </span>
-					<span class="listitem onewide center"> 得分 </span>
+					<span class="listitem onewide center"> 编号 </span>
+					<span class="listitem threewide center"> 题目 </span>
+					<span class="listitem fourwide center"> 状态 </span>
+					<span class="listitem twowide center"> 得分 </span>
 					<span class="listitem onewide center"> 时间 </span>
 					<span class="listitem onewide center"> 内存 </span>
-					<span class="listitem threewide center"> 提交者 </span>
+					<span class="listitem center" style="width: 12%"> 提交者 </span>
+					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
 				<div class="listline" onselectstart="return false;" id="overview">
 					{% include 'record_overview.html' %}
@@ -37,10 +39,10 @@
 			<div class="list">
 				<div class="listline">
 					<span class="listitem onewide center"> 编号 </span>
-					<span class="listitem fivewide center"> 状态 </span>
-					<span class="listitem onewide center"> 得分 </span>
-					<span class="listitem onewide center"> 时间 </span>
-					<span class="listitem onewide center"> 内存 </span>
+					<span class="listitem sixwide center"> 状态 </span>
+					<span class="listitem twowide center"> 得分 </span>
+					<span class="listitem twowide center"> 时间 </span>
+					<span class="listitem twowide center"> 内存 </span>
 				</div>
 				<div id="subtasks">
 				{% include 'record_subtasks.html' %}

@@ -1,20 +1,22 @@
+<span class="listitem onewide center"> #{{record[0]}} </span>
 {% if record[12] == 0 %}
-<span class="listitem onewide center"> <a href="/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+<span class="listitem threewide center"> <a href="/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
 {% else %}
-<span class="listitem onewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> P{{ record[1] }} </a> </span>
+<span class="listitem threewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
 {% endif %}
-<span class="listitem fivewide center">
+<span class="listitem fourwide center">
 	<span class="judge-{{ record[4] }}" long_or_short="long">
 		<i class="icon-{{ statusicon[record[4]] }}" aria-hidden="true"></i>  {{ tostatus[record[4]] }}
 	</span>
 </span>
-<span class="listitem onewide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
+<span class="listitem twowide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
 {% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-<span class="listitem onewide center" id="overview_time_usage"> {{ record[8] }}ms </span>
-<span class="listitem onewide center" id="overview_memory_usage"> {{ record[9] }}M </span>
+<span class="listitem onewide center smallfont" id="overview_time_usage"> {{record[8]}} ms </span>
+<span class="listitem onewide center smallfont" id="overview_memory_usage"> {{record[9]}} M </span>
 {% else %}
-<span class="listitem onewide center" id="overview_time_usage"> </span>
-<span class="listitem onewide center" id="overview_memory_usage"> </span>
+<span class="listitem onewide center smallfont" id="overview_time_usage"> </span>
+<span class="listitem onewide center smallfont" id="overview_memory_usage"> </span>
 {% endif %}
-<span class="listitem threewide center"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
+<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
+<span class="listitem center smallfont" style="width: 15%"> {{record[13]}} </span>
 <span hidden="true" id="status"> {{record[4]}} </span>

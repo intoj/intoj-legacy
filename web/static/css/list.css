@@ -24,4 +24,4 @@ span.listitem.fourwide{ width: 25%; }
 span.listitem.fivewide{ width: 30%; }
 span.listitem.sixwide{ width: 35%; }
 span.listitem.center{ text-align: center; }
-span.smallfont{ font-size: 14px; /*font-weight: bold;*/ }
+.smallfont{ font-size: 14px !important; /*font-weight: bold;*/ }

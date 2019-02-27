@@ -29,6 +29,9 @@ input.numberinput{
 	margin: 5px 10px;
 	width: 100px;
 }
+input.shortinput{
+	width: 40px;
+}
 button.submitbutton{
 	width: 200px;
 	font-size: 19px;

@@ -18,9 +18,15 @@
 		{% for player in ranklist %}
 		<div class="listline listline-animation" style="height: 60px;">
 			<span class="listitem onewide center">
+				{#
 				{% if player[3]['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> Au </span> {% else %}
 				{% if player[3]['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> Ag </span> {% else %}
 				{% if player[3]['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> Cu </span> {% else %}
+				{{player[3]['rank']}} {% endif %} {% endif %} {% endif %}
+				#}
+				{% if player[3]['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> UR </span> {% else %}
+				{% if player[3]['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> SSR </span> {% else %}
+				{% if player[3]['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> SR </span> {% else %}
 				{{player[3]['rank']}} {% endif %} {% endif %} {% endif %}
 			</span>
 			<span class="listitem threewide center"> <a href='/user/{{player[1]}}'> {{player[1]}} </a> </span>

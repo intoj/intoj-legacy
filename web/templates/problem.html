@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} P{{problem[0]}}. {{problem[1]}} {% endblock %}
+{% block title %} #{{problem[0]}}. {{problem[1]}} {% endblock %}
 {% block selected_problem %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
-	<div class="title"> P{{problem[0]}}. {{problem[1]}}</div>
+	<div class="title"> #{{problem[0]}}. {{problem[1]}}</div>
 	<div class="block tagsblock">
 		<span class="content tag"> 时间限制:{{- problem[7] -}}ms </span>
 		<span class="content tag"> 空间限制:{{- problem[8] -}}M </span>

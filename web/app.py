@@ -16,6 +16,7 @@ app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 app.add_template_global(sites.modules.Toint,'Toint')
 app.add_template_global(sites.db.User_Privilege,'User_Privilege')
+app.add_template_global(sites.db.Read_Problem,'Read_Problem')
 
 @app.route('/error/<message>')
 def Error(message):

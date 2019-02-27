@@ -1,6 +1,6 @@
 #coding:utf-8
 from flask import *
-import pymysql,redis
+import pymysql,redis,datetime
 import db,modules,problem
 
 #包含rejudge
@@ -12,7 +12,8 @@ def Submit(problemid,req,contest_id=0):
 		return modules.Page_Back()
 
 	runid = int(db.Fetchone("SELECT COUNT(*) FROM records;")[0]) + 1
-	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id))
+	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id,nowtime))
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))

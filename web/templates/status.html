@@ -7,20 +7,46 @@
 		<div class="contitle"> 实时评测记录 </div>
 		<div class="content">
 			<div class="list">
+				<form method="GET">
+					<div class="listline">
+						<span class="listitem twowide center">
+							题目id: <input class="shortinput" type="text" name="problem_id" value="{% if 'problem_id' in request.args %}{{request.args.get('problem_id')}}{% endif %}"> </input>
+						</span>
+						<span class="listitem twowide center">
+							语言: <input class="shortinput" type="text" name="language" value="{% if 'language' in request.args %}{{request.args.get('language')}}{% endif %}"> </input>
+						</span>
+						<span class="listitem fourwide center">
+							状态: <select name="status">
+								<option value="0">
+									<div class="listline listline-animation">
+										<span class="listitem center" style="width: 20%">
+											<i class="icon-{{statusicon[0]}}" aria-hidden="true"> </i>
+										</span>
+										<span class="listitem center" style="width: 80%">
+											Waiting
+										</span>
+									</div>
+								</option>
+							</select>
+						</span>
+						<button type="submit"> 查询 </button>
+					</div>
+				</form>
 				<div class="listline">
 					<span class="listitem onewide center"> 编号 </span>
-					<span class="listitem onewide center"> 题目 </span>
-					<span class="listitem fivewide center"> 状态 </span>
+					<span class="listitem threewide center"> 题目 </span>
+					<span class="listitem fourwide center"> 状态 </span>
 					<span class="listitem twowide center"> 得分 </span>
-					<span class="listitem twowide center"> 时间 </span>
-					<span class="listitem twowide center"> 内存 </span>
-					<span class="listitem threewide center"> 提交者 </span>
+					<span class="listitem onewide center"> 时间 </span>
+					<span class="listitem onewide center"> 内存 </span>
+					<span class="listitem center" style="width: 12%"> 提交者 </span>
+					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
 				{% for status in statuslist if not status[12]%}
 				<div class="listline listline-animation">
-					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> R{{status[0]}} </a> </span>
-					<span class="listitem onewide center"> <a href="/problem/{{status[1]}}"> P{{status[1]}} </a> </span>
-					<span class="listitem fivewide center">
+					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> #{{status[0]}} </a> </span>
+					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
+					<span class="listitem fourwide center">
 						<a href="/record/{{status[0]}}" class="uncolored full">
 							<span class="judge-{{status[4]}}" long_or_short="long">
 								<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>  {{tostatus[status[4]]}}
@@ -29,13 +55,14 @@
 					</span>
 					<span class="listitem twowide center" style="color:{{Score_Color(status[5])}}"> <a href="/record/{{status[0]}}" class="uncolored full"> {{Toint(status[5])}} </a> </span>
 					{% if tostatus[status[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[8]}}ms </a> </span>
-					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[9]}}M </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[8]}} ms </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[9]}} M </a> </span>
 					{% else %}
-					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
-					<span class="listitem twowide center"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
 					{% endif %}
-					<span class="listitem threewide center"> <a href="/user/{{status[11]}}"> {{status[11]}} </a> </span>
+					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{status[11]}}"> {{status[11]}} </a> </span>
+					<span class="listitem center smallfont" style="width: 15%"> <a href="/user/{{status[11]}}" class="uncolored"> {{status[13]}} </a> </span>
 				</div>
 				{% endfor %}
 			</div>

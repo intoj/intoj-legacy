@@ -1,67 +1,69 @@
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <algorithm>
-#define M 200200
+#include<cstdio>
+#include<iostream>
+#define ll long long
 using namespace std;
-struct abcd{
-	int to,next;
-}table[M<<1];
-int head[M],tot=1;
-int n,m,ans,good_cnt,bad_cnt;
-int dpt[M],fa[M],good[M],bad[M];
-bool v[M];
-void Add(int x,int y)
-{
-	table[++tot].to=y;
-	table[tot].next=head[x];
-	head[x]=tot;
-}
-void DFS(int x,int from)
-{
-	int i;
-	v[x]=true;
-	dpt[x]=dpt[fa[x]]+1;
-	for(i=head[x];i;i=table[i].next)
-		if(i^from^1)
-		{
-			if(!v[table[i].to])
-			{
-				fa[table[i].to]=x;
-				DFS(table[i].to,i);
-				good[x]+=good[table[i].to];
-				bad[x]+=bad[table[i].to];
-			}
-			else
-			{
-				if(dpt[table[i].to]>dpt[x])
-					continue;
-				if(dpt[x]-dpt[table[i].to]&1)
-					good[x]++,good[table[i].to]--,good_cnt++;
-				else
-					bad[x]++,bad[table[i].to]--,bad_cnt++;
-			}
-		}
-}
+ll n,q,x,y,s[10000010],zhi[10000010],pin;
+void pri(ll x);
+ll chai(ll x);
+ll gcd(ll x,ll y);
 int main()
 {
-	// freopen("voltage.in","r",stdin);
-	// freopen("voltage.out","w",stdout);
-	int i,x,y;
-	cin>>n>>m;
-	for(i=1;i<=m;i++)
+	scanf("%lld%lld",&n,&q);
+	for(ll i = 2; i <= n; i++)
 	{
-		scanf("%d%d",&x,&y);
-		Add(x,y);
-		Add(y,x);
+		pri(i);
 	}
-	for(i=1;i<=n;i++)
-		if(!v[i])
-			DFS(i,0);
-	for(i=1;i<=n;i++)
-		if(fa[i]&&bad[i]==bad_cnt&&!good[i])
-			++ans;
-	if(bad_cnt==1)
-		++ans;
-	cout<<ans<<endl;
+	for(ll i = 1; i <= q; i++)
+	{
+
+		scanf("%lld%lld",&x,&y);
+		if(x==y)
+		{
+			printf("0\n");
+		}
+		else
+		{
+			printf("%lld\n",chai(x / gcd(x,y)));
+		}
+	}
+	return 0;
+}
+ll gcd(ll x,ll y)
+{
+	while(y)
+	{
+		ll t = y;
+		y = x % y;
+		x = t;
+	}
+	return x;
+}
+void pri(ll x)
+{
+	if(!s[x])
+	{
+		zhi[pin++] = x;
+		for(ll i = 2; i * x <= n; i++)
+		{
+			s[i * x] = 1;
+		}
+	}
+}
+ll chai(ll x)
+{
+	ll ans = 0;
+	if(x==1)
+	{
+		ans++;
+	}
+	for(int i = 0; i < pin; i++)
+	{
+		while(x % zhi[i] == 0&&x != 1)
+		{
+			ans += zhi[i];
+			x /= zhi[i];
+		}
+		if(x == 1) break;
+	}
+	return ans;
 }

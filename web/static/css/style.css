@@ -1,10 +1,15 @@
 button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
 	border:none;
 }
-header, button, input, menu, form, h1, h2, h3, h4, h5, body, textarea{
+header, button, input, menu, form, h1, h2, h3, h4, h5, body, textarea, div, span{
 	font-family: Lato, -apple-system, 'PingFang SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft Yahei', 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
 	font-size: 16.5px;
 }
+code span, code{
+	font-family: "Consolas","source-code-pro",monospace !important;
+	font-size: 17px;
+}
+
 @keyframes Fade-in{
     0%{ opacity:0; }
     100%{ opacity:1; }
@@ -20,13 +25,13 @@ p{
 }
 
 a{
-	color:#4444ff;
+	color: #4183c4;
 	text-decoration:none;
 	transition: all 0.2s;
 }
 a:hover{ color: #FF0000; }
 a:focus{ outline:0; }
-a.uncolored{ color: inherit; }
+a.uncolored{ color: inherit !important; }
 a.full{ width: 100%; display: block; }
 p code{
 	margin: auto 2px;
@@ -52,9 +57,10 @@ p code{
 .tag{
 	background-color: #cfcfcf;
 	font-size: 15px;
-	padding: 1px 8px;
+	padding: 6px 8px 4px 8px;
 	margin-right: 7px;
 	border-radius: 5px;
+	height: 18px;
 }
 .tag-red{
 	background-color: #ee3333 !important;
