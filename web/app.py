@@ -127,6 +127,9 @@ def Help():
 @app.route('/about')
 def About():
 	return render_template('about.html')
+@app.route('/zhongwuchishenme')
+def Zhongwuchishenme():
+	return render_template('tools/zhongwuchishenme.html')
 
 @app.route('/record/<int:runid>',methods=['GET','POST'])
 def Record(runid):

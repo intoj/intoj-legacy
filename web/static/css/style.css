@@ -3,6 +3,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 }
 header, button, input, menu, form, h1, h2, h3, h4, h5, body, textarea, div, span{
 	font-family: Lato, -apple-system, 'PingFang SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft Yahei', 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
+}
+header, button, input, menu, form, body, textarea, div{
 	font-size: 16.5px;
 }
 code span, code{

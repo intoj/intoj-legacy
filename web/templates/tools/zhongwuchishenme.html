@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} 中午吃什么 {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="title"> 今天中午吃什么? </div>
+	<div class="block">
+		<div class="title" id="chishenme"> </div>
+		<div class="title" id="chishenme">
+			<button class="button button-rounded button-highlight" onclick="Toggle_Run()" style="margin-top: 20px; font-size: 19px;" id="button"> 停! </button>
+		</div>
+	</div>
+</div>
+<script>
+function Random(){
+	li = [
+		'手擀面',
+		'不思量',
+		'食事处',
+		'华昌面馆',
+		'生煎包',
+		'煎饼果子',
+		'罗森'
+	]
+	total = li.length
+	return li[Math.floor(Math.random()*total)]
+}
+var running = 0
+function Run(){
+	if(running){
+		$('#chishenme').text(Random())
+	}else return
+	setTimeout('Run()',50)
+}
+function Stop_Run(){
+	running = 0
+	$('#button').text('开始!')
+}
+function Start_Run(){
+	if(!running){
+		running = 1
+		$('#button').text('停!')
+		Run()
+	}
+}
+function Toggle_Run(){
+	if(!running){
+		Start_Run()
+	}else{
+		Stop_Run()
+	}
+}
+Start_Run()
+</script>
+{% endblock %}

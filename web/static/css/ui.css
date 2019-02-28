@@ -31,6 +31,7 @@ span.topbaritem,span.topbaritem-noanimation{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-size: 18px !important;
 }
 span.topbaritem.selected{
 	background-color: #cccccc;
@@ -40,8 +41,10 @@ span.topbaritem:hover{
 	cursor: pointer;
 }
 div.topbarindex{
-	font-size: 20px;
 	margin-top: 6px;
+}
+div.topbarindex>i{
+	font-size: 20px;
 }
 
 /**************** ui ****************/
