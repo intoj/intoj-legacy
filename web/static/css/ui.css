@@ -142,3 +142,24 @@ div.block-mini-box{
 	font-size: 14px;
 	text-align: center;
 }
+
+/**************** tags ****************/
+.tag{
+	background-color: #cfcfcf;
+	font-size: 15px;
+	padding: 6px 8px 4px 8px;
+	margin-right: 7px;
+	border-radius: 5px;
+	height: 18px;
+}
+.tag-red{
+	background-color: #ee3333 !important;
+	color: #fff !important;
+}
+div.tagsblock{
+	padding: 0px 0px !important;
+	height: 30px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	background-color: #ffffff00 !important;
+}

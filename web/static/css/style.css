@@ -1,13 +1,13 @@
 button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
 	border:none;
 }
-header, button, input, menu, form, h1, h2, h3, h4, h5, body, textarea, div, span{
+header, button, input, menu, form, h1, h2, h3, h4, h5, body, div, span{
 	font-family: Lato, -apple-system, 'PingFang SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft Yahei', 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
 }
 header, button, input, menu, form, body, textarea, div{
 	font-size: 16.5px;
 }
-code span, code{
+code span, code, textarea, div.CodeMirror-code span{
 	font-family: "Consolas","source-code-pro",monospace !important;
 	font-size: 17px;
 }
@@ -54,24 +54,3 @@ p code{
 .judge-8{ color: purple; }		/* Runtime Error */
 .judge-9{ color: forestgreen; }	/* Partical Accepted */
 .judge-10{ color: #00cc00; }	/* Accepted */
-
-/**************** tags ****************/
-.tag{
-	background-color: #cfcfcf;
-	font-size: 15px;
-	padding: 6px 8px 4px 8px;
-	margin-right: 7px;
-	border-radius: 5px;
-	height: 18px;
-}
-.tag-red{
-	background-color: #ee3333 !important;
-	color: #fff !important;
-}
-div.tagsblock{
-	padding: 0px 0px !important;
-	height: 30px;
-	margin-top: 0px;
-	margin-bottom: 10px;
-	background-color: #ffffff00 !important;
-}
