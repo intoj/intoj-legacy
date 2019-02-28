@@ -5,6 +5,9 @@ div.listline{
 	height: 40px;
 	transition: all 0.15s;
 }
+div.listline-current{
+	background-color: #dddddd;
+}
 div.listline-hover-animation:hover,div.listline-animation:hover{
 	background-color: #dadada;
 }
