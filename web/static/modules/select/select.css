@@ -1,0 +1,35 @@
+div.select-outer-wrapper{
+	display: inline-flex;
+	align-items: flex-start;
+}
+div.select-wrapper{
+	display: inline-flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+div.select-dropdown{
+	background-color: #eee;
+	border: solid 2px;
+	border-color: #66ccff;
+	border-radius: 5px;
+	height: 240px;
+	overflow: hidden auto;
+}
+div.select-listline{
+	display: flex;
+	justify-content: flex-start;
+	height: 36px;
+	font-size: 15px;
+}
+div.select-answer{
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	min-height: 30px;
+}
+div.select-listline-selected{
+	background-color: #cccccc !important;
+}
+div.select-listline:hover{
+	background-color: #dadada;
+}

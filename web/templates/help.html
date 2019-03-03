@@ -41,9 +41,11 @@ C++11: `g++ -O2 -std=c++11 -DONLINE_JUDGE {src_file} -o {exec_file} -lm -w -fmax
 		<div class="content markdown">
 评测机搭建在linux上,请使用`%lld`输出`long long`类型,使用`%llu`输出`unsigned long long`类型.
 
-linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`头文件.
+linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`头文件. ~~原来CE只因为选错语言~~
 
-并检查数组是否越界. ~~原来CE只因为选错语言~~
+并检查数组是否越界.
+
+intoj 开启 `O2` 优化, 请注意代码中的 '未定义行为', 比如地址的非法访问和忘记返回返回值.
 		</div>
 	</div>
 	<div class="block">
@@ -52,8 +54,9 @@ linux下对头文件检查较严格,请检查是否加入了`cstdio`或`stdio.h`
 		</div>
 	</div>
 	<div class="block">
-		<div class="contitle">想打数学公式?使用$\LaTeX$</div>
+		<div class="contitle">想打数学公式?使用 $\LaTeX$</div>
 		<div class="content markdown">
+为了提高速度, intoj 使用 $\KaTeX$ 进行数学公式的渲染.
 		</div>
 	</div>
 	<div class="block">

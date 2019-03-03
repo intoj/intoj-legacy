@@ -8,28 +8,48 @@
 		<div class="content">
 			<div class="list">
 				<form method="GET">
-					<div class="listline">
-						<span class="listitem twowide center">
-							题目id: <input class="shortinput" type="text" name="problem_id" value="{% if 'problem_id' in request.args %}{{request.args.get('problem_id')}}{% endif %}"> </input>
+					<div class="listline" style="justify-content: space-around">
+						<span class="listitem center">
+							题目id: <input class="input-short" type="text" name="problem_id" value="{% if 'problem_id' in request.args %}{{request.args.get('problem_id')}}{% endif %}"> </input>
 						</span>
-						<span class="listitem twowide center">
-							语言: <input class="shortinput" type="text" name="language" value="{% if 'language' in request.args %}{{request.args.get('language')}}{% endif %}"> </input>
+						<span class="listitem center">
+							提交者: <input class="input-medium" type="text" name="username" value="{% if 'username' in request.args %}{{request.args.get('username')}}{% endif %}"> </input>
 						</span>
-						<span class="listitem fourwide center">
-							状态: <select name="status">
-								<option value="0">
-									<div class="listline listline-animation">
-										<span class="listitem center" style="width: 20%">
-											<i class="icon-{{statusicon[0]}}" aria-hidden="true"> </i>
-										</span>
-										<span class="listitem center" style="width: 80%">
-											Waiting
-										</span>
+						<span class="listitem center" style="align-self: flex-start;">
+							<div style="margin-top: 5px" class="select-outer-wrapper">
+								状态: &nbsp;
+								<div class="select-wrapper" onclick="Click(1)" style="width: 220px;">
+									{% set init_status = request.args.get('status')|int(-1) %}
+									<input type="hidden" name="status" id="select-input-1" value="{% if init_status in range(0,11) %} {{init_status}} {% endif %}"> </input>
+									<div class="select-answer" id="select-answer-1">
+										{% if init_status in range(0,11) %}
+											<span class="judge-{{init_status}}">
+												<i class="icon-{{statusicon[init_status]}}"> </i>
+												{{tostatus[init_status]}}
+											</span>
+										{% else %}
+										{% endif %}
 									</div>
-								</option>
-							</select>
+									<div class="dropdown-1 select-dropdown" hidden>
+										<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,-1)">
+											&nbsp; &nbsp; 不限
+										</div>
+										{% for i in range(0,11) %}
+										<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,{{i}})">
+											<span class="judge-{{i}}">
+												&nbsp; &nbsp; <i class="icon-{{statusicon[i]}}"> </i> &nbsp; {{tostatus[i]}}
+										 	</span>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
 						</span>
-						<button type="submit"> 查询 </button>
+						<span class="listitem center">
+							分数: <input class="input-tiny" type="text" name="min_score" value="{% if request.args.get('min_score') != None %}{{request.args.get('min_score')}}{% else %}0{% endif %}"> </input>
+							~ <input class="input-tiny" type="text" name="max_score" value="{% if request.args.get('max_score') != None %}{{request.args.get('max_score')}}{% else %}100{% endif %}"> </input>
+						</span>
+						<button type="submit" class="button button-small button-primary button-rounded" style="font-size: 14px;"> 查询 </button>
 					</div>
 				</form>
 				<div class="listline">

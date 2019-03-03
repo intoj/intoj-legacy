@@ -5,33 +5,34 @@ textarea.codeinput{
 	opacity: 0.8;
 }
 textarea.markdowninput{
-	background-color: #fafafa;
 	width: 100%;
 	height: 200px;
-	border:0px;
+	border: 0px;
 	font-size: 19px;
 }
-/* input.submit{
-	opacity: 0.9;
-	margin: 10px auto;
-} */
-input{outline: none;}
-input.titleinput{
-	margin-left: 10px;
-	width:230px;
+
+input{
+	outline: none;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	padding: 4px 8px 4px 8px;
+	height: 22px;
+	background-color: #fafafa;
+}
+input:focus{
+	border-color: #66ccff;
 }
 input.wideinput{
-	width: 100%;
+
 	height: 25px;
 	font-size: 17px;
 }
-input.numberinput{
-	margin: 5px 10px;
-	width: 100px;
-}
-input.shortinput{
-	width: 40px;
-}
+input.input-tiny{ width: 30px; }
+input.input-short{ width: 50px; }
+input.input-medium{ width: 120px; }
+input.input-long{ width: 250px; }
+input.input-fullwide{ width: 98%; }
+
 button.submitbutton{
 	width: 200px;
 	font-size: 19px;

@@ -15,6 +15,7 @@ app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 app.add_template_global(sites.modules.Toint,'Toint')
+app.add_template_global(sites.modules.Judge_Status,'Judge_Status')
 app.add_template_global(sites.db.User_Privilege,'User_Privilege')
 app.add_template_global(sites.db.Read_Problem,'Read_Problem')
 

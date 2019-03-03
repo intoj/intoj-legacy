@@ -6,30 +6,38 @@
 	<div class="block">
 		<div class="contitle"> 编辑题目 </div>
 	</div>
+	<form method="POST">
 	<div class="block">
 		<div class="content">
-			<form method="POST">
-				<div class="contitle" style="display:inline"> 题目编号 </div> <input type="number" name="id" class="numberinput" style="width: 230px;" placeholder="留空以不变"> <br/>
-				<div class="contitle" style="display:inline"> 题目标题 </div> <input type="text" name="title" class="titleinput" required value="{{problem[1]}}"> <br />
-				<input type="checkbox" name="is_public" {% if problem[9] == 1 %} checked {% endif %}> 是否公开
-				<div class="contitle"> 时空限制 </div>
-				时间限制: <input type="number" name="time_limit" min="10" max="100000" class="numberinput" required value="{{problem[7]}}"> ms <br />
-				空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="numberinput" required value="{{problem[8]}}"> MB <br />
-				<div class="contitle"> 题目描述 </div>
-				<textarea class="markdowninput" name="description">{{problem[2]}}</textarea>
-				<div class="contitle"> 输入格式 </div>
-				<textarea class="markdowninput" name="input_format">{{problem[3]}}</textarea>
-				<div class="contitle"> 输出格式 </div>
-				<textarea class="markdowninput" name="output_format">{{problem[4]}}</textarea>
-				<div class="contitle"> 样例 </div>
-				<textarea class="markdowninput" name="example">{{problem[5]}}</textarea>
-				<div class="contitle"> 数据范围与提示 </div>
-				<textarea class="markdowninput" name="limit_and_hint">{{problem[6]}}</textarea>
-				<button type="submit" class="button button-action button-rounded submitbutton">
-					<i class="icon-pencil icon-spin"></i> 提交!
-				</button>
-			</form>
+			<div style="display: inline-block" class="contitle"> 题目编号 </div> <input type="number" name="id" class="input-long" style="margin-left: 10px;" placeholder="留空以不变"> <br/>
+			<div style="display: inline-block" class="contitle"> 题目标题 </div> <input type="text" name="title" class="input-long" style="margin-left: 10px;" required value="{{problem[1]}}"> <br />
+			<div style="margin: 5px 10px;"> <span style="font-size: 18px"> 是否公开 </span> <input type="checkbox" name="is_public" {% if problem[9] == 1 %} checked {% endif %}> </div>
 		</div>
 	</div>
+	<div class="block">
+		<div class="content">
+			<div class="contitle"> 时空限制 </div>
+			<div style="margin: 7px 10px"> 时间限制: <input type="number" name="time_limit" min="10" max="100000" class="input-medium" required value="{{problem[7]}}"> ms </div>
+			<div style="margin: 7px 10px"> 空间限制: <input type="number" name="memory_limit" min="1" max="2048" class="input-medium" required value="{{problem[8]}}"> MB </div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="content">
+			<div class="contitle"> 题目描述 </div>
+			<textarea class="markdowninput" name="description">{{problem[2]}}</textarea>
+			<div class="contitle"> 输入格式 </div>
+			<textarea class="markdowninput" name="input_format">{{problem[3]}}</textarea>
+			<div class="contitle"> 输出格式 </div>
+			<textarea class="markdowninput" name="output_format">{{problem[4]}}</textarea>
+			<div class="contitle"> 样例 </div>
+			<textarea class="markdowninput" name="example">{{problem[5]}}</textarea>
+			<div class="contitle"> 数据范围与提示 </div>
+			<textarea class="markdowninput" name="limit_and_hint">{{problem[6]}}</textarea>
+			<button type="submit" class="button button-action button-rounded submitbutton">
+				<i class="icon-pencil icon-spin"></i> 提交!
+			</button>
+		</div>
+	</div>
+	</form>
 </div>
 {% endblock %}

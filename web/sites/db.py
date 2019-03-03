@@ -7,7 +7,7 @@ def Generate_Limitation(limitation,allowed=[]):
 	answer = ''
 	arg = []
 	for key,value in limitation.items():
-		if value == None or key not in allowed: continue
+		if value == None or key not in allowed or str(value).strip() == '': continue
 		if answer != '': answer += " AND "
 		operator = '=' if allowed[key][0] == 'eq' else '>=' if allowed[key][0] == 'ge' else '<='
 		answer += '%s%s%%s' % (allowed[key][1],operator)

@@ -65,6 +65,15 @@ def Is_Loggedin():
 		else: return 1
 	except: return 0
 
+def Judge_Status(status):
+	status = int(status)
+	html = """
+	<span class="judge-%d">
+		<i class="icon-%s"> </i>
+		%s
+	</span> """ % (status,statusicon[status],tostatus[status])
+	return html
+
 def Referrer():
 	return '/' if request.referrer == None else request.referrer
 def Page_Back():
