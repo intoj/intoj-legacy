@@ -26,6 +26,8 @@ div.select-answer{
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	min-height: 30px;
+	text-align: left;
+	padding-left: 14px;
 }
 div.select-listline-selected{
 	background-color: #cccccc !important;
