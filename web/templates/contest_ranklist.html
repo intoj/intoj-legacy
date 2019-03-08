@@ -9,9 +9,9 @@
 	<div class="block">
 		<div class="listline">
 			<span class="listitem onewide center"> 排名 </span>
-			<span class="listitem threewide center"> 用户名 </span>
+			<span class="listitem fivewide center"> 用户名 </span>
 			{% for problem in problems %}
-			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="uncolored"> {{loop.index}}.{{problem[1]}} </a> </span>
+			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="uncolored"> {{problem[1]}} </a> </span>
 			{% endfor %}
 			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions" class="uncolored"> 总分 </a> </span>
 		</div>
@@ -29,7 +29,7 @@
 				{% if player[3]['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> SR </span> {% else %}
 				{{player[3]['rank']}} {% endif %} {% endif %} {% endif %}
 			</span>
-			<span class="listitem threewide center"> <a href='/user/{{player[1]}}'> {{player[1]}} </a> </span>
+			<span class="listitem fivewide center"> <a href='/user/{{player[1]}}'> {{player[1]}} </a> </span>
 			{% for problem in problems %}
 				{% set problem_id = problem[0]|string %}
 				{% if problem_id in player[3] %}
