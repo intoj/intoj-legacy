@@ -10,6 +10,7 @@ stderrpath = "../tmp/stderr.txt"
 # 其中 type 为评测代码
 def Run(timelim,memlim,outputlim,inputpath,outputpath):
 	try:
+		print(inputpath,outputpath)
 		(status,_unused_mes) = subprocess.getstatusoutput(" \
 		lrun \
 		--max-real-time %f \

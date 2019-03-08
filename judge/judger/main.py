@@ -2,7 +2,7 @@
 import pymysql,redis
 import time,os,json,math
 from modules import *
-import compile,run,judge
+import compile,run,judge,read_testdata
 import db
 
 cpppath = "../tmp/a.cpp"
@@ -23,18 +23,6 @@ def Writecode(code):
 	f = open(cpppath,"w")
 	f.write(code)
 	f.close()
-
-casescore = []
-def Getcasescore(cnt):
-	global casescore
-	casescore = []
-	casescore.append(-1)
-	left = 100
-	per = 100//cnt
-	for i in range(cnt-1):
-		casescore.append(per)
-		left -= per
-	casescore.append(left)
 
 while True:
 	runid = Redis_Read()
@@ -60,21 +48,20 @@ while True:
 			time.sleep(0.2)
 			continue
 
-		filepath = "../testdata/%d/" % problem_id
-		casecnt = int(  os.popen("cd %s;ls -l |grep \"^-\"|wc -l"%filepath).readline().strip() ) // 2
-		Getcasescore(casecnt)
+		input_files, answer_files, scores, casecnt = read_testdata.Read_testdata("../testdata/%d/" % problem_id)
+		print(input_files)
 
 		subtasks = []
-		for i in range(1,casecnt+1):
+		for i in range(0,casecnt):
 			nowstatus = 0
-			if i == 1: nowstatus = 1
+			if i == 0: nowstatus = 1
 			subtasks.append({
-				"id":i,
-				"status":nowstatus,
-				"score":0,
-				"full_score":casescore[i],
-				"time_usage":0,
-				"memory_usage":0,
+				"id": i+1,
+				"status": nowstatus,
+				"score": 0,
+				"full_score": scores[i],
+				"time_usage": 0,
+				"memory_usage": 0,
 				"judger_message": '',
 				"checker_message": ''
 			})
@@ -82,40 +69,40 @@ while True:
 
 		tot_time_usage = tot_memory_usage = tot_score = 0
 		final_status = 10
-		for i in range(1,casecnt+1):
-			inputfile = filepath + str(i) + ".in"
+		for i in range(0,casecnt):
+			inputfile = '../testdata/%d/%s' % (problem_id,input_files[i])
+			ansfile = '../testdata/%d/%s' % (problem_id,answer_files[i])
 			outputfile = "../tmp/out.out"
-			ansfile = filepath + str(i) + ".out"
 			(status,time_usage,memory_usage,exitcode,judger_message) = run.Run(time_limit,memory_limit,output_limit,inputfile,outputfile)
 			if status != 10:
-				subtasks[i-1] = {
-					"id":i,
-					"status":status,
-					"score":0,
-					"full_score":casescore[i],
-					"time_usage":time_usage,
-					"memory_usage":memory_usage,
-					"judger_message":judger_message,
-					"checker_message":""
+				subtasks[i] = {
+					"id": i+1,
+					"status": status,
+					"score": 0,
+					"full_score": scores[i],
+					"time_usage": time_usage,
+					"memory_usage": memory_usage,
+					"judger_message": judger_message,
+					"checker_message": ""
 				}
 			else:
-				(status,score,checker_message) = judge.txtcompare.Compare(outputfile,ansfile,casescore[i])
-				subtasks[i-1] = {
-					"id":i,
-					"status":status,
-					"score":score,
-					"full_score":casescore[i],
-					"time_usage":time_usage,
-					"memory_usage":memory_usage,
-					"judger_message":judger_message,
-					"checker_message":checker_message
+				(status,score,checker_message) = judge.txtcompare.Compare(outputfile,ansfile,scores[i])
+				subtasks[i] = {
+					"id": i+1,
+					"status": status,
+					"score": score,
+					"full_score": scores[i],
+					"time_usage": time_usage,
+					"memory_usage": memory_usage,
+					"judger_message": judger_message,
+					"checker_message": checker_message
 				}
 				tot_score += score
 			tot_time_usage += time_usage
 			tot_memory_usage = max(tot_memory_usage,memory_usage)
 			final_status = min(final_status,status)
-			if i != casecnt:
-				subtasks[i]["status"] = 1
+			if i != casecnt-1:
+				subtasks[i+1]["status"] = 1
 			db.Report(runid,1,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
 
 		db.Report(runid,final_status,tot_score,tot_time_usage,tot_memory_usage,{'subtasks':subtasks},comp_message)
@@ -133,3 +120,4 @@ while True:
 	except Exception as error_message:
 		print("\033[41;37mERROR!\033[0m",error_message)
 		db.Report(runid,system_message=str(error_message))
+		exit(0)
