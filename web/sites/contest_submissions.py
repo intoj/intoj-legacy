@@ -4,7 +4,7 @@ import db,modules
 def Submissions_My(contest_id):
 	if not modules.Is_Loggedin():
 		flash(r'请先登录','error')
-		return sites.modules.Page_Back()
+		return modules.Page_Back()
 
 	contest = db.Read_Contest(contest_id)
 	if contest == None:

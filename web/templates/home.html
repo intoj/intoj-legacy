@@ -2,10 +2,23 @@
 {% block title %} 主页 {% endblock %}
 {% block selected_home %} selected {% endblock %}
 {% block body %}
-<div class="ui main">
-	<div class="block">
-		<div class="contitle"> 公告 </div>
-		<div class="content markdown"> Hi! </div>
+<script>
+function Find_User(){
+	window.location.href = '/user/'+$("#find-user").val()
+}
+</script>
+<div class="main">
+	<div class="block-mini-box">
+		<div class="ui block-mini" style="width: 61%; border-radius: 2px;">
+			<div class="contitle"> 公告 </div>
+			<div class="content markdown"> Hi! </div>
+		</div>
+		<div class="ui block-mini" style="width: 30.5%; border-radius: 2px;">
+			<div class="contitle"> 用户查找 </div>
+			<div class="content" style="display: flex; align-items: center; justify-content: space-around">
+				<input class="input-mediumlong" type="text" id="find-user"> </input> <button class="button button-primary button-rounded button-small" onclick="Find_User()"> 查找 </button>
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

@@ -32,7 +32,7 @@ def Submit(contest_id,problem_id,req):
 def Run(contest_id,problem_id):
 	if not modules.Is_Loggedin():
 		flash('请先登录','error')
-		return sites.modules.Page_Back()
+		return modules.Page_Back()
 
 	is_exist,ret = Is_Exist(contest_id,problem_id)
 	if not is_exist: return ret

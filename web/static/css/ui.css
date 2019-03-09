@@ -112,17 +112,17 @@ div.block.ok{
 	margin: 0px 0px !important;
 	padding: 1px 20px !important;
 }
-div.block-mini{
-	padding: 5px 20px;
-	background-color: #e8e8e899;
-	border-radius: 6px;
-}
 div.dropdown{
 	background-color: #cfcfcf99;
 	padding: 1px 20px 8px 20px;
 	margin: 10px 10px;
 	margin-bottom: 20px;
 	height: auto;
+}
+div.block-mini{
+	padding: 5px 20px;
+	background-color: #e8e8e899;
+	border-radius: 6px;
 }
 div.block-mini-box{
 	display: flex;

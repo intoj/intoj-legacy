@@ -23,15 +23,15 @@ input:focus{
 	border-color: #66ccff;
 }
 input.wideinput{
-
 	height: 25px;
 	font-size: 17px;
 }
 input.input-tiny{ width: 30px; }
 input.input-short{ width: 50px; }
 input.input-medium{ width: 120px; }
+input.input-mediumlong{ width: 200px; }
 input.input-long{ width: 250px; }
-input.input-fullwide{ width: 98%; }
+input.input-fullwide{ width: calc( 98% - 8px ); margin: auto; }
 
 button.submitbutton{
 	width: 200px;
@@ -99,4 +99,8 @@ div.login-input{
 	border-style: solid;
 	border-radius: 4px;
 	padding: 6px 12px;
+}
+
+button.button-small{
+	font-size: 15px;
 }

@@ -8,7 +8,7 @@ import db,modules,problem
 def Submit(problemid,req,contest_id=0):
 	if not modules.Is_Loggedin():
 		flash('请先登录','error')
-		return sites.modules.Page_Back()
+		return modules.Page_Back()
 
 	code = req['code']
 	if len(code) < 10:
