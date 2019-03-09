@@ -5,7 +5,6 @@ body{
 	background-size: cover;
 	margin: 0;
 	/* animation: Fade-in 0.1s ease 0s 1; */
-	tab-size: 4; -moz-tab-size: 4; -o-tab-size: 4;
 }
 /**************** topbar ****************/
 div.topbar{
