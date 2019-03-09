@@ -8,8 +8,8 @@ def Compare(optpath,anspath,fullscore):
 	try: ansf = open(anspath,"r")
 	except: return 2,0,"Can not open ans file:%s"%anspath
 
-	opt = optf.readlines()
-	ans = ansf.readlines()
+	opt = optf.read().strip().split('\n')
+	ans = ansf.read().strip().split('\n')
 
 	if len(opt) < len(ans): return 5,0,"Too few line: %d in ans but %d in yours." % (len(ans),len(opt))
 	if len(opt) > len(ans): return 5,0,"Too many line: %d in ans but %d in yours." % (len(ans),len(opt))
@@ -21,14 +21,14 @@ def Compare(optpath,anspath,fullscore):
 		a = ans[i].strip().split()
 		if len(o) < len(a): return 5,0,"Too few things: at line %d, %d in ans but %d in yours." % (i+1,len(a),len(o))
 		if len(o) > len(a): return 5,0,"Too many things: at line %d, %d in ans but %d in yours." % (i+1,len(a),len(o))
-		ul = len(o)
-		for j in range(ul):
+		length = len(o)
+		for j in range(length):
 			o[j] = o[j].strip()
 			a[j] = a[j].strip()
-			vl = len(o[j])
-			for k in range(vl):
-				if o[j][k] != a[j][k]:
-					return 5,0,"Wrong Answer: at line %d element %d, %s in ans but %s found." % (i+1,j+1,a[j][k],o[j][k])
+			if o[j] != a[j]:
+				error_output_show = o[j][:10] + ( '...' if len(o[j]) > 10 else '' )
+				error_answer_show = a[j][:10] + ( '...' if len(a[j]) > 10 else '' )
+				return 5,0,"Wrong Answer: at line %d element %d, '%s' in answer but '%s' found in your output." % (i+1,j+1,error_answer_show,error_output_show)
 
 	return 10,fullscore,"Accepted.Congratulations!"
 
