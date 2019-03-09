@@ -63,7 +63,7 @@
 					<span class="listitem center" style="width: 12%"> 提交者 </span>
 					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
-				{% for status in statuslist if not status[12]%}
+				{% for status in statuslist if not status[12] and ( Read_Problem(status[1])[9] or Current_User_Privilege(2) )%}
 				<div class="listline listline-animation">
 					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> #{{status[0]}} </a> </span>
 					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>

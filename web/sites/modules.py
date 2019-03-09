@@ -1,6 +1,7 @@
 #coding:utf-8
 from flask import *
 import hashlib,re
+import db
 
 tostatus = {
 	0:"Waiting",
@@ -64,6 +65,9 @@ def Is_Loggedin():
 		if session.get(username) != client_key: return 0
 		else: return 1
 	except: return 0
+def Current_User_Privilege(id):
+	if not Is_Loggedin(): return 0
+	return db.User_Privilege(request.cookies['username'],id)
 
 def Judge_Status(status):
 	status = int(status)

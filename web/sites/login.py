@@ -22,3 +22,21 @@ def Can_Login(req):
 	client_key_raw = username + password_sha256 + password_sha1;
 	client_key = hashlib.sha256(client_key_raw.encode('utf-8')).hexdigest()
 	return 1,client_key
+
+def Run():
+	if request.method == 'GET':
+		return render_template('login.html')
+	else:
+		is_success,message = Can_Login(request.form)
+		if not is_success:
+			flash(message,'error')
+			return render_template('login.html')
+		else:
+			username = request.form['username']
+			session[username] = message
+			# 此时message就是clientkey
+			resp = Response(render_template('jumpto.html',link='/'))
+			resp.set_cookie('username',username,max_age=60*60*24*30)
+			resp.set_cookie('client_key',message,max_age=60*60*24*30)
+			flash(r'登录成功','ok')
+			return resp

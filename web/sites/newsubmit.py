@@ -6,6 +6,10 @@ import db,modules,problem
 #包含rejudge
 
 def Submit(problemid,req,contest_id=0):
+	if not modules.Is_Loggedin():
+		flash('请先登录','error')
+		return sites.modules.Page_Back()
+
 	code = req['code']
 	if len(code) < 10:
 		flash('这么短真的没问题?','error')
@@ -20,12 +24,15 @@ def Submit(problemid,req,contest_id=0):
 
 	return redirect('/record/%d'%runid)
 
-def Rejudge(id):
-	if db.Fetchone("SELECT * FROM records WHERE id=%s",id) == None: return False
+def Rejudge(record_id):
+	if db.Fetchone("SELECT * FROM records WHERE id=%s",record_id) == None:
+		flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%record_id,'error')
+		return redirect('/status')
 
-	db.Execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",id)
+	db.Execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",record_id)
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
-	r.rpush('intoj-waiting',str(id))
+	r.rpush('intoj-waiting',str(record_id))
 
-	return True
+	flash('成功重测.','ok')
+	return redirect('/record/%d'%record_id)

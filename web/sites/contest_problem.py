@@ -17,11 +17,6 @@ def Is_Exist(contest_id,problem_id):
 		return 0,modules.Page_Back()
 	return 1,(problem,contest)
 
-def Run(contest_id,problem_id):
-	is_exist,ret = Is_Exist(contest_id,problem_id)
-	if not is_exist: return ret
-	return render_template('contest_problem.html',problem=ret[0],contest=ret[1])
-
 def Submit(contest_id,problem_id,req):
 	is_exist,ret = Is_Exist(contest_id,problem_id)
 	if not is_exist: return ret
@@ -33,3 +28,16 @@ def Submit(contest_id,problem_id,req):
 		return modules.Page_Back()
 
 	return newsubmit.Submit(problem_id,req,contest_id)
+
+def Run(contest_id,problem_id):
+	if not modules.Is_Loggedin():
+		flash('请先登录','error')
+		return sites.modules.Page_Back()
+
+	is_exist,ret = Is_Exist(contest_id,problem_id)
+	if not is_exist: return ret
+
+	if request.method == 'GET':
+		return render_template('contest_problem.html',problem=ret[0],contest=ret[1])
+	else:
+		return Submit(contest_id,problem_id,request.form)

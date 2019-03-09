@@ -18,8 +18,8 @@
 					<span class="listitem twowide center"> 编号 </span>
 					<span class="listitem fivewide"> 题目名称 </span>
 				</div>
-				{% set Can_View_Hidden = User_Privilege(request.cookies.get('username'),2) %}
-				{% for problem in problemlist if problem[9] or Can_View_Hidden %}
+				{% set can_view_hidden = Current_User_Privilege(2) %}
+				{% for problem in problemlist if problem[9] or can_view_hidden %}
 				<a href="/problem/{{problem[0]}}">
 					<div class="listline listline-animation">
 					<span class="listitem twowide center" style="color: initial"> #{{problem[0]}} </span>

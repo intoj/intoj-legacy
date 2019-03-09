@@ -22,3 +22,15 @@ def Register(req):
 	db.Execute("INSERT INTO users(`username`,`password_sha256`,`password_sha1`,`email`,`nameplate`) VALUES(%s,%s,%s,%s,'');",(username,password_sha256,password_sha1,email))
 
 	return 1,''
+
+def Run():
+	if request.method == 'GET':
+		return render_template('register.html')
+	else:
+		is_success,message = Register(request.form)
+		if not is_success:
+			flash(message,'error')
+			return render_template('register.html')
+		else:
+			flash('注册成功','ok')
+			return redirect('/login')

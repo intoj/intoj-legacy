@@ -3,10 +3,9 @@ from flask import *
 import pymysql
 import db,modules
 
-def Deleteproblem(pid):
-	try:
-		db.Execute("DELETE FROM problems WHERE id=%s",pid)
-	except:
-		flash(r'### 题目 P%d 没找着! \n 可能是因为编号不对.'%pid,'error')
+def Run(problem_id):
+	if not modules.Current_User_Privilege(2):
+		flash(r'无此权限','error')
 		return modules.Page_Back()
+	db.Execute("DELETE FROM problems WHERE id=%s",problem_id)
 	return redirect('/problemlist')

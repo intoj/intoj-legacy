@@ -1,9 +1,9 @@
 #coding:utf-8
 from flask import *
 import json,datetime
-import db,modules
+import db,modules,newsubmit
 
-def Run(id):
+def Get(id):
 	record = db.Read_Record(id)
 	if record == None:
 		flash(r'### 提交记录R%d没找着! \n 可能是因为编号不对.'%id,'error')
@@ -13,14 +13,26 @@ def Run(id):
 		end_time = datetime.datetime.strptime(db.Read_Contest(record[12])[4],'%Y-%m-%d %H:%M:%S')
 		now_time = datetime.datetime.now()
 		if now_time < end_time:
-			if not modules.Is_Loggedin() or ( request.cookies['username'] != record[11] and not db.User_Privilege(request.cookies['username'],3) ):
-				flash('这是比赛时的提交, 您无权查看','error')
+			if request.cookies['username'] != record[11] and not modules.Current_User_Privilege(3):
+				flash(r'这是比赛时的提交, 您无权查看','error')
 				return modules.Page_Back()
+	if not db.Read_Problem(record[1])[9] and not modules.Current_User_Privilege(2):
+		flash(r'该题目尚未公开, 您无权查看','error')
+		return modules.Page_Back()
 
 	result = json.loads(record[7])
 	subtasks = result['subtasks']
 	contest = db.Read_Contest(record[12]) if record[12] else None
 	return render_template('record.html',record=record,subtasks=subtasks,contest=contest)
+
+def Run(record_id):
+	if request.method == 'GET':
+		return Get(record_id)
+	else:
+		if not modules.Current_User_Privilege(2):
+			flash(r'无此权限','error')
+			return modules.Page_Back()
+		return newsubmit.Rejudge(record_id)
 
 def Refresh(id):
 	record = db.Read_Record(id)
