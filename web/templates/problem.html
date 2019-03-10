@@ -5,19 +5,27 @@
 <div class="ui main">
 	<div class="title"> #{{problem[0]}}. {{problem[1]}}</div>
 	<div class="block tagsblock">
-		<span class="content tag"> 时间限制:{{- problem[7] -}}ms </span>
-		<span class="content tag"> 空间限制:{{- problem[8] -}}M </span>
-		{% if problem[9] != 1 %}
-			<span class="content tag tag-red"> 尚未公开 </span>
-		{% endif %}
-		<span style="float:right">
-			<a href="{{problem[0]}}/edit"><button class="button button-primary button-square button-small button-rounded">
-				<i class="icon-pencil"></i>
-			</button></a>
-			<a href="{{problem[0]}}/delete"><button class="button button-caution button-square button-small button-rounded">
-				<i class="icon-trash"></i>
-			</button></a>
-		</span>
+		<div class="button-group">
+			<a href="#submit_code"> <button class="button button-primary button-rounded button-small" style="font-weight: 500;"> 提交 </button> </a>
+			<a href="/problem/{{problem[0]}}/statistic"> <button class="button button-highlight button-rounded button-small" style="font-weight: 500;"> 统计信息 </button> </a>
+		</div>
+		<div style="float: right">
+			<span class="content tag"> 时间限制:{{- problem[7] -}}ms </span>
+			<span class="content tag"> 空间限制:{{- problem[8] -}}M </span>
+			{% if problem[9] != 1 %}
+				<span class="content tag tag-red"> 尚未公开 </span>
+			{% endif %}
+			{% if Current_User_Privilege(2) %}
+				<span>
+					<a href="{{problem[0]}}/edit"><button class="button button-primary button-square button-small button-rounded">
+						<i class="icon-pencil"></i>
+					</button></a>
+					<a href="{{problem[0]}}/delete"><button class="button button-caution button-square button-small button-rounded">
+						<i class="icon-trash"></i>
+					</button></a>
+				</span>
+			{% endif %}
+		</div>
 	</div>
 	{% if problem[2] != '' %}
 	<div class="block" style="margin-top: 10px;">
@@ -59,7 +67,7 @@
 		</div>
 	</div>
 	{% endif %}
-	<div class="block">
+	<div class="block" id="submit_code">
 		<div class="contitle"> 提交代码 </div>
 		<div class="content">
 			<form method="POST">

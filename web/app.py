@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
 app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
+app.add_template_global(sites.modules.statuscolor,'statuscolor')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 app.add_template_global(sites.modules.Toint,'Toint')
 app.add_template_global(sites.modules.Judge_Status,'Judge_Status')
@@ -27,7 +28,7 @@ def Error(message):
 @app.errorhandler(404)
 def Error_404(e):
 	flash(r'## 404 not found \n指挥官大人,您访问的页面......没有找到......QAQ.','error')
-	return redirect('/')
+	return sites.modules.Page_Back()
 
 @app.route('/')
 def Home():
@@ -70,6 +71,9 @@ def Contest_Submissions_All(contest_id):
 @app.route('/contest/<int:contest_id>/ranklist')
 def Contest_Ranklist(contest_id):
 	return sites.contest_ranklist.Run(contest_id)
+@app.route('/contest/<int:contest_id>/statistic')
+def Contest_Statistic(contest_id):
+	return sites.contest_statistic.Run(contest_id)
 
 @app.route('/help')
 def Help():

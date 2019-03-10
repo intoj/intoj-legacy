@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} 统计 - {{contest[1]}} {% endblock %}
+{% block selected_contest %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 统计 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+	</div>
+	<div class="block">
+		<div class="contitle"> 小组平均分 (最终) </div>
+		{% include "contest_statistic_modules/group_statistic_finally.html" %}
+	</div>
+	<div class="block">
+		<div class="contitle"> 小组平均分 (所有) </div>
+		{% include "contest_statistic_modules/group_statistic_all.html" %}
+	</div>
+	{% for problem_id,problem in problems.items() %}
+	<div class="block">
+		<div class="contitle">
+			<a href="/contest/{{contest[0]}}/problem/{{problem_id}}" class="uncolored"> {{problem['name']}} </a>
+			<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem_id}}" class="uncolored">
+				<button class="button button-primary button-rounded button-small" style="float: right">
+					 查看提交
+				</button>
+			</a>
+		</div>
+		{% include "contest_statistic_modules/problem_statistic.html" %}
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

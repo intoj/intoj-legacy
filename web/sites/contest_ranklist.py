@@ -39,4 +39,4 @@ def Run(contest_id):
 			ranklist[i][3]['rank'] = ranklist[i-1][3]['rank']
 		else:
 			ranklist[i][3]['rank'] = i+1
-	return render_template('contest_ranklist.html',contest=contest,ranklist=ranklist,problems=problems,full_score=300)
+	return render_template('contest_ranklist.html',contest=contest,ranklist=ranklist,problems=problems,full_score=len(problems)*100)

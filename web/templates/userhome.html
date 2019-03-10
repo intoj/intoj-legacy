@@ -23,6 +23,12 @@
 {% else %} Unknown
 {% endif %}
 			</div>
+			{% if user[7] != None %}
+			<div class="contitle"> 小组 </div>
+			<div class="content markdown">
+{{ user[7] }}
+			</div>
+			{% endif %}
 		</div>
 		<div class="block-mini" style="width: 30%">
 			<div class="contitle"> 统计 </div>

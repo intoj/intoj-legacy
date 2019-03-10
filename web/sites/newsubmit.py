@@ -15,7 +15,7 @@ def Submit(problemid,req,contest_id=0):
 		flash('这么短真的没问题?','error')
 		return modules.Page_Back()
 
-	runid = int(db.Fetchone("SELECT COUNT(*) FROM records;")[0]) + 1
+	runid = int(db.Fetchone("SELECT MAX(id) FROM records;")[0]) + 1
 	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id,nowtime))
 

@@ -1,0 +1,112 @@
+<div style="display: flex; justify-content: space-around; align-items: center">
+	<div style="width: 270px; height: 270px;">
+	<canvas id="problem_statistic_{{problem_id}}_all" width="100" height="100"></canvas>
+	</div>
+	<div style="width: 270px; height: 270px;">
+	<canvas id="problem_statistic_{{problem_id}}_finally" width="100" height="100"></canvas>
+	</div>
+	<div>
+		<div class="list" style="background-color: #e3e3e3; border-radius: 2px; padding: 5px 20px;">
+			<div class="listline">
+				<span class="listitem smallfont center" style="width: 190px;"> 状态 </span>
+				<span class="listitem smallfont center" style="width: 60px;"> 所有提交 </span>
+				<span class="listitem smallfont center" style="width: 60px;"> 最终提交 </span>
+			</div>
+			{% for status in range(0,11) %}
+			{% set cnt_all = problem['status_cnt_all'][status] %}
+			{% set cnt_finally = problem['status_cnt_finally'][status] %}
+			{% if cnt_all != 0 %}
+			<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem_id}}&status={{status}}" class="uncolored" target="_blank">
+				<div class="listline listline-animation">
+					<span class="listitem" style="width: 190px;">
+						<span class="judge-{{status}}">
+							<i class="icon-{{statusicon[status]}}"> </i>
+							{{tostatus[status]}}
+						</span>
+					</span>
+					<span class="listitem center" style="width: 60px;"> {{cnt_all}} </span>
+					<span class="listitem center" style="width: 60px;"> {{cnt_finally}} </span>
+				</div>
+			</a>
+			{% endif %}
+			{% endfor %}
+			<div class="listline listline-animation">
+				<span class="listitem" style="width: 190px;"> 平均分 </span>
+				<span class="listitem center" style="width: 60px; color: {{Score_Color(problem['average_score_all'])}}"> {{problem['average_score_all']}} </span>
+				<span class="listitem center" style="width: 60px; color: {{Score_Color(problem['average_score_finally'])}}"> {{problem['average_score_finally']}} </span>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+var labels = [], data = [], bkcol = []
+
+{% for status in range(0,11) %}
+	{% set cnt = problem['status_cnt_all'][status] %}
+	{% if cnt != 0 %}
+		labels.push('{{tostatus[status]}}')
+		data.push({{cnt}})
+		bkcol.push('{{statuscolor[status]}}')
+	{% endif %}
+{% endfor %}
+
+var ctx = $("#problem_statistic_{{problem_id}}_all")
+new Chart(ctx,{
+    data: {
+		labels: labels,
+		datasets: [{
+			data: data,
+			backgroundColor: bkcol,
+			borderWidth: 1
+		}]
+	},
+    type: 'doughnut',
+	options: {
+		legend: {
+            display: false
+        },
+		title: {
+			display: true,
+			position: 'bottom',
+			text: '所有提交',
+			fontSize: 18
+		}
+	}
+})
+</script>
+<script>
+var labels = [], data = [], bkcol = []
+
+{% for status in range(0,11) %}
+	{% set cnt = problem['status_cnt_finally'][status] %}
+	{% if cnt != 0 %}
+		labels.push('{{tostatus[status]}}')
+		data.push({{cnt}})
+		bkcol.push('{{statuscolor[status]}}')
+	{% endif %}
+{% endfor %}
+
+var ctx = $("#problem_statistic_{{problem_id}}_finally")
+new Chart(ctx,{
+    data: {
+		labels: labels,
+		datasets: [{
+			data: data,
+			backgroundColor: bkcol,
+			borderWidth: 1
+		}]
+	},
+    type: 'doughnut',
+	options: {
+		legend: {
+            display: false
+        },
+		title: {
+			display: true,
+			position: 'bottom',
+			text: '最终提交',
+			fontSize: 18
+		}
+	}
+})
+</script>

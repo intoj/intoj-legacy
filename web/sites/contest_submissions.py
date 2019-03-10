@@ -10,10 +10,11 @@ def Submissions_My(contest_id):
 	if contest == None:
 		flash(r'不存在的比赛','error')
 		return modules.Page_Back()
-	submissions = db.Read_Submissions({
-		'contest_id': contest_id,
-		'username': request.cookies['username']
-	})
+
+	limitations = request.args.to_dict()
+	limitations['contest_id'] = contest_id
+	limitations['username'] = request.args.get('username')
+	submissions = db.Read_Submissions(limitations)
 	return render_template('contest_submissions.html',statuslist=submissions,contest=contest,my=True)
 
 def Submissions_All(contest_id):
@@ -21,9 +22,7 @@ def Submissions_All(contest_id):
 	if contest == None:
 		flash(r'不存在的比赛','error')
 		return modules.Page_Back()
-	submissions = db.Read_Submissions({
-		'contest_id': contest_id,
-		'username': request.args.get('username'),
-		'problem_id': request.args.get('problem_id')
-	})
+	limitations = request.args.to_dict()
+	limitations['contest_id'] = contest_id
+	submissions = db.Read_Submissions(limitations)
 	return render_template('contest_submissions.html',statuslist=submissions,contest=contest,my=False)

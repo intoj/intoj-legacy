@@ -4,6 +4,7 @@ div.listline{
 	align-items: center;
 	height: 40px;
 	transition: all 0.15s;
+	padding: 0px 10px;
 }
 div.listline-current{
 	background-color: #dddddd;

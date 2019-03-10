@@ -29,6 +29,20 @@ statusicon = {
 	9:"legal",
 	10:"ok"
 }
+statuscolor = {
+	0: '#888888',
+	1: '#66ccff',
+	2: '#aaaaaa',
+	3: '#233333',
+	4: '#ff4499',
+	5: 'red',
+	6: 'orange',
+	7: 'orange',
+	8: 'purple',
+	9: 'forestgreen',
+	10: '#00cc00'
+}
+
 def Score_Color(a,fullscore=100):
 	if a <= fullscore/2:
 		g = int( (a/fullscore) * (255+255-80) )

@@ -15,13 +15,17 @@
 			</div>
 			<div class="contitle"> 邮箱地址 </div>
 			<div class="content">
-				<input type="email" name="email" class="titleinput" required value="{{user[4]}}">
+				<input type="email" name="email" class="input-long" required value="{{user[4]}}">
 			</div>
 			<div class="contitle"> 性别 </div>
 			<div class="content">
 				<input type="radio" name="sex" value="0" {% if user[5] == 0 %} checked {% endif %}> ♂ <br />
 				<input type="radio" name="sex" value="1" {% if user[5] == 1 %} checked {% endif %}> ♀ <br />
 				<input type="radio" name="sex" value="2" {% if user[5] not in [0,1] %} checked {% endif %}> Unknown <br />
+			</div>
+			<div class="contitle"> 小组 </div>
+			<div class="content">
+				<input type="text" name="group" class="input-long" value="{{ user[7] if user[7] != None else '' }}">
 			</div>
 		</div>
 	</div>

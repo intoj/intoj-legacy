@@ -1,0 +1,54 @@
+<canvas id="group_statistic_all" width="100%" height="20%"></canvas>
+<script>
+function Rand_Color(){
+	var bkcol = [
+		'rgba(255, 99, 132, 0.2)',
+		'rgba(54, 162, 235, 0.2)',
+		'rgba(255, 206, 86, 0.2)',
+		'rgba(75, 192, 192, 0.2)',
+		'rgba(153, 102, 255, 0.2)',
+		'rgba(255, 159, 64, 0.2)'
+	], bocol = [
+		'rgba(255,99,132,1)',
+		'rgba(54, 162, 235, 1)',
+		'rgba(255, 206, 86, 1)',
+		'rgba(75, 192, 192, 1)',
+		'rgba(153, 102, 255, 1)',
+		'rgba(255, 159, 64, 1)'
+	]
+	id = Math.floor(Math.random()*bkcol.length)
+	return [bkcol[id],bocol[id]]
+}
+
+var labels = [], data=[], bkcol=[], bocol=[]
+{% for name,group in groups.items() %}
+	labels.push('{{name}}组')
+	data.push({{group['average_score_all']}})
+	col = Rand_Color()
+	bkcol.push(col[0])
+	bocol.push(col[1])
+{% endfor %}
+var ctx = $("#group_statistic_all")
+var myChart = new Chart(ctx, {
+	type: 'horizontalBar',
+	data: {
+		labels: labels,
+		datasets: [{
+			label: '小组平均分 (所有)',
+			data: data,
+			backgroundColor: bkcol,
+			borderColor: bocol,
+			borderWidth: 1
+		}]
+	},
+	options: {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero:true
+				}
+			}]
+		}
+	}
+});
+</script>

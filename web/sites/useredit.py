@@ -3,7 +3,7 @@ from flask import *
 import db,modules
 
 def Useredit(username,req):
-	db.Execute("UPDATE users SET `nameplate`=%s,`email`=%s,`sex`=%s WHERE username=%s;",(req['nameplate'],req['email'],req['sex'],username))
+	db.Execute("UPDATE users SET `nameplate`=%s,`email`=%s,`sex`=%s,`group`=%s WHERE username=%s;",(req['nameplate'],req['email'],req['sex'],req['group'],username))
 
 def Run(username):
 	if username != request.cookies['username'] and not modules.Current_User_Privilege(1):

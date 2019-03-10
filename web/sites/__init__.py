@@ -1,5 +1,6 @@
 from . import contest_problem
 from . import contest_ranklist
+from . import contest_statistic
 from . import contest_submissions
 from . import contest
 from . import contestadd

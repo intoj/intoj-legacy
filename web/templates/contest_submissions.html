@@ -33,12 +33,12 @@
 								</div>
 								<div class="dropdown-1 select-dropdown" hidden>
 									<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,-1)">
-										&nbsp; &nbsp; 不限
+										&nbsp; 不限
 									</div>
 									{% for i in range(0,11) %}
 									<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,{{i}})">
 										<span class="judge-{{i}}">
-											&nbsp; &nbsp; <i class="icon-{{statusicon[i]}}"> </i> &nbsp; {{tostatus[i]}}
+											&nbsp; <i class="icon-{{statusicon[i]}}"> </i> &nbsp; {{tostatus[i]}}
 										</span>
 									</div>
 									{% endfor %}

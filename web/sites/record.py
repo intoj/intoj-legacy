@@ -16,7 +16,7 @@ def Get(id):
 			if request.cookies['username'] != record[11] and not modules.Current_User_Privilege(3):
 				flash(r'这是比赛时的提交, 您无权查看','error')
 				return modules.Page_Back()
-	if not db.Read_Problem(record[1])[9] and not modules.Current_User_Privilege(2):
+	elif not db.Read_Problem(record[1])[9] and not modules.Current_User_Privilege(2) and record[11] != request.cookies['username']:
 		flash(r'该题目尚未公开, 您无权查看','error')
 		return modules.Page_Back()
 
