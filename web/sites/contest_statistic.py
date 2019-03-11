@@ -25,8 +25,19 @@ def Run(contest_id):
 		groups[group]['tot_submit_all'] += 1
 		groups[group]['average_score_all'] = round( groups[group]['tot_score_all'] / groups[group]['tot_submit_all'] , 2 )
 
+	overall = {
+		'tot_submit_all': 0,
+		'tot_score_all': 0,
+		'average_score_all': 0,
+		'status_cnt_all': [ 0 for i in range(13) ],
+		'tot_submit_finally': 0,
+		'tot_score_finally': 0,
+		'average_score_finally': 0,
+		'status_cnt_finally': [ 0 for i in range(13) ]
+	}
 	problems = {}
 	for submission in submissions:
+		if submission[4] <= 3: continue
 		problem = db.Read_Problem(submission[1])
 		if problem == None: continue
 		problem_id = problem[0]
@@ -46,6 +57,10 @@ def Run(contest_id):
 		problems[problem_id]['tot_score_all'] += submission[5]
 		problems[problem_id]['status_cnt_all'][submission[4]] += 1
 		problems[problem_id]['average_score_all'] = round( problems[problem_id]['tot_score_all'] / problems[problem_id]['tot_submit_all'] , 2 )
+		overall['tot_submit_all'] += 1
+		overall['tot_score_all'] += submission[5]
+		overall['status_cnt_all'][submission[4]] += 1
+		overall['average_score_all'] = round( overall['tot_score_all'] / overall['tot_submit_all'] , 2 )
 	problems = dict(sorted(problems.items(),key=operator.itemgetter(0)))
 
 	players = db.Read_Contest_Ranklist(contest_id)
@@ -56,6 +71,7 @@ def Run(contest_id):
 			if problems.get(problem_id) == None: continue
 			record = db.Read_Record(detail['record_id'])
 			if record == None: continue
+			if record[4] <= 3: continue
 			problems[problem_id]['tot_submit_finally'] += 1
 			problems[problem_id]['tot_score_finally'] += record[5]
 			problems[problem_id]['status_cnt_finally'][record[4]] += 1
@@ -64,6 +80,7 @@ def Run(contest_id):
 		for problem_id,detail in details.items():
 			record = db.Read_Record(detail['record_id'])
 			if record == None: continue
+			if record[4] <= 3: continue
 			user = db.Read_User_Byname(player[1])
 			group = user[7]
 			if group == None or group.strip() == '': continue
@@ -71,5 +88,14 @@ def Run(contest_id):
 			groups[group]['tot_submit_finally'] += 1
 			groups[group]['tot_score_finally'] += record[5]
 			groups[group]['average_score_finally'] = round( groups[group]['tot_score_finally'] / groups[group]['tot_submit_finally'] , 2 )
-			
-	return render_template('contest_statistic.html',contest=contest,groups=groups,problems=problems)
+
+		for problem_id,detail in details.items():
+			record = db.Read_Record(detail['record_id'])
+			if record == None: continue
+			if record[4] <= 3: continue
+			overall['tot_submit_finally'] += 1
+			overall['tot_score_finally'] += record[5]
+			overall['status_cnt_finally'][record[4]] += 1
+			overall['average_score_finally'] = round( overall['tot_score_finally'] / overall['tot_submit_finally'] , 2 )
+
+	return render_template('contest_statistic.html',contest=contest,groups=groups,problems=problems,overall=overall)

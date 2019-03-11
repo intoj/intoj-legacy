@@ -14,6 +14,16 @@
 		<div class="contitle"> 小组平均分 (所有) </div>
 		{% include "contest_statistic_modules/group_statistic_all.html" %}
 	</div>
+	<div class="block">
+		<div class="contitle">
+			<a href="/contest/{{contest[0]}}/submissions" class="uncolored"> 题目总览 </a>
+			<div class="button-group" style="float: right">
+				<a href='/contest/{{contest[0]}}/submissions'> <button class="button button-small button-rounded button-primary"> 所有提交 </button> </a>
+				<a href='/contest/{{contest[0]}}/submissions/my'> <button class="button button-small button-rounded button-primary"> 我的提交 </button> </a>
+			</div>
+		</div>
+		{% include "contest_statistic_modules/overall.html" %}
+	</div>
 	{% for problem_id,problem in problems.items() %}
 	<div class="block">
 		<div class="contitle">
