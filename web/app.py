@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
 app.add_template_global(sites.modules.tostatus,'tostatus')
+app.add_template_global(sites.modules.shortstatus,'shortstatus')
 app.add_template_global(sites.modules.statusicon,'statusicon')
 app.add_template_global(sites.modules.statuscolor,'statuscolor')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')

@@ -26,14 +26,56 @@
 			{% if user[7] != None %}
 			<div class="contitle"> 小组 </div>
 			<div class="content markdown">
-{{ user[7] }}
+{{user[7]}}
 			</div>
+			{% endif %}
+			{% if Current_User_Privilege(1) %}
+			<a href="/user/{{user[1]}}/edit" class="uncolored">
+				<button class="button button-primary button-rounded button-small" style="width: 110px; padding: 0px 5px">
+					编辑他的资料
+				</button>
+			</a>
 			{% endif %}
 		</div>
 		<div class="block-mini" style="width: 30%">
 			<div class="contitle"> 统计 </div>
-			咕咕咕
+			<div style="width: 100%; height: 100%;">
+				<canvas id="submit_cnt" width="100" height="100"></canvas>
+			</div>
 		</div>
 	</div>
 </div>
+<script>
+var labels = [], data = [], bkcol = []
+
+{% for status in range(0,11) %}
+	{% set cnt = status_cnt[status] %}
+	{% if cnt != 0 %}
+		labels.push('{{shortstatus[status]}}')
+		data.push({{cnt}})
+		bkcol.push('{{statuscolor[status]}}')
+	{% endif %}
+{% endfor %}
+
+var ctx = $("#submit_cnt")
+new Chart(ctx,{
+    data: {
+		labels: labels,
+		datasets: [{
+			data: data,
+			backgroundColor: bkcol,
+			borderWidth: 1
+		}]
+	},
+    type: 'pie', // doughnut
+	options: {
+		legend: {
+            display: true,
+            labels: {
+                usePointStyle: true
+            }
+        }
+	}
+})
+</script>
 {% endblock %}

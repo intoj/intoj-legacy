@@ -4,30 +4,43 @@ import hashlib,re
 import db
 
 tostatus = {
-	0:"Waiting",
-	1:"Running",
-	2:"Unknown Error",
-	3:"Compile Error",
-	4:"Hacked",
-	5:"Wrong Answer",
-	6:"Time Limit Exceed",
-	7:"Memory Limit Exceed",
-	8:"Runtime Error",
-	9:"Partially Accepted",
-	10:"Accepted"
+	0: "Waiting",
+	1: "Running",
+	2: "Unknown Error",
+	3: "Compile Error",
+	4: "Hacked",
+	5: "Wrong Answer",
+	6: "Time Limit Exceed",
+	7: "Memory Limit Exceed",
+	8: "Runtime Error",
+	9: "Partially Accepted",
+	10: "Accepted"
+}
+shortstatus = {
+	0: "WJ",
+	1: "Run",
+	2: "UKE",
+	3: "CE",
+	4: "Hacked",
+	5: "WA",
+	6: "TLE",
+	7: "MLE",
+	8: "RE",
+	9: "PAC",
+	10: "AC"
 }
 statusicon = {
-	0:"spinner icon-spin",
-	1:"spinner icon-spin",
-	2:"thumbs-down",
-	3:"github-alt",
-	4:"magic",
-	5:"remove",
-	6:"time",
-	7:"hdd",
-	8:"asterisk",
-	9:"legal",
-	10:"ok"
+	0: "spinner icon-spin",
+	1: "spinner icon-spin",
+	2: "thumbs-down",
+	3: "github-alt",
+	4: "magic",
+	5: "remove",
+	6: "time",
+	7: "hdd",
+	8: "asterisk",
+	9: "legal",
+	10: "ok"
 }
 statuscolor = {
 	0: '#888888',
@@ -35,7 +48,7 @@ statuscolor = {
 	2: '#aaaaaa',
 	3: '#233333',
 	4: '#ff4499',
-	5: 'red',
+	5: '#ff0000',
 	6: 'orange',
 	7: 'orange',
 	8: 'purple',
