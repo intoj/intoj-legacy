@@ -62,7 +62,7 @@
 	<script src="/static/modules/select/select.js"></script>
 
 	<script src="/static/modules/chart/chart_bundle.js"></script>
-	
+
 	<script src="/static/resize.js"> </script>
 	<script src="/static/render.js"> </script>
 	<script src="/static/expand.js"> </script>
@@ -167,5 +167,23 @@
 		{% endblock %}
 	</div>
 	<script> Codeinput(); </script>
+	<script>
+		{% if Is_Loggedin() %}
+			{% set background_url = Read_User_Byname(request.cookies['username'])[8] %}
+			{% if background_url not in [None,''] %}
+			{% if background_url[0] == '#' %}
+				$("body").css('background-color','{{background_url}}')
+				$("body").css('background-image','initial')
+			{% else %}
+				var img = new Image();
+				img.src = '{{background_url}}';
+				img.onload = function(){
+					$("body").css('background-image','url({{background_url}})')
+					console.log($("body"));
+				}
+			{% endif %}
+			{% endif %}
+		{% endif %}
+	</script>
 </body>
 </html>

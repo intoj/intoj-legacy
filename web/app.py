@@ -22,6 +22,7 @@ app.add_template_global(sites.modules.Current_User_Privilege,'Current_User_Privi
 app.add_template_global(sites.modules.Is_Loggedin,'Is_Loggedin')
 app.add_template_global(sites.db.User_Privilege,'User_Privilege')
 app.add_template_global(sites.db.Read_Problem,'Read_Problem')
+app.add_template_global(sites.db.Read_User_Byname,'Read_User_Byname')
 
 @app.route('/error/<message>')
 def Error(message):

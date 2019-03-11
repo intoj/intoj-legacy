@@ -111,5 +111,5 @@ def User_Privilege(username,privilege_id):
 	if username == None: return 0
 	user = Read_User_Byname(username)
 	if user == None: return 0
-	if user[8]: return 1
-	return user[privilege_id+8]
+	if user[9]: return 1
+	return user[privilege_id+9]
