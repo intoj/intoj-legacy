@@ -31,6 +31,9 @@ def Error(message):
 def Error_404(e):
 	flash(r'## 404 not found \n指挥官大人,您访问的页面......没有找到......QAQ.','error')
 	return sites.modules.Page_Back()
+@app.route('/blank')
+def Blank():
+	return render_template('base.html')
 
 @app.route('/')
 def Home():
