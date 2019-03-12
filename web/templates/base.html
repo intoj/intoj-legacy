@@ -176,10 +176,9 @@
 				$("body").css('background-image','initial')
 			{% else %}
 				var img = new Image();
-				img.src = '{{background_url}}';
+				img.src = '{{background_url}}'
 				img.onload = function(){
-					$("body").css('background-image','url({{background_url}})')
-					console.log($("body"));
+					$("body").css('background-image','url("{{background_url}}")')
 				}
 			{% endif %}
 			{% endif %}

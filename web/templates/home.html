@@ -9,14 +9,46 @@ function Find_User(){
 </script>
 <div class="main">
 	<div class="block-mini-box">
-		<div class="ui block-mini" style="width: 61%; border-radius: 2px;">
-			<div class="contitle"> 公告 </div>
-			<div class="content markdown"> Hi! </div>
+		<div class="block-mini" style="width: 63%;">
+			<div class="ui" style="padding: 15px 12px; border-radius: 5px;">
+				<div class="block-mini-inner">
+					<div class="contitle"> 公告 </div>
+					<div class="content markdown"> Hi! </div>
+				</div>
+
+			</div>
 		</div>
-		<div class="ui block-mini" style="width: 30.5%; border-radius: 2px;">
-			<div class="contitle"> 用户查找 </div>
-			<div class="content" style="display: flex; align-items: center; justify-content: space-around">
-				<input class="input-mediumlong" type="text" id="find-user"> </input> <button class="button button-primary button-rounded button-small" onclick="Find_User()"> 查找 </button>
+		<div class="block-mini" style="width: 35%;">
+			<div class="ui" style="padding: 15px 12px; border-radius: 5px;">
+				<div class="block-mini-inner">
+					<div class="contitle"> 用户查找 </div>
+					<div class="content" style="display: flex; align-items: center; justify-content: space-around">
+						<input class="input-mediumlong" type="text" id="find-user"> </input> <button class="button button-primary button-rounded button-small" style="flex-shrink: 0;" onclick="Find_User()"> 查找 </button>
+					</div>
+				</div>
+				<div class="block-mini-inner">
+					<div class="contitle"> 近期比赛 </div>
+					<div class="list">
+						{% for contest in contests %}
+						<a href="/contest/{{contest[0]}}" class="uncolored">
+							<div class="listline listline-animation">
+								<span class="listitem center smallfont" style="width: 400px"> {{contest[1]}} </span>
+								<span class="listitem center smallfont" style="width: 400px"> {{contest[3].split()[0]}}<br />{{contest[3].split()[1]}} </span>
+							</div>
+						</a>
+						{% endfor %}
+					</div>
+				</div>
+				{% if Is_Loggedin() %}
+				{% set username = request.cookies['username'] %}
+				{% set user = Read_User_Byname(username) %}
+				<div class="block-mini-inner">
+					<div class="contitle"> <a href="/user/{{username}}" class="uncolored"> {{username}} </a> </div>
+					<div class="content markdown">
+						{{-user[6]-}}
+					</div>
+				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

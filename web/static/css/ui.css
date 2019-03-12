@@ -119,16 +119,22 @@ div.dropdown{
 	margin-bottom: 20px;
 	height: auto;
 }
-div.block-mini{
-	padding: 5px 20px;
-	background-color: #e8e8e899;
-	border-radius: 6px;
-}
 div.block-mini-box{
 	display: flex;
 	justify-content: space-between;
 	width: calc(93% + 40px);
-	margin: 10px auto;
+	margin:3px auto;
+}
+div.block-mini{
+	border-radius: 6px;
+}
+div.block-mini-inner{
+	width: calc( 100% - 30px );
+	padding: 5px 15px;
+	margin: 0px 0px 10px 0px;
+	background-color: #ededed;
+	background-color: #e8e8e899;
+	border-radius: 6px;
 }
 
 /**************** footer ****************/

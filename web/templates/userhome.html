@@ -7,40 +7,46 @@
 			<img src="https://www.gravatar.com/avatar/{{Email_Hash(user[4])}}.jpg?s=1000" style="width:100%" />
 			<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
 		</div>
-		<div class="block-mini" style="width: 30%">
-			<div class="contitle"> 个性签名 </div>
-			<div class="content markdown">
+		<div class="block-mini" style="width: 33%">
+			<div class="block-mini-inner">
+				<div class="contitle"> 个性签名 </div>
+				<div class="content markdown">
 {{user[6]}}
+				</div>
 			</div>
-			<div class="contitle"> 邮箱地址 </div>
-			<div class="content markdown">
+			<div class="block-mini-inner">
+				<div class="contitle"> 邮箱地址 </div>
+				<div class="content markdown">
 {{user[4]}}
-			</div>
-			<div class="contitle"> 性别 </div>
-			<div class="content markdown">
+				</div>
+				<div class="contitle"> 性别 </div>
+				<div class="content markdown">
 {% if user[5] == 0 %} 男
 {% elif user[5] == 1 %} 女
 {% else %} Unknown
 {% endif %}
-			</div>
-			{% if user[7] != None %}
-			<div class="contitle"> 小组 </div>
-			<div class="content markdown">
+				</div>
+				{% if user[7] != None %}
+				<div class="contitle"> 小组 </div>
+				<div class="content markdown">
 {{user[7]}}
+				</div>
+				{% endif %}
+				{% if Current_User_Privilege(1) %}
+				<a href="/user/{{user[1]}}/edit" class="uncolored">
+					<button class="button button-primary button-rounded button-small">
+						编辑他的资料
+					</button>
+				</a>
+				{% endif %}
 			</div>
-			{% endif %}
-			{% if Current_User_Privilege(1) %}
-			<a href="/user/{{user[1]}}/edit" class="uncolored">
-				<button class="button button-primary button-rounded button-small">
-					编辑他的资料
-				</button>
-			</a>
-			{% endif %}
 		</div>
-		<div class="block-mini" style="width: 30%">
-			<div class="contitle"> 统计 </div>
-			<div style="width: 100%; height: 100%;">
-				<canvas id="submit_cnt" width="100" height="100"></canvas>
+		<div class="block-mini" style="width: 33%">
+			<div class="block-mini-inner">
+				<div class="contitle"> 统计 </div>
+				<div style="width: 100%; height: 100%;">
+					<canvas id="submit_cnt" width="100" height="100"></canvas>
+				</div>
 			</div>
 		</div>
 	</div>
