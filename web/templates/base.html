@@ -77,35 +77,35 @@
 		<div class="topbar-container" style="margin: 0px auto;">
 			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"> </img> </span> </a>
 			<a href="/" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth {% block selected_home %}{% endblock %}">
+				<span class="topbaritem onewidth unselect {% block selected_home %}{% endblock %}">
 					<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
 						<span class="topbarword"> 首页 </span>
 					</div>
 				</span>
 			</a>
 			<a href="/problemlist" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth {% block selected_problem %}{% endblock %}">
+				<span class="topbaritem onewidth unselect {% block selected_problem %}{% endblock %}">
 					<div class="topbarindex"> <i class="icon-list" aria-hidden="true"></i>
 						<span class="topbarword"> 题目 </span>
 					</div>
 				</span>
 			</a>
 			<a href="/contestlist" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth {% block selected_contest %}{% endblock %}">
+				<span class="topbaritem onewidth unselect {% block selected_contest %}{% endblock %}">
 					<div class="topbarindex"> <i class="icon-fire" aria-hidden="true"></i>
 						<span class="topbarword"> 比赛 </span>
 					</div>
 				</span>
 			</a>
 			<a href="/status" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth {% block selected_status %}{% endblock %}">
+				<span class="topbaritem onewidth unselect {% block selected_status %}{% endblock %}">
 					<div class="topbarindex"> <i class="icon-tasks" aria-hidden="true"></i>
 						<span class="topbarword"> 评测 </span>
 					</div>
 				</span>
 			</a>
 			<a href="/help" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth {% block selected_help %}{% endblock %}">
+				<span class="topbaritem onewidth unselect {% block selected_help %}{% endblock %}">
 					<div class="topbarindex"> <i class="icon-question-sign" aria-hidden="true"></i>
 						<span class="topbarword"> 帮助 </span>
 					</div>
@@ -114,7 +114,7 @@
 			<span class="topbaritem-noanimation onewidth" style="flex: 2;">
 			</span>
 			{% if Is_Loggedin() %}
-			<span class="topbaritem" style="width:auto">
+			<span class="topbaritem unselect" style="width:auto">
 				<span class="button-dropdown button-dropdown-primary" data-buttons="dropdown">
 					<button class="button button-large button-nobg" style="padding: 0px 10px; width:200px;">
 						{{- request.cookies['username'] -}} &nbsp; <i class="icon-caret-down"> </i>

@@ -26,7 +26,7 @@
 					<span class="listitem center" style="width: 12%"> 提交者 </span>
 					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
-				<div class="listline" onselectstart="return false;" id="overview">
+				<div class="listline" id="overview">
 					{% include 'record_overview.html' %}
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 	<div class="block">
 		<div class="contitle"> 测试点信息 </div>
 		<div class="">
-			<div class="list">
+			<div class="list unselect">
 				<div class="listline">
 					<span class="listitem onewide center"> 编号 </span>
 					<span class="listitem sixwide center"> 状态 </span>
@@ -44,7 +44,7 @@
 					<span class="listitem twowide center"> 时间 </span>
 					<span class="listitem twowide center"> 内存 </span>
 				</div>
-				<div id="subtasks">
+				<div id="subtasks unselect">
 				{% include 'record_subtasks.html' %}
 				</div>
 			</div>

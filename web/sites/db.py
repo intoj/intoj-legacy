@@ -85,6 +85,12 @@ def Read_Record(id):
 	End_Connect(db,cur)
 	return urecord
 
+def Read_Userlist():
+	db,cur = Is_Connect()
+	cur.execute("SELECT * FROM users")
+	userlist = cur.fetchall()
+	End_Connect(db,cur)
+	return userlist
 def Read_User_Byname(username):
 	db,cur = Is_Connect()
 	cur.execute("SELECT * FROM users WHERE username=%s;",username)
@@ -107,9 +113,16 @@ def Fetchone(cmd,arg=None):
 	End_Connect(db,cur)
 	return ret
 
+def Read_User_Privileges(username):
+	db,cur = Is_Connect()
+	cur.execute("SELECT * FROM user_privileges WHERE username=%s;",username)
+	user = cur.fetchone()
+	End_Connect(db,cur)
+	return user
+
 def User_Privilege(username,privilege_id):
 	if username == None: return 0
-	user = Read_User_Byname(username)
+	user = Read_User_Privileges(username)
 	if user == None: return 0
-	if user[9]: return 1
-	return user[privilege_id+9]
+	if user[2]: return 1
+	return user[privilege_id+2]

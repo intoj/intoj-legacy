@@ -1,4 +1,4 @@
 function Cannotselect(){
-	$("div.listline").attr("onselectstart","return false");
-	$("div.topbaritem").attr("onselectstart","return false");
+	$(".unselect").attr("onselectstart","return false");
+	$(".unselect").attr("onselectstart","return false");
 }

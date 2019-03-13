@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% block title %} {{user[1]}} {% endblock %}
 {% block body %}
+{% set called = "我" if Is_Loggedin() and user[1] == request.cookies['username'] else "他" %}
 <div class="ui main">
 	<div class="block-mini-box">
-		<div style="width: 30%; background-color: #e8e8e899;">
-			<img src="https://www.gravatar.com/avatar/{{Email_Hash(user[4])}}.jpg?s=1000" style="width:100%" />
-			<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
+		<div style="width: 30%;">
+			<div class="block-mini-inner" style="padding: 0px 0px 5px 0px; width: 100%; border-radius: 0;">
+				<img src="https://cdn.v2ex.com/gravatar/{{Email_Hash(user[4])}}.jpg?s=1000" style="width:100%" />
+				<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
+			</div>
+			<div class="block-mini-inner">
+				<div class="contitle" onclick="Click('ac_list')"> AC 的题目 <span style="font-size: 14px"> (点击查看) </span> </div>
+				<div class="content dropdown-ac_list" style="font-size: 18px;" hidden>
+					{% for problem_id in user[11][1:-1].split(', ') %}
+						<a href="/problem/{{problem_id}}" style="margin-right: 10px;"> {{problem_id}} </a>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 		<div class="block-mini" style="width: 33%">
 			<div class="block-mini-inner">
@@ -35,15 +46,23 @@
 				{% if Current_User_Privilege(1) %}
 				<a href="/user/{{user[1]}}/edit" class="uncolored">
 					<button class="button button-primary button-rounded button-small">
-						编辑他的资料
+						编辑{{called}}的资料
 					</button>
 				</a>
 				{% endif %}
 			</div>
 		</div>
 		<div class="block-mini" style="width: 33%">
+			<div class="block-mini-inner" style="display: flex; justify-content: space-around; padding-top: 20px; padding-bottom: 20px;">
+				<div style="display: flex; align-items: center; flex-direction: column;">
+					<span style="font-size: 60px;"> {{user[9]}} </span> 通过
+				</div>
+				<div style="display: flex; align-items: center; flex-direction: column;">
+					<span style="font-size: 60px;"> {{user[10]}} </span> 提交
+				</div>
+			</div>
 			<div class="block-mini-inner">
-				<div class="contitle"> 统计 </div>
+				<div class="contitle"> 统计 <a class="button button-primary button-small button-rounded" style="float: right; margin-top: 5px;" href="/status?username={{user[1]}}"> {{called}}的提交 </a> </div>
 				<div style="width: 100%; height: 100%;">
 					<canvas id="submit_cnt" width="100" height="100"></canvas>
 				</div>
