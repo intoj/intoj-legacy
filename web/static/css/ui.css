@@ -98,7 +98,7 @@ div.block{
 	padding: 5px 20px;
 	background-color: #ededed;
 	background-color: #e8e8e899;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 div.block.error{
 	background-color: #ff000033 !important;
