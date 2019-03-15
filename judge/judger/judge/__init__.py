@@ -1,3 +1,2 @@
-__all__ = ["txtcompare"]
-
 from . import txtcompare
+from . import special_judge
