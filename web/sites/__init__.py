@@ -20,3 +20,5 @@ from . import register
 from . import status
 from . import useredit
 from . import userhome
+
+from . import tool_total_ac_submit_recalculate

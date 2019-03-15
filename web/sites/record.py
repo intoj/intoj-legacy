@@ -1,7 +1,7 @@
 #coding:utf-8
 from flask import *
 import json,datetime
-import db,modules,newsubmit
+import db,modules,newsubmit,tool_total_ac_submit_recalculate
 
 def Get(id):
 	record = db.Read_Record(id)
@@ -52,5 +52,8 @@ def Refresh(id):
 		'subtasks_html': subtasks_html,
 		'success': 1
 	}
+
+	if record[4] >= 2:
+		tool_total_ac_submit_recalculate.Total_Ac_Submit_Recalculate(record[11])
 
 	return json.dumps(ret)

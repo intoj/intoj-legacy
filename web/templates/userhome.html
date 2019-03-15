@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} {{user[1]}} {% endblock %}
 {% block body %}
-{% set called = "我" if Is_Loggedin() and user[1] == request.cookies['username'] else "他" %}
+{% set called = "我" if Is_Loggedin() and user[1] == request.cookies['username'] else "她" if user[5] == 1 else "他" if user[5] == 0 else "Ta" %}
 <div class="ui main">
 	<div class="block-mini-box">
 		<div style="width: 30%;">

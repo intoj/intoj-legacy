@@ -92,6 +92,9 @@ def Is_Loggedin():
 		if session.get(username) != client_key: return 0
 		else: return 1
 	except: return 0
+def Current_User():
+	if not Is_Loggedin(): return None
+	return request.cookies.get('username')
 def Current_User_Privilege(id):
 	if not Is_Loggedin(): return 0
 	return db.User_Privilege(request.cookies['username'],id)
@@ -109,3 +112,21 @@ def Referrer():
 	return '/' if request.referrer == None else request.referrer
 def Page_Back():
 	return redirect(Referrer())
+def Argstring():
+	arg = ""
+	for key,value in request.args.items():
+		if arg != "": arg += "&"
+		arg += "%s=%s" % (Raw(key),Raw(value))
+	return arg
+	
+def Page_Split(lst,page,per_page,condition):
+	shown = []
+	count = 0
+	for now in lst:
+		try:
+			if condition(now):
+				count += 1
+				if per_page*(page-1) < count <= per_page*page: shown.append(now)
+		except: pass
+	total_page = count//per_page + ( 1 if count%per_page != 0 else 0 )
+	return shown, total_page

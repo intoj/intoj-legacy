@@ -90,7 +90,8 @@ div.content{
 }
 div.markdown{
 	line-height: 30px;
-	letter-spacing: 1.1px;
+	letter-spacing: 1px;
+	font-family: "consolas";
 }
 div.block{
 	width: 93%;

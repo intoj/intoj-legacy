@@ -41,10 +41,11 @@ button.submitbutton{
 	font-weight: 500;
 	letter-spacing: 1px;
 }
-button.button{
+.button{
 	border-color: #ffffff00;
 	border-style: dashed;
 	border-width: 1px;
+	font-size: 18px !important;
 }
 button.button.button-border{
 	border-color: inherit !important;

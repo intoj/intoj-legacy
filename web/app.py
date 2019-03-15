@@ -10,6 +10,10 @@ import sites
 
 app = Flask(__name__)
 
+app.add_template_global(min,'min')
+app.add_template_global(max,'max')
+
+app.add_template_global(sites.modules.Argstring,'Argstring')
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
 app.add_template_global(sites.modules.tostatus,'tostatus')
 app.add_template_global(sites.modules.shortstatus,'shortstatus')

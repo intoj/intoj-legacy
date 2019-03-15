@@ -1,58 +1,87 @@
 {% extends 'base.html' %}
-{% block title %} 评测状态 {% endblock %}
-{% block selected_status %} selected {% endblock %}
+
+{% if contest_id != 0 %}
+	{% if my %} {% set name = "我的" %} {% else %} {% set name = "所有" %} {% endif %}
+	{% set title = name + "提交 - " + contest[1] %}
+{% else %}
+	{% set title = "评测状态" %}
+{% endif %}
+
+{% block title %}
+	{{title}}
+{% endblock %}
+{% block selected_contest %}
+	{% if contest_id != 0 %} selected {% endif %}
+{% endblock %}
+{% block selected_status %}
+	{% if contest_id == 0 %} selected {% endif %}
+{% endblock %}
+
+
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 实时评测记录 </div>
+		<div class="contitle">
+			{% if contest_id != 0 %}
+				{{title}}
+				<div class="button-group" style="float: right">
+					<a class="button button-rounded button-primary button-small" style="font-size: 15px;" onclick="history.go(-1)"> 返回 </a>
+					<a class="button button-rounded button-primary button-small" style="font-size: 15px;" href="/contest/{{contest_id}}"> 比赛主页 </a>
+				</div>
+			{% else %}
+				{{title}}
+			{% endif %}
+		</div>
+		<form method="GET">
+			<div class="listline" style="justify-content: space-around">
+				<span class="listitem center">
+					题目id: <input class="input-short" type="text" name="problem_id" value="{% if 'problem_id' in request.args %}{{request.args.get('problem_id')}}{% endif %}"> </input>
+				</span>
+				<span class="listitem center">
+					提交者: <input class="input-medium" type="text" name="username" value="{% if 'username' in request.args %}{{request.args.get('username')}}{% endif %}"> </input>
+				</span>
+				<span class="listitem center" style="align-self: flex-start;">
+					<div style="margin-top: 5px" class="select-outer-wrapper">
+						状态: &nbsp;
+						<div class="select-wrapper" onclick="Click(1)" style="width: 220px;">
+							{% set init_status = request.args.get('status')|int(-1) %}
+							<input type="hidden" name="status" id="select-input-1" value="{% if init_status in range(0,11) %} {{init_status}} {% endif %}"> </input>
+							<div class="select-answer" id="select-answer-1">
+								{% if init_status in range(0,11) %}
+								<span class="judge-{{init_status}}">
+									<i class="icon-{{statusicon[init_status]}}"> </i>
+									{{tostatus[init_status]}}
+								</span>
+								{% else %}
+								<span style="color: #999; font-size: 15px;"> 不限 </span>
+								{% endif %}
+							</div>
+							<div class="dropdown-1 select-dropdown" hidden>
+								<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,-1)">
+									&nbsp; 不限
+								</div>
+								{% for i in range(0,11) %}
+								<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,{{i}})">
+									<span class="judge-{{i}}">
+										&nbsp; <i class="icon-{{statusicon[i]}}"> </i> &nbsp; {{tostatus[i]}}
+									</span>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</span>
+				<span class="listitem center">
+					分数: <input class="input-tiny" type="text" name="min_score" value="{% if request.args.get('min_score') != None %}{{request.args.get('min_score')}}{% else %}0{% endif %}"> </input>
+					~ <input class="input-tiny" type="text" name="max_score" value="{% if request.args.get('max_score') != None %}{{request.args.get('max_score')}}{% else %}100{% endif %}"> </input>
+				</span>
+				<button type="submit" class="button button-small button-primary button-rounded" style="font-size: 14px;"> 查询 </button>
+			</div>
+		</form>
+	</div>
+	<div class="block">
 		<div class="content">
 			<div class="list">
-				<form method="GET">
-					<div class="listline" style="justify-content: space-around">
-						<span class="listitem center">
-							题目id: <input class="input-short" type="text" name="problem_id" value="{% if 'problem_id' in request.args %}{{request.args.get('problem_id')}}{% endif %}"> </input>
-						</span>
-						<span class="listitem center">
-							提交者: <input class="input-medium" type="text" name="username" value="{% if 'username' in request.args %}{{request.args.get('username')}}{% endif %}"> </input>
-						</span>
-						<span class="listitem center" style="align-self: flex-start;">
-							<div style="margin-top: 5px" class="select-outer-wrapper">
-								状态: &nbsp;
-								<div class="select-wrapper" onclick="Click(1)" style="width: 220px;">
-									{% set init_status = request.args.get('status')|int(-1) %}
-									<input type="hidden" name="status" id="select-input-1" value="{% if init_status in range(0,11) %} {{init_status}} {% endif %}"> </input>
-									<div class="select-answer" id="select-answer-1">
-										{% if init_status in range(0,11) %}
-											<span class="judge-{{init_status}}">
-												<i class="icon-{{statusicon[init_status]}}"> </i>
-												{{tostatus[init_status]}}
-											</span>
-										{% else %}
-											<span style="color: #999; font-size: 15px;"> 不限 </span>
-										{% endif %}
-									</div>
-									<div class="dropdown-1 select-dropdown" hidden>
-										<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,-1)">
-											&nbsp; 不限
-										</div>
-										{% for i in range(0,11) %}
-										<div class="listline listline-animation select-listline" style="width: 216px;" onclick="Select_Changeto(1,{{i}})">
-											<span class="judge-{{i}}">
-												&nbsp; <i class="icon-{{statusicon[i]}}"> </i> &nbsp; {{tostatus[i]}}
-										 	</span>
-										</div>
-										{% endfor %}
-									</div>
-								</div>
-							</div>
-						</span>
-						<span class="listitem center">
-							分数: <input class="input-tiny" type="text" name="min_score" value="{% if request.args.get('min_score') != None %}{{request.args.get('min_score')}}{% else %}0{% endif %}"> </input>
-							~ <input class="input-tiny" type="text" name="max_score" value="{% if request.args.get('max_score') != None %}{{request.args.get('max_score')}}{% else %}100{% endif %}"> </input>
-						</span>
-						<button type="submit" class="button button-small button-primary button-rounded" style="font-size: 14px;"> 查询 </button>
-					</div>
-				</form>
 				<div class="listline">
 					<span class="listitem onewide center"> 编号 </span>
 					<span class="listitem threewide center"> 题目 </span>
@@ -63,7 +92,7 @@
 					<span class="listitem center" style="width: 12%"> 提交者 </span>
 					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
-				{% for status in statuslist if not status[12] and ( Read_Problem(status[1])[9] or Current_User_Privilege(2) )%}
+				{% for status in statuslist %}
 				<div class="listline listline-animation">
 					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> #{{status[0]}} </a> </span>
 					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
@@ -87,6 +116,26 @@
 				</div>
 				{% endfor %}
 			</div>
+		</div>
+	</div>
+	<div style="display: flex; justify-content: center;">
+		<div class="button-group">
+			{% set args = Argstring() %}
+			<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> <i class="icon-double-angle-left"> </i> </a>
+			<a class="button button-rounded button-square button-grey" href="?page={{max(1,current_page-1)}}&{{args}}"> <i class="icon-angle-left"> </i> </a>
+			{% if max(current_page-2,1) != 1 %}
+				<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> 1 </a>
+				<a class="button button-rounded button-square button-grey"> . . . </a>
+			{% endif %}
+			{% for page in range(max(current_page-2,1),min(current_page+2,total_page)+1) %}
+				<a class="button button-rounded button-square button-grey" href="?page={{page}}&{{args}}" {% if page==current_page %} style="background-color: #ddd" {% endif %}> {{page}} </a>
+			{% endfor %}
+			{% if min(current_page+2,total_page) != total_page %}
+				<a class="button button-rounded button-square button-grey"> . . . </a>
+				<a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> {{total_page}} </a>
+			{% endif %}
+			<a class="button button-rounded button-square button-grey" href="?page={{min(total_page,current_page+1)}}&{{args}}"> <i class="icon-angle-right"> </i> </a>
+			<a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> <i class="icon-double-angle-right"> </i> </a>
 		</div>
 	</div>
 </div>
