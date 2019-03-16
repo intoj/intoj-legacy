@@ -8,7 +8,7 @@ if sitespath not in sys.path:
 	sys.path.insert(0,sitespath)
 import sites
 
-app = Flask(__name__)
+app = Flask("intoj")
 
 app.add_template_global(min,'min')
 app.add_template_global(max,'max')
