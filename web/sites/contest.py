@@ -3,6 +3,7 @@ import json
 import db,modules
 
 def Run(id):
+	if id == 5: return render_template('error.html',message='No Permission.')
 	contest = db.Read_Contest(id)
 	if contest == None:
 		flash('不存在的比赛','error')

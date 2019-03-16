@@ -31,3 +31,16 @@ span.listitem.fivewide{ width: 30%; }
 span.listitem.sixwide{ width: 35%; }
 span.listitem.center{ text-align: center; }
 .smallfont{ font-size: 14px !important; /*font-weight: bold;*/ }
+div.smallfont{ line-height: 20px !important; }
+
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+td, th{
+	border: 1px solid black;
+	padding: 2px 10px 1px 10px;
+}
+th{
+	background-color: #ddd;
+}

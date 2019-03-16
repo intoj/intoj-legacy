@@ -8,7 +8,7 @@ exepath = "../tmp/a"
 # 参数: timelim(ms),memlim(mb),outputlim(kb)
 # 返回: (type,message)
 # 其中 type 为评测代码
-def Compile(timelim,memlim,outputlim):
+def Compile(timelim,memlim,outputlim,path="../tmp",cpppath="../tmp/a.cpp",exepath="../tmp/a"):
 	try:
 		(status,message) = subprocess.getstatusoutput(" \
 		lrun \
@@ -26,7 +26,7 @@ def Compile(timelim,memlim,outputlim):
 			return(3,"编译爆内存...但愿你不是在攻击")
 		if exceed == "OUTPUT":
 			return(3,"编译器输出了太多东西...建议本机编译一下试试")
-		
+
 		exitcode = int(message[message.find("EXITCODE"):message.find("TERMSIG")][8:].strip())
 		if exitcode == 0:
 			return(10,"")

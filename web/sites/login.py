@@ -33,7 +33,7 @@ def Run():
 			return render_template('login.html')
 		else:
 			username = request.form['username']
-			session[username] = message
+			modules.Set_Session('client_keys',username,message)
 			# 此时message就是clientkey
 			resp = Response(render_template('jumpto.html',link='/'))
 			resp.set_cookie('username',username,max_age=60*60*24*30)

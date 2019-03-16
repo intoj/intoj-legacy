@@ -4,6 +4,7 @@ import pymysql,redis,datetime
 import db,modules,problem
 
 #包含rejudge
+submit_delay_time = 5
 
 def Submit(problemid,req,contest_id=0):
 	if not modules.Is_Loggedin():
@@ -15,9 +16,20 @@ def Submit(problemid,req,contest_id=0):
 		flash('这么短真的没问题?','error')
 		return modules.Page_Back()
 
+	username = request.cookies['username']
+	last_submit_time = modules.Get_Session('last_submit_time',username)
+	now_time = datetime.datetime.now()
+
+	if last_submit_time != None:
+		seconds = (now_time-last_submit_time).seconds
+		if seconds < submit_delay_time:
+			flash('请在 %ss 后提交'%(submit_delay_time-seconds),'error')
+			return modules.Page_Back()
+	modules.Set_Session('last_submit_time',username,now_time)
+
 	runid = int(db.Fetchone("SELECT MAX(id) FROM records;")[0]) + 1
 	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',request.cookies['username'],contest_id,nowtime))
+	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',username,contest_id,nowtime))
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))

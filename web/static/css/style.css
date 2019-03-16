@@ -52,5 +52,5 @@ p code{
 .judge-6{ color: orange; }		/* Time Limit Exceed */
 .judge-7{ color: orange; }		/* Memory Limit Exceed */
 .judge-8{ color: purple; }		/* Runtime Error */
-.judge-9{ color: forestgreen; }	/* Partical Accepted */
+.judge-9{ color: #66ccff; }	/* Partical Accepted */
 .judge-10{ color: #00cc00; }	/* Accepted */

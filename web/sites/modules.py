@@ -32,14 +32,14 @@ shortstatus = {
 statusicon = {
 	0: "spinner icon-spin",
 	1: "spinner icon-spin",
-	2: "thumbs-down",
+	2: "twitter",
 	3: "github-alt",
 	4: "magic",
 	5: "remove",
 	6: "time",
 	7: "hdd",
 	8: "asterisk",
-	9: "legal",
+	9: "adjust",
 	10: "ok"
 }
 statuscolor = {
@@ -52,7 +52,7 @@ statuscolor = {
 	6: 'orange',
 	7: 'orange',
 	8: 'purple',
-	9: 'forestgreen',
+	9: '#66ccff',
 	10: '#00cc00'
 }
 
@@ -83,13 +83,23 @@ def Email_Hash(s):
 def Vaild_Username(username):
 	return re.match(r'[A-Za-z0-9_\-]+',username) != None and re.match(r'[A-Za-z0-9_\-]+',username).span()[1] == len(username)
 
+def Get_Session(type,name):
+	if session.get(type) == None:
+		session[type] = {}
+	return session[type].get(name)
+def Set_Session(type,name,value):
+	if session.get(type) == None:
+		session[type] = {}
+	session[type][name] = value
+	session.update()
+
 def Toint(x):
 	return int(x) if int(x)==x else x
 def Is_Loggedin():
 	try:
 		username = request.cookies['username']
 		client_key = request.cookies['client_key']
-		if session.get(username) != client_key: return 0
+		if Get_Session('client_keys',username) != client_key: return 0
 		else: return 1
 	except: return 0
 def Current_User():
@@ -118,7 +128,7 @@ def Argstring():
 		if arg != "": arg += "&"
 		arg += "%s=%s" % (Raw(key),Raw(value))
 	return arg
-	
+
 def Page_Split(lst,page,per_page,condition):
 	shown = []
 	count = 0

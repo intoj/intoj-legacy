@@ -6,7 +6,7 @@ db_password = '24'
 def Is_Connect():
 	global db,cur
 	db = pymysql.connect("localhost","intlsy",db_password,"intoj")
-	cur = db.cursor()
+	cur = db.cursor(cursor=pymysql.cursors.DictCursor)
 def End_Connect():
 	global db,cur
 	cur.close()
