@@ -1,0 +1,55 @@
+<div style="display: flex; justify-content: space-around; align-items: center">
+	<div style="width: 270px; height: 270px;">
+		<canvas id="status_statistic" width="100%" height="100%"></canvas>
+	</div>
+	<div class="list" style="background-color: #e3e3e3; border-radius: 2px; padding: 5px 20px;">
+		<div class="listline listline-padding">
+			<span class="listitem smallfont center" style="width: 190px;"> 状态 </span>
+			<span class="listitem smallfont center" style="width: 60px;"> 数量 </span>
+		</div>
+		{% for status in range(0,11) %}
+		{% set cnt = status_count[status] %}
+		{% if cnt != 0 %}
+		<a href="/status?problem_id={{problem[0]}}&status={{status}}" class="uncolored">
+			<div class="listline listline-animation listline-padding">
+				<span class="listitem" style="width: 190px;">
+					<span class="judge-{{status}}">
+						<i class="icon-{{statusicon[status]}}"> </i>
+						{{tostatus[status]}}
+					</span>
+				</span>
+				<span class="listitem center" style="width: 60px;"> {{cnt}} </span>
+			</div>
+		</a>
+		{% endif %}
+		{% endfor %}
+	</div>
+</div>
+<script>
+var labels = [], data=[], bkcol=[]
+{% for status in range(0,11) %}
+	{% set cnt = status_count[status] %}
+	{% if cnt != 0 %}
+		labels.push('{{tostatus[status]}}')
+		data.push({{cnt}})
+		bkcol.push("{{statuscolor[status]}}")
+	{% endif %}
+{% endfor %}
+var ctx = $("#status_statistic")
+var myChart = new Chart(ctx, {
+	type: 'doughnut',
+	data: {
+		labels: labels,
+		datasets: [{
+			data: data,
+			backgroundColor: bkcol,
+			borderWidth: 1
+		}]
+	},
+	options: {
+		legend: {
+			display: false
+		}
+	}
+});
+</script>

@@ -56,13 +56,13 @@ statuscolor = {
 	10: '#00cc00'
 }
 
-def Score_Color(a,fullscore=100):
+def Score_Color(a,fullscore=100,opacity=1):
 	if a <= fullscore/2:
 		g = int( (a/fullscore) * (255+255-80) )
-		return "rgb(255,%d,0)" % g
+		return "rgb(255,%d,0,%f)" % (g,opacity)
 	else:
 		r = int( (1.0-a/fullscore) * (255+255) )
-		return "rgb(%d,220,0)" % r
+		return "rgb(%d,220,0,%f)" % (r,opacity)
 
 special_char = {
 '\'': r'\'',

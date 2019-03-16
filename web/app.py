@@ -22,6 +22,7 @@ app.add_template_global(sites.modules.statuscolor,'statuscolor')
 app.add_template_global(sites.modules.Email_Hash,'Email_Hash')
 app.add_template_global(sites.modules.Toint,'Toint')
 app.add_template_global(sites.modules.Judge_Status,'Judge_Status')
+app.add_template_global(sites.modules.Current_User,'Current_User')
 app.add_template_global(sites.modules.Current_User_Privilege,'Current_User_Privilege')
 app.add_template_global(sites.modules.Is_Loggedin,'Is_Loggedin')
 app.add_template_global(sites.db.User_Privilege,'User_Privilege')
@@ -52,6 +53,9 @@ def Problem(problemid):
 @app.route('/problemadd',methods=['GET','POST'])
 def Problemadd():
 	return sites.problemadd.Run()
+@app.route('/problem/<int:problem_id>/statistic')
+def Problem_Statistic(problem_id):
+	return sites.problem_statistic.Run(problem_id)
 @app.route('/problem/<int:problem_id>/edit',methods=['GET','POST'])
 def Problemedit(problem_id):
 	return sites.problemedit.Run(problem_id)

@@ -1,0 +1,33 @@
+<canvas id="score_statistic" width="100%" height="30%"></canvas>
+<script>
+var labels = [], data=[], bkcol=[], bocol=[]
+{% for score,count in score_count %}
+	labels.push({{score}})
+	data.push({{count}})
+	bkcol.push("{{Score_Color(score,100,0.6)}}")
+	bocol.push("{{Score_Color(score)}}")
+{% endfor %}
+var ctx = $("#score_statistic")
+var myChart = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: labels,
+		datasets: [{
+			label: '总计',
+			data: data,
+			backgroundColor: bkcol,
+			borderColor: bocol,
+			borderWidth: 1
+		}]
+	},
+	options: {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero:true
+				}
+			}]
+		}
+	}
+});
+</script>
