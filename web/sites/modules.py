@@ -59,10 +59,10 @@ statuscolor = {
 def Score_Color(a,fullscore=100,opacity=1):
 	if a <= fullscore/2:
 		g = int( (a/fullscore) * (255+255-80) )
-		return "rgb(255,%d,0,%f)" % (g,opacity)
+		return "rgb(255,%d,0,%f)" % (g,opacity) if opacity != 1 else "rgb(255,%d,0)" % g
 	else:
 		r = int( (1.0-a/fullscore) * (255+255) )
-		return "rgb(%d,220,0,%f)" % (r,opacity)
+		return "rgb(%d,220,0,%f)" % (r,opacity) if opacity != 1 else "rgb(%d,220,0)" % r
 
 special_char = {
 '\'': r'\'',

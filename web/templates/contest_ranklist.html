@@ -34,7 +34,7 @@
 				{% set problem_id = problem[0]|string %}
 				{% if problem_id in player[3] %}
 					<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
-						<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&problem_id={{problem_id}}&contest_id={{contest[0]}}">
+						<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&problem_id={{problem_id}}&contest_id={{contest[0]}}" class="uncolored">
 							<div style="color:{{Score_Color(player[3][problem_id]['score'])}}"> {{Toint(player[3][problem_id]['score'])}} </div>
 							<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3][problem_id]['submit_cnt']}} </div>
 						</a>
@@ -44,7 +44,7 @@
 				{% endif %}
 			{% endfor %}
 			<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
-				<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&contest_id={{contest[0]}}">
+				<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&contest_id={{contest[0]}}" class="uncolored">
 					<div style="color:{{Score_Color(player[3]['score'],full_score)}}"> {{Toint(player[3]['score'])}} </div>
 					<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3]['submit_cnt']}} </div>
 				</a>
