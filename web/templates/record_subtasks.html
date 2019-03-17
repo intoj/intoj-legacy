@@ -18,7 +18,7 @@
 	<span class="listitem twowide center"> </span>
 	{% endif %}
 </div>
-{% if not record[12] %}
+{% if not record[12] or Current_User_Privilege(3) %}
 <div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
 	<div class="markdown">
 {% if subtask['checker_message'] != "" %}
