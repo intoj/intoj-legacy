@@ -30,10 +30,12 @@ def Run(contest_id):
 		'tot_score_all': 0,
 		'average_score_all': 0,
 		'status_cnt_all': [ 0 for i in range(13) ],
+		'score_count_all': {},
 		'tot_submit_finally': 0,
 		'tot_score_finally': 0,
 		'average_score_finally': 0,
-		'status_cnt_finally': [ 0 for i in range(13) ]
+		'status_cnt_finally': [ 0 for i in range(13) ],
+		'score_count_finally': {}
 	}
 	problems = {}
 	for submission in submissions:
@@ -47,20 +49,26 @@ def Run(contest_id):
 				'tot_score_all': 0,
 				'average_score_all': 0,
 				'status_cnt_all': [ 0 for i in range(13) ],
+				'score_count_all': {},
 				'tot_submit_finally': 0,
 				'tot_score_finally': 0,
 				'average_score_finally': 0,
 				'status_cnt_finally': [ 0 for i in range(13) ],
+				'score_count_finally': {},
 				'name': problem[1]
 			}
 		problems[problem_id]['tot_submit_all'] += 1
 		problems[problem_id]['tot_score_all'] += submission[5]
 		problems[problem_id]['status_cnt_all'][submission[4]] += 1
 		problems[problem_id]['average_score_all'] = round( problems[problem_id]['tot_score_all'] / problems[problem_id]['tot_submit_all'] , 2 )
+		problems[problem_id]['score_count_all'][submission[5]] = 1 if submission[5] not in problems[problem_id]['score_count_all'] else problems[problem_id]['score_count_all'][submission[5]] + 1
 		overall['tot_submit_all'] += 1
 		overall['tot_score_all'] += submission[5]
 		overall['status_cnt_all'][submission[4]] += 1
 		overall['average_score_all'] = round( overall['tot_score_all'] / overall['tot_submit_all'] , 2 )
+		overall['score_count_all'][submission[5]] = 1 if submission[5] not in overall['score_count_all'] else overall['score_count_all'][submission[5]] + 1
+	overall['score_count_all'] = sorted(overall['score_count_all'].items())
+
 	problems = dict(sorted(problems.items(),key=operator.itemgetter(0)))
 
 	players = db.Read_Contest_Ranklist(contest_id)
@@ -76,6 +84,7 @@ def Run(contest_id):
 			problems[problem_id]['tot_score_finally'] += record[5]
 			problems[problem_id]['status_cnt_finally'][record[4]] += 1
 			problems[problem_id]['average_score_finally'] = round( problems[problem_id]['tot_score_finally'] / problems[problem_id]['tot_submit_finally'] , 2 )
+			problems[problem_id]['score_count_finally'][record[5]] = 1 if record[5] not in problems[problem_id]['score_count_finally'] else problems[problem_id]['score_count_finally'][record[5]] + 1
 
 		for problem_id,detail in details.items():
 			record = db.Read_Record(detail['record_id'])
@@ -97,5 +106,10 @@ def Run(contest_id):
 			overall['tot_score_finally'] += record[5]
 			overall['status_cnt_finally'][record[4]] += 1
 			overall['average_score_finally'] = round( overall['tot_score_finally'] / overall['tot_submit_finally'] , 2 )
+			overall['score_count_finally'][record[5]] = 1 if record[5] not in overall['score_count_finally'] else overall['score_count_finally'][record[5]] + 1
+	overall['score_count_finally'] = sorted(overall['score_count_finally'].items())
+	for problem_id in problems.keys():
+		problems[problem_id]['score_count_all'] = sorted(problems[problem_id]['score_count_all'].items())
+		problems[problem_id]['score_count_finally'] = sorted(problems[problem_id]['score_count_finally'].items())
 
 	return render_template('contest_statistic.html',contest=contest,groups=groups,problems=problems,overall=overall)

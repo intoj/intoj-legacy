@@ -49,9 +49,11 @@
 		</div>
 	</div>
 </div>
+<canvas id="problem_{{problem_id}}_score_statistic_all" width="100%" height="25%"></canvas>
+<canvas id="problem_{{problem_id}}_score_statistic_finally" width="100%" height="25%"></canvas>
+
 <script>
 var labels = [], data = [], bkcol = []
-
 {% for status in range(0,11) %}
 	{% set cnt = problem['status_cnt_all'][status] %}
 	{% if cnt != 0 %}
@@ -60,7 +62,6 @@ var labels = [], data = [], bkcol = []
 		bkcol.push('{{statuscolor[status]}}')
 	{% endif %}
 {% endfor %}
-
 var ctx = $("#problem_statistic_{{problem_id}}_all")
 new Chart(ctx,{
     data: {
@@ -85,9 +86,9 @@ new Chart(ctx,{
 	}
 })
 </script>
+
 <script>
 var labels = [], data = [], bkcol = []
-
 {% for status in range(0,11) %}
 	{% set cnt = problem['status_cnt_finally'][status] %}
 	{% if cnt != 0 %}
@@ -96,7 +97,6 @@ var labels = [], data = [], bkcol = []
 		bkcol.push('{{statuscolor[status]}}')
 	{% endif %}
 {% endfor %}
-
 var ctx = $("#problem_statistic_{{problem_id}}_finally")
 new Chart(ctx,{
     data: {
@@ -120,4 +120,54 @@ new Chart(ctx,{
 		}
 	}
 })
+</script>
+
+<script>
+var labels = [], data=[], bkcol=[], bocol=[]
+{% for score,count in problem['score_count_all'] %}
+	labels.push({{score}})
+	data.push({{count}})
+	bkcol.push("{{Score_Color(score,100,0.6)}}")
+	bocol.push("{{Score_Color(score)}}")
+{% endfor %}
+var ctx = $("#problem_{{problem_id}}_score_statistic_all")
+var myChart = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: labels,
+		datasets: [{
+			label: '所有提交',
+			data: data,
+			backgroundColor: bkcol,
+			borderColor: bocol,
+			borderWidth: 1
+		}]
+	},
+	options:{ scales:{ yAxes:[{ ticks:{ beginAtZero:true } }] } }
+});
+</script>
+
+<script>
+var labels = [], data=[], bkcol=[], bocol=[]
+{% for score,count in problem['score_count_finally'] %}
+	labels.push({{score}})
+	data.push({{count}})
+	bkcol.push("{{Score_Color(score,100,0.6)}}")
+	bocol.push("{{Score_Color(score)}}")
+{% endfor %}
+var ctx = $("#problem_{{problem_id}}_score_statistic_finally")
+var myChart = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: labels,
+		datasets: [{
+			label: '最终提交',
+			data: data,
+			backgroundColor: bkcol,
+			borderColor: bocol,
+			borderWidth: 1
+		}]
+	},
+	options:{ scales:{ yAxes:[{ ticks:{ beginAtZero:true } }] } }
+});
 </script>
