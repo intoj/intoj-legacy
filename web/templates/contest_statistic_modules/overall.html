@@ -12,6 +12,15 @@
 				<span class="listitem smallfont center" style="width: 60px;"> 所有提交 </span>
 				<span class="listitem smallfont center" style="width: 60px;"> 最终提交 </span>
 			</div>
+			<a href="/contest/{{contest[0]}}/submissions" class="uncolored">
+				<div class="listline listline-animation listline-padding">
+					<span class="listitem" style="width: 190px;">
+						所有状态
+					</span>
+					<span class="listitem center" style="width: 60px;"> {{sum(overall['status_cnt_all'])}} </span>
+					<span class="listitem center" style="width: 60px;"> {{sum(overall['status_cnt_finally'])}} </span>
+				</div>
+			</a>
 			{% for status in range(0,11) %}
 			{% set cnt_all = overall['status_cnt_all'][status] %}
 			{% set cnt_finally = overall['status_cnt_finally'][status] %}
