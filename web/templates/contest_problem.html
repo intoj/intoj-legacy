@@ -6,23 +6,27 @@
 	<div class="block-mini-box">
 		<a href="/contest/{{contest[0]}}" class="uncolored" style="width: 69%;">
 			<div class="block-mini">
-				<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
-				<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
+				<!-- <div class="block-mini-inner"> -->
+					<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
+					<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
+				<!-- </div> -->
 			</div>
 		</a>
-		<div class="block-mini" style="width: 25%;">
-			<div class="content"> 开始于 {{contest[3]}} </div>
-			<div class="content"> 结束于 {{contest[4]}} </div>
+		<div class="block-mini" style="width: 27%;">
+			<!-- <div class="block-mini-inner"> -->
+				<div class="content"> 开始于 {{contest[3]}} </div>
+				<div class="content"> 结束于 {{contest[4]}} </div>
+			<!-- </div> -->
 		</div>
 	</div>
-	<div class="title"> {{problem[1]}}</div>
+	<div class="title" style="margin: 20px auto;"> {{problem[1]}} </div>
 	<div class="block tagsblock">
 		<div class="button-group">
 			<div class="button-group">
-				<a href="#submit_code"> <button class="button button-primary button-rounded button-small" style="font-weight: 500;"> 提交 </button> </a>
-				<a href="/contest/{{contest[0]}}/submissions/my?problem_id={{problem[0]}}"> <button class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 我的提交 </button> </a>
-				<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}"> <button class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 所有提交 </button> </a>
-				<a href="/problem/{{problem[0]}}"> <button class="button button-primary button-rounded button-primary button-small" style="font-weight: 500;"> 到题库去 </button> </a>
+				<a href="#submit_code" class="button button-primary button-rounded button-small" style="font-weight: 500;"> 提交 </a>
+				<a href="/contest/{{contest[0]}}/submissions/my?problem_id={{problem[0]}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 我的提交 </a>
+				<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 所有提交 </a>
+				<a href="/problem/{{problem[0]}}" class="button button-primary button-rounded button-primary button-small" style="font-weight: 500;"> 到题库去 </a>
 			</div>
 		</div>
 		<div style="float: right">

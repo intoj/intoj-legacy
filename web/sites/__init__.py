@@ -10,6 +10,7 @@ from . import home
 from . import login
 from . import modules
 from . import newsubmit
+from . import problem_ranklist
 from . import problem_statistic
 from . import problem
 from . import problemadd

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} 排行榜 - {{problem[1]}} {% endblock %}
+{% block selected_problem %} selected {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="block">
+		<div class="contitle"> 排行榜 - #{{problem[0]}}. {{problem[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+	</div>
+	<div class="block">
+		<div class="list">
+			<div class="listline">
+				<span class="listitem onewide center"> 编号 </span>
+				<span class="listitem threewide center"> 题目 </span>
+				<span class="listitem fourwide center"> 状态 </span>
+				<span class="listitem twowide center"> 得分 </span>
+				<span class="listitem onewide center"> 时间 </span>
+				<span class="listitem onewide center"> 内存 </span>
+				<span class="listitem center" style="width: 12%"> 提交者 </span>
+				<span class="listitem center" style="width: 15%"> 提交时间 </span>
+			</div>
+			{% for submission in submissions %}
+			<div class="listline listline-animation">
+				<span class="listitem onewide center"> <a href="/record/{{submission[0]}}"> #{{submission[0]}} </a> </span>
+				<span class="listitem threewide center"> <a href="/problem/{{submission[1]}}"> #{{submission[1]}}. {{Read_Problem(submission[1])[1]}} </a> </span>
+				<span class="listitem fourwide center">
+					<a href="/record/{{submission[0]}}" class="uncolored full">
+						<span class="judge-{{submission[4]}}" long_or_short="long">
+							<i class="icon-{{statusicon[submission[4]]}}" aria-hidden="true"></i>  {{tostatus[submission[4]]}}
+						</span>
+					</a>
+				</span>
+				<span class="listitem twowide center" style="color:{{Score_Color(submission[5])}}"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{Toint(submission[5])}} </a> </span>
+				{% if tostatus[submission[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{submission[8]}} ms </a> </span>
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{submission[9]}} M </a> </span>
+				{% else %}
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full">  </a> </span>
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full">  </a> </span>
+				{% endif %}
+				<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{submission[11]}}"> {{submission[11]}} </a> </span>
+				<span class="listitem center smallfont" style="width: 15%"> <a href="/user/{{submission[11]}}" class="uncolored"> {{submission[13]}} </a> </span>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

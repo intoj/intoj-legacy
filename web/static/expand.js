@@ -19,14 +19,14 @@ tostatus = [
 statusicon = [
 	"spinner icon-spin",
 	"spinner icon-spin",
-	"thumbs-down",
+	"twitter",
 	"github-alt",
 	"magic",
 	"remove",
 	"time",
 	"hdd",
 	"asterisk",
-	"legal",
+	"adjust",
 	"ok"
 ]
 function Judge_Status(status){

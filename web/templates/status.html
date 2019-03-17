@@ -95,7 +95,7 @@
 				{% for status in statuslist %}
 				<div class="listline listline-animation">
 					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> #{{status[0]}} </a> </span>
-					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
+					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}" class="dynamicsize"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
 					<span class="listitem fourwide center">
 						<a href="/record/{{status[0]}}" class="uncolored full">
 							<span class="judge-{{status[4]}}" long_or_short="long">

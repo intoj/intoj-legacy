@@ -56,6 +56,9 @@ def Problemadd():
 @app.route('/problem/<int:problem_id>/statistic')
 def Problem_Statistic(problem_id):
 	return sites.problem_statistic.Run(problem_id)
+@app.route('/problem/<int:problem_id>/ranklist')
+def Problem_Ranklist(problem_id):
+	return sites.problem_ranklist.Run(problem_id)
 @app.route('/problem/<int:problem_id>/edit',methods=['GET','POST'])
 def Problemedit(problem_id):
 	return sites.problemedit.Run(problem_id)

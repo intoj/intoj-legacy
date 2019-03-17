@@ -49,13 +49,13 @@ def Read_Contest_Player(username,contest_id):
 	info = cur.fetchone()
 	End_Connect()
 	if info == None: return {}
-	else: return json.loads(info[3])
+	else: return json.loads(info['detail'])
 
 def Save_Contest_Player(username,contest_id,info):
 	info = json.dumps(info)
 	Is_Connect()
 	cur.execute("SELECT COUNT(*) FROM contest_players WHERE username=%s AND contest_id=%s",(username,contest_id))
-	if cur.fetchone()[0] == 0:
+	if cur.fetchone()['COUNT(*)'] == 0:
 		cur.execute("INSERT INTO contest_players VALUES(NULL,%s,%s,%s)",(username,contest_id,info))
 	else:
 		cur.execute("UPDATE contest_players SET detail=%s WHERE username=%s AND contest_id=%s",(info,username,contest_id))

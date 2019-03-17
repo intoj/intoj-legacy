@@ -21,7 +21,11 @@ div.listline-active-animation:active,div.listline-animation:active{
 div.listline-active-animation,div.listline-animation{
 	cursor: pointer;
 }
-span.listitem{  }
+span.listitem{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 span.listitem.halfwide{ width: 4%; }
 span.listitem.onewide{ width: 8%; }
 span.listitem.twowide{ width: 13%; }

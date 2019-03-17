@@ -11,7 +11,7 @@
 			<span class="listitem onewide center"> 排名 </span>
 			<span class="listitem fivewide center"> 用户名 </span>
 			{% for problem in problems %}
-			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="uncolored"> {{problem[1]}} </a> </span>
+			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="uncolored dynamicsize"> {{problem[1]}} </a> </span>
 			{% endfor %}
 			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions" class="uncolored"> 总分 </a> </span>
 		</div>
@@ -35,7 +35,7 @@
 				{% if problem_id in player[3] %}
 					<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
 						<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&problem_id={{problem_id}}">
-							<div style="color:{{Score_Color(player[3][problem_id]['score'])}}"> {{player[3][problem_id]['score']}} </div>
+							<div style="color:{{Score_Color(player[3][problem_id]['score'])}}"> {{Toint(player[3][problem_id]['score'])}} </div>
 							<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3][problem_id]['submit_cnt']}} </div>
 						</a>
 					</span>
@@ -45,7 +45,7 @@
 			{% endfor %}
 			<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
 				<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}">
-					<div style="color:{{Score_Color(player[3]['score'],full_score)}}"> {{player[3]['score']}} </div>
+					<div style="color:{{Score_Color(player[3]['score'],full_score)}}"> {{Toint(player[3]['score'])}} </div>
 					<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3]['submit_cnt']}} </div>
 				</a>
 			</span>

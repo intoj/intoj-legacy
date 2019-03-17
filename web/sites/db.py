@@ -36,7 +36,7 @@ def Read_Problemlist(order='id'):
 	problemlist = cur.fetchall()
 	End_Connect(db,cur)
 	return problemlist
-def Read_Submissions(limitation=None):
+def Read_Submissions(limitation=None,order="id DESC"):
 	allowed = {
 		'id': ('eq','id'),
 		'problem_id': ('eq','problem_id'),
@@ -50,10 +50,11 @@ def Read_Submissions(limitation=None):
 	db,cur = Is_Connect()
 	if limitation != None:
 		lim,arg = Generate_Limitation(limitation,allowed)
-		cmd = "SELECT * FROM records %s ORDER BY id DESC" % lim
+		cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,order)
 		cur.execute(cmd,arg)
 	else:
-		cur.execute("SELECT * FROM records ORDER BY id DESC")
+		cur.execute("SELECT * FROM records ORDER BY %s"%order)
+
 	submissions = cur.fetchall()
 	End_Connect(db,cur)
 	return submissions

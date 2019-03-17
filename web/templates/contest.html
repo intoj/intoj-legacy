@@ -27,8 +27,8 @@
 				{% for problem in problems %}
 				<a href="/contest/{{contest[0]}}/problem/{{problem[0]}}" class="uncolored">
 					<div class="listline listline-animation" style="width: 100%; justify-content: center; margin: 5px auto;">
-						<span class="listitem center " style="width: 20%"> #{{loop.index}} </span>
-						<span class="listitem center" style="width: 60%"> {{problem[1]}} </span>
+						<span class="listitem center" style="width: 20%"> #{{loop.index}} </span>
+						<span class="listitem center" style="width: 60%"> <span class="dynamicsize"> {{problem[1]}} </span> </span>
 					</div>
 				</a>
 				{% endfor %}
