@@ -2,7 +2,9 @@
 <div class="listline listline-animation unselect" onclick="Click({{loop.index}});">
 	<span class="listitem onewide center"> #{{subtask['id']}} </span>
 	<span class="listitem sixwide center">
-		{{ Judge_Status(subtask['status']) }}
+		<span class="judge-{{subtask['status']}}" long_or_short="long">
+			<i class="icon-{{statusicon[subtask['status']]}}" aria-hidden="true"></i>  {{tostatus[subtask['status']]}}
+		</span>
 	</span>
 	{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
 	<span class="listitem twowide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">

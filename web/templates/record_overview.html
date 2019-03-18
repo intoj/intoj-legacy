@@ -5,7 +5,9 @@
 <span class="listitem threewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
 {% endif %}
 <span class="listitem fourwide center">
-	{{ Judge_Status(record[4]) }}
+	<span class="judge-{{record[4]}}" long_or_short="long">
+		<i class="icon-{{statusicon[record[4]]}}" aria-hidden="true"></i>  {{tostatus[record[4]]}}
+	</span>
 </span>
 <span class="listitem twowide center" style="color:{{Score_Color(record[5])}}" id="overview_score"> {{ Toint(record[5]) }} </span>
 {% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
