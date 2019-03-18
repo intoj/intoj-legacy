@@ -3,6 +3,7 @@ body{
 	background-attachment: fixed;
 	background-position: left top;
 	background-size: cover;
+	background-repeat:no-repeat;
 	margin: 0;
 	/* animation: Fade-in 0.1s ease 0s 1; */
 }
