@@ -10,6 +10,7 @@ def Run(problem_id):
 	for submission in submissions:
 		if submission[12] != 0: continue
 		status_count[submission[4]] += 1
-		score_count[submission[5]] = 1 if submission[5] not in score_count else score_count[submission[5]] + 1
+		if submission[4] >= 4:
+			score_count[submission[5]] = 1 if submission[5] not in score_count else score_count[submission[5]] + 1
 	score_count = sorted(score_count.items())
 	return render_template('problem_statistic.html',problem=problem,score_count=score_count,status_count=status_count)

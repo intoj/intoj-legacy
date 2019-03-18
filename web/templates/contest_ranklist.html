@@ -16,7 +16,7 @@
 			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submission?contest_id={{contest[0]}}s" class="uncolored"> 总分 </a> </span>
 		</div>
 		{% for player in ranklist %}
-		<div class="listline listline-animation {% if Is_Loggedin() and request.cookies.get('username') == player[1] %} listline-current {% endif %}" style="height: 60px;">
+		<div class="listline listline-animation {% if Current_User() == player[1] %} listline-current {% endif %}" style="height: 60px;">
 			<span class="listitem onewide center">
 				{#
 				{% if player[3]['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> Au </span> {% else %}
