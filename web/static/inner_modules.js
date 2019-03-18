@@ -1,3 +1,8 @@
+function Cannotselect(){
+	$(".unselect").attr("onselectstart","return false");
+	$(".unselect").attr("onselectstart","return false");
+}
+
 function Resize(){
 	wid = document.body.clientWidth
 
@@ -41,4 +46,55 @@ function Resize(){
 			}
 		}
 	}
+}
+
+function Wrap(){
+	a = $(".listitem > *.dynamicsize")
+	for( var i = 0 ; i < a.length ; i++ ){
+		listitem = a[i].closest("span.listitem")
+		font_sz = 17
+		for( var j = 1 ; j <= 5 ; j++ ){
+			listitem_width = $(listitem).width()
+			a_width = $(a[i]).width()
+			if( listitem_width <= a_width ){
+				$(a[i]).css("font-size",font_sz-1)
+				font_sz--
+			}
+		}
+	}
+}
+
+tostatus = [
+	"Waiting",
+	"Running",
+	"Unknown Error",
+	"Compile Error",
+	"Hacked",
+	"Wrong Answer",
+	"Time Limit Exceed",
+	"Memory Limit Exceed",
+	"Runtime Error",
+	"Partially Accepted",
+	"Accepted"
+]
+statusicon = [
+	"spinner icon-spin",
+	"spinner icon-spin",
+	"twitter",
+	"github-alt",
+	"magic",
+	"remove",
+	"time",
+	"hdd",
+	"asterisk",
+	"adjust",
+	"ok"
+]
+function Judge_Status(status){
+	status = parseInt(status)
+	html = "<span class=\"judge-" + status.toString() + "\">"
+	html += "<i class=\"icon-" + statusicon[status] + "\"></i> "
+	html += tostatus[status]
+	html += "</span>"
+	return html
 }
