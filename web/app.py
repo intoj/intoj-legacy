@@ -2,6 +2,9 @@
 from flask import *
 import sys,os,time,random
 import hashlib,re
+reload(sys)
+sys.dont_write_bytecode = True
+sys.setdefaultencoding('utf-8')
 workpath = os.path.dirname(os.path.abspath(sys.argv[1]))
 sitespath = os.path.join(workpath,'sites')
 if sitespath not in sys.path:
@@ -139,3 +142,6 @@ def Useredit(username):
 
 # app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
 app.secret_key = '你知道也没事反正我不用这个'
+
+if __name__ == "__main__":
+	app.run(host='0.0.0.0')

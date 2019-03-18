@@ -1,3 +1,4 @@
+#coding:utf-8
 from flask import *
 import datetime
 import db,modules
