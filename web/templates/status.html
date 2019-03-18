@@ -121,10 +121,8 @@
 		</div>
 	</div>
 	<div style="display: flex; justify-content: center;">
-		<div class="button-group">
-			{% set args = Argstring() %}
-			{{ Pager(args,current_page,total_page)}}
-		</div>
+		{% set args = Argstring() %}
+		{{ Pager(args,current_page,total_page)}}
 	</div>
 </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 #coding:utf-8
 import pymysql
+import modules
 
 db_password = '24'
 
@@ -50,7 +51,7 @@ def Read_Submissions(limitation=None,order="id DESC"):
 	db,cur = Is_Connect()
 	if limitation != None:
 		lim,arg = Generate_Limitation(limitation,allowed)
-		cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,order)
+		cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,modules.Raw(order))
 		cur.execute(cmd,arg)
 	else:
 		cur.execute("SELECT * FROM records ORDER BY %s"%order)

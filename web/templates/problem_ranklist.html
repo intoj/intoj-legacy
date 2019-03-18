@@ -4,7 +4,7 @@
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 排行榜 - #{{problem[0]}}. {{problem[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+		<div class="contitle"> 排行榜 - #{{problem[0]}}. {{problem[1]}} <button class="button button-rounded button-primary button-small" style="float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 	</div>
 	<div class="block">
 		<div class="list">
@@ -21,7 +21,7 @@
 			{% for submission in submissions %}
 			<div class="listline listline-animation">
 				<span class="listitem onewide center"> <a href="/record/{{submission[0]}}"> #{{submission[0]}} </a> </span>
-				<span class="listitem threewide center"> <a href="/problem/{{submission[1]}}"> #{{submission[1]}}. {{Read_Problem(submission[1])[1]}} </a> </span>
+				<span class="listitem threewide center"> <a href="/problem/{{submission[1]}}"> #{{submission[1]}}. {{problem[1]}} </a> </span>
 				<span class="listitem fourwide center">
 					<a href="/record/{{submission[0]}}" class="uncolored full">
 						<span class="judge-{{submission[4]}}" long_or_short="long">
@@ -42,6 +42,10 @@
 			</div>
 			{% endfor %}
 		</div>
+	</div>
+	<div style="display: flex; justify-content: center;">
+		{% set args = Argstring() %}
+		{{ Pager(args,current_page,total_page)}}
 	</div>
 </div>
 {% endblock %}

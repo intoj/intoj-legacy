@@ -5,12 +5,15 @@
 <div class="ui main">
 	<div class="block">
 		<div class="contitle"> 评测记录 #{{record[0]}}
-			{% if record[12] %}  - {{contest[1]}}
-			<button class="button button-rounded button-primary button-small" style="font-size: 15px; margin-left: 40px;" onclick="history.go(-1)"> 返回上一页 </button>
-			{% endif %}
-			<form method="POST" style="display: inline">
-			<button type="submit" class="button button-small button-primary button-square button-rounded" name="rejudge" style="float:right; margin-top: 3px;"> <i class="icon-repeat"></i> </button>
-			</form>
+			{% if record[12] %} - {{contest[1]}} {% endif %}
+			<div style="float: right;">
+				<button class="button button-rounded button-primary button-small" onclick="history.go(-1)"> 返回 </button>
+				{% if Current_User_Privilege(2) %}
+					<form method="POST" style="display: inline">
+						<button type="submit" class="button button-small button-primary button-square button-rounded" name="rejudge"> <i class="icon-repeat"></i> </button>
+					</form>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 	<div class="block">

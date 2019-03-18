@@ -6,9 +6,9 @@ status_per_page = 15
 
 def Run():
 	args = dict(request.args)
+	
 	if args.get('contest_id') == None: args['contest_id'] = 0
-	try: page = int(args['page'])
-	except: page = 1
+	page = int(args['page']) if 'page' in args else 1
 
 	statuslist = db.Read_Submissions(args)
 
