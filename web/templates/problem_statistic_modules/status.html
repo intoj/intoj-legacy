@@ -13,10 +13,7 @@
 		<a href="/status?problem_id={{problem[0]}}&status={{status}}" class="uncolored">
 			<div class="listline listline-animation listline-padding">
 				<span class="listitem" style="width: 190px;">
-					<span class="judge-{{status}}">
-						<i class="icon-{{statusicon[status]}}"> </i>
-						{{tostatus[status]}}
-					</span>
+					{{ Judge_Status(status) }}
 				</span>
 				<span class="listitem center" style="width: 60px;"> {{cnt}} </span>
 			</div>

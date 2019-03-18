@@ -1,4 +1,31 @@
 <!DOCTYPE HTML>
+
+{% macro Pager(other_args,current_page,total_page) %}
+	<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> <i class="icon-double-angle-left"> </i> </a>
+	<a class="button button-rounded button-square button-grey" href="?page={{max(1,current_page-1)}}&{{args}}"> <i class="icon-angle-left"> </i> </a>
+	{% set l = max(current_page-2,1) %}
+	{% set r = min(current_page+2,total_page) %}
+	{% if l != 1 %}
+		<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> 1 </a>
+		{% if l != 2 %} <a class="button button-rounded button-square button-grey"> . . . </a> {% endif %}
+	{% endif %}
+	{% for page in range(l,r+1) %}
+		<a class="button button-rounded button-square button-grey" href="?page={{page}}&{{args}}" {% if page==current_page %} style="background-color: #ddd" {% endif %}> {{page}} </a>
+	{% endfor %}
+	{% if r != total_page %}
+		<a class="button button-rounded button-square button-grey"> . . . </a>
+		{% if r != total_page-1 %} <a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> {{total_page}} </a> {% endif %}
+	{% endif %}
+	<a class="button button-rounded button-square button-grey" href="?page={{min(total_page,current_page+1)}}&{{args}}"> <i class="icon-angle-right"> </i> </a>
+	<a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> <i class="icon-double-angle-right"> </i> </a>
+{% endmacro %}
+
+{% macro Judge_Status(status) %}
+	<span class="judge-{{status}}" long_or_short="long">
+		<i class="icon-{{statusicon[status]}}" aria-hidden="true"></i>  {{tostatus[status]}}
+	</span>
+{% endmacro %}
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

@@ -28,10 +28,7 @@
 			<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem_id}}&status={{status}}" class="uncolored">
 				<div class="listline listline-animation listline-padding">
 					<span class="listitem" style="width: 190px;">
-						<span class="judge-{{status}}">
-							<i class="icon-{{statusicon[status]}}"> </i>
-							{{tostatus[status]}}
-						</span>
+						{{ Judge_Status(status) }}
 					</span>
 					<span class="listitem center" style="width: 60px;"> {{cnt_all}} </span>
 					<span class="listitem center" style="width: 60px;"> {{cnt_finally}} </span>

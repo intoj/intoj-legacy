@@ -102,9 +102,7 @@
 					{% endif %}
 					<span class="listitem fourwide center">
 						<a href="/record/{{status[0]}}" class="uncolored full">
-							<span class="judge-{{status[4]}}" long_or_short="long">
-								<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>  {{tostatus[status[4]]}}
-							</span>
+							{{ Judge_Status(status[4]) }}
 						</a>
 					</span>
 					<span class="listitem twowide center" style="color:{{Score_Color(status[5])}}"> <a href="/record/{{status[0]}}" class="uncolored full"> {{Toint(status[5])}} </a> </span>
@@ -125,21 +123,7 @@
 	<div style="display: flex; justify-content: center;">
 		<div class="button-group">
 			{% set args = Argstring() %}
-			<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> <i class="icon-double-angle-left"> </i> </a>
-			<a class="button button-rounded button-square button-grey" href="?page={{max(1,current_page-1)}}&{{args}}"> <i class="icon-angle-left"> </i> </a>
-			{% if max(current_page-2,1) != 1 %}
-				<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> 1 </a>
-				<a class="button button-rounded button-square button-grey"> . . . </a>
-			{% endif %}
-			{% for page in range(max(current_page-2,1),min(current_page+2,total_page)+1) %}
-				<a class="button button-rounded button-square button-grey" href="?page={{page}}&{{args}}" {% if page==current_page %} style="background-color: #ddd" {% endif %}> {{page}} </a>
-			{% endfor %}
-			{% if min(current_page+2,total_page) != total_page %}
-				<a class="button button-rounded button-square button-grey"> . . . </a>
-				<a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> {{total_page}} </a>
-			{% endif %}
-			<a class="button button-rounded button-square button-grey" href="?page={{min(total_page,current_page+1)}}&{{args}}"> <i class="icon-angle-right"> </i> </a>
-			<a class="button button-rounded button-square button-grey" href="?page={{total_page}}&{{args}}"> <i class="icon-double-angle-right"> </i> </a>
+			{{ Pager(args,current_page,total_page)}}
 		</div>
 	</div>
 </div>
