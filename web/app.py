@@ -1,11 +1,14 @@
 #coding:utf-8
+from gevent import monkey
+monkey.patch_all()
 from flask import *
+from gevent import pywsgi
 import sys,os,time,random
 import hashlib,re
 reload(sys)
 sys.dont_write_bytecode = True
 sys.setdefaultencoding('utf-8')
-workpath = os.path.dirname(os.path.abspath(sys.argv[1]))
+workpath = os.path.dirname(os.path.abspath('app.py'))
 sitespath = os.path.join(workpath,'sites')
 if sitespath not in sys.path:
 	sys.path.insert(0,sitespath)
@@ -144,4 +147,5 @@ def Useredit(username):
 app.secret_key = '你知道也没事反正我不用这个'
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0')
+	server = pywsgi.WSGIServer(('0.0.0.0',5000),app)
+	server.serve_forever()
