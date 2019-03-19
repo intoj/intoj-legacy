@@ -9,23 +9,14 @@
 在数据表 contests 内保存了与这个 contest 有关的所有信息, 包括
 
 - 0 id
-
 - 1 标题
-
 - 2 副标题
-
 - 3 开始时间
-
 - 4 结束时间
-
 - 5 描述
-
 - 6 赛制 (json)
-
 - 7 举办者的username
-
 - 8 problems (json)
-
 - 9 admins (json列表) (暂不支持)
 
 ### 赛制
@@ -122,11 +113,8 @@ CREATE TABLE contests(
 在数据表 contest_players 内保存了与所有参加比赛的人有关的信息, 包括
 
 - 0 id (仅用作主键)
-
 - 1 username
-
 - 2 contest_id
-
 - 3 detail (json)
 
 detail:
