@@ -16,11 +16,11 @@ def Run():
 	submitted_status = {}
 	if modules.Is_Loggedin():
 		def Better(new,before):
-			if new[4] > before[4]: return True
-			if new[5] > before[5]: return True
-			if new[8] < before[8]: return True
-			if new[9] < before[9]: return True
-			if new[0] > before[0]: return True
+			if new[4] != before[4]: return new[4] > before[4]
+			if new[5] != before[5]: return new[5] > before[5]
+			if new[8] != before[8]: return new[8] < before[8]
+			if new[9] != before[9]: return new[9] < before[9]
+			if new[0] != before[0]: return new[0] > before[0]
 			return False
 		submissions = db.Read_Submissions({'username':request.cookies['username']},'id ASC')
 		for submission in submissions:

@@ -27,7 +27,8 @@ def Submit(problemid,req,contest_id=0):
 			return modules.Page_Back()
 	modules.Set_Session('last_submit_time',username,now_time)
 
-	runid = int(db.Fetchone("SELECT MAX(id) FROM records;")[0]) + 1
+	maxid_result = db.Fetchone("SELECT MAX(id) FROM records;")[0]
+	runid = 1 if maxid_result == None else int(maxid_result) + 1
 	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',username,contest_id,nowtime))
 
