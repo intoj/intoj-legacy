@@ -17,6 +17,7 @@
 		<div class="content">
 			<div class="list">
 				<div class="listline">
+					<span class="listitem center" style="width: 10px;"> </span>
 					<span class="listitem center" style="width: 55px;"> 状态 </span>
 					<span class="listitem center" style="width: 90px;"> 编号 </span>
 					<span class="listitem center" style="width: 10px;"> </span>
@@ -24,10 +25,11 @@
 				</div>
 				{% for problem in problemlist %}
 					<div class="listline listline-animation" style="height: 45px;">
+						<span class="listitem center" style="width: 10px;"> </span>
 						<span class="listitem center" style="width: 55px; font-size: 16px;">
 							{% if problem[0] in submitted_status %}
 								{% set status = submitted_status[problem[0]] %}
-								<a href="/record/{{status[0]}}">
+								<a href="/record/{{status[0]}}" style="display: block">
 									<span class="judge-{{status[4]}}">
 										<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>
 										{% if status[5] != 100 %} {{Toint(status[5])}} {% endif %}
