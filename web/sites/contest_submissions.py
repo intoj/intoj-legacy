@@ -21,7 +21,6 @@ def Submissions_My(contest_id):
 	limitations['contest_id'] = contest_id
 	limitations['username'] = modules.Current_User()
 	submissions = db.Read_Submissions(limitations)
-	print(submissions)
 	status_show, total_page = modules.Page_Split( submissions , page , status_per_page ,
 							lambda status: True )
 	return render_template('status.html',statuslist=status_show,total_page=total_page,current_page=page,contest=contest,contest_id=contest_id,my=True)

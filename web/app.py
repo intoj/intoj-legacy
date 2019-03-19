@@ -147,5 +147,8 @@ def Useredit(username):
 app.secret_key = '你知道也没事反正我不用这个'
 
 if __name__ == "__main__":
-	server = pywsgi.WSGIServer(('0.0.0.0',5000),app)
+	from werkzeug.debug import DebuggedApplication
+	app.jinja_env.auto_reload = True
+	dapp = DebuggedApplication(app,evalex=True)
+	server = pywsgi.WSGIServer(('0.0.0.0',5000),dapp)
 	server.serve_forever()
