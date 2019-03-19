@@ -6,9 +6,11 @@
 	<div class="block">
 		<div class="contitle">
 			比赛列表
+			{% if Current_User_Privilege(3) %}
 			<a href="/contestadd"><button class="button button-primary button-small button-rounded" style="float:right; margin-top:3px; font-size: 14px;">
 				<i class="icon-plus"></i> 添加比赛
 			</button></a>
+			{% endif %}
 		</div>
 	</div>
 	<div class="block">
