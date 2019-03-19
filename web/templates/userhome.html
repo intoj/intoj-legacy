@@ -51,6 +51,18 @@
 				</a>
 				{% endif %}
 			</div>
+			{% if User_Privilege(user[1],0) or User_Privilege(user[1],1) or User_Privilege(user[1],2) or User_Privilege(user[1],3) or User_Privilege(user[1],4) %}
+			<div class="block-mini-inner">
+				<div class="contitle"> 权限 </div>
+				<div class="content">
+{% if User_Privilege(user[1],0) %} <b> 全站管理员 </b> <br /> {% endif %}
+{% if User_Privilege(user[1],1) %} 用户管理员 <br /> {% endif %}
+{% if User_Privilege(user[1],2) %} 题目管理员 <br /> {% endif %}
+{% if User_Privilege(user[1],3) %} 比赛管理员 <br /> {% endif %}
+{% if User_Privilege(user[1],4) %} 题目标签管理员 <br /> {% endif %}
+				</div>
+			</div>
+			{% endif %}
 		</div>
 		<div class="block-mini" style="width: 33%">
 			<div class="block-mini-inner" style="display: flex; justify-content: space-around; padding-top: 20px; padding-bottom: 20px;">
