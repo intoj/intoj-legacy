@@ -34,6 +34,7 @@ span.listitem.fourwide{ width: 25%; }
 span.listitem.fivewide{ width: 30%; }
 span.listitem.sixwide{ width: 35%; }
 span.listitem.center{ text-align: center; }
+span.listitem.fixlength{ flex-shrink: 0; flex-grow: 0; }
 .smallfont{ font-size: 14px !important; /*font-weight: bold;*/ }
 div.smallfont{ line-height: 20px !important; }
 

@@ -25,15 +25,15 @@ function Find_User(){
 						<div class="list">
 							<div class="listline" style="height: 30px;">
 								<span class="listitem center smallfont" style="width: 30px"> # </span>
-								<span class="listitem center smallfont" style="width: 140px"> 用户名 </span>
+								<span class="listitem center smallfont" style="width: 120px"> 用户名 </span>
 								<span class="listitem center smallfont" style="flex-grow: 2333;"> 个性签名 </span>
 								<span class="listitem center smallfont" style="width: 70px"> 通过/提交 </span>
 							</div>
 							{% for user in users %}
 							<div class="listline listline-animation">
 								<span class="listitem center" style="width: 30px"> {{loop.index}} </span>
-								<span class="listitem center" style="width: 140px"> <a href="/user/{{user[1]}}"> {{user[1]}} </a> </span>
-								<span class="listitem center" style="flex-grow: 2333; overflow: hidden; max-height: 100%;"> <p class="markdown"> {{user[6]}} </p> </span>
+								<span class="listitem center" style="width: 120px"> <a href="/user/{{user[1]}}"> {{user[1]}} </a> </span>
+								<span class="listitem center fixlength" style="width: calc( 100% - 30px - 70px - 120px ); overflow: hidden; max-height: 100%;"> <p class="markdown"> {{user[6]}} </p> </span>
 								<span class="listitem center smallfont" style="width: 70px"> {{user[9]}}/{{user[10]}}</span>
 							</div>
 							{% endfor %}
