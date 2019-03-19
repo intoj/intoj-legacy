@@ -23,8 +23,13 @@
 {% endmacro %}
 
 {% macro Judge_Status(status) %}
-<span class="judge-{{status}}" long_or_short="long">
+<span class="judge-{{status}} judge-status-dynamic" long_or_short="long">
 	<i class="icon-{{statusicon[status]}}" aria-hidden="true"></i>  {{tostatus[status]}}
+</span>
+{% endmacro %}
+{% macro Judge_Status_Short(status) %}
+<span class="judge-{{status}}">
+	<i class="icon-{{statusicon[status]}}" aria-hidden="true"></i>  {{shortstatus[status]}}
 </span>
 {% endmacro %}
 

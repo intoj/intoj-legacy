@@ -33,7 +33,7 @@ function Resize(){
 	longstate = ["Waiting","Running","Unknown Error","Compile Error","Hacked","Wrong Answer","Time Limit Exceed","Memory Limit Exceed","Runtime Error","Partially Accepted","Accepted"]
 	shortstate = ["WJ","Run","UKE","CE","Hack","WA","TLE","MLE","RE","PC","AC"]
 	for( var i = 0 ; i < stateclassname.length ; i++ ){
-		a = $("."+stateclassname[i]);
+		a = $(".judge-status-dynamic."+stateclassname[i]);
 		if( wid < 750 ){
 			if( a.attr("long_or_short") == "long" ){
 				a.html(function(j,text){return text.replace(longstate[i],shortstate[i])})

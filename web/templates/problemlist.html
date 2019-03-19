@@ -17,25 +17,44 @@
 		<div class="content">
 			<div class="list">
 				<div class="listline">
-					<span class="listitem twowide center"> 编号 </span>
+					<span class="listitem center" style="width: 55px;"> 状态 </span>
+					<span class="listitem center" style="width: 90px;"> 编号 </span>
+					<span class="listitem center" style="width: 10px;"> </span>
 					<span class="listitem fivewide"> 题目名称 </span>
 				</div>
-				{% set can_view_hidden = Current_User_Privilege(2) %}
-				{% for problem in problemlist if problem[9] or can_view_hidden %}
-				<a href="/problem/{{problem[0]}}">
-					<div class="listline listline-animation">
-					<span class="listitem twowide center" style="color: initial"> #{{problem[0]}} </span>
-					<span class="listitem fivewide">
-						{{problem[1]}}
-						{% if problem[9] != 1 %}
-							<span style="font-size: 12px; color: #000" class="tag"> 未公开 </span>
-						{% endif %}
-					</span>
+				{% for problem in problemlist %}
+					<div class="listline listline-animation" style="height: 45px;">
+						<span class="listitem center" style="width: 55px; font-size: 16px;">
+							{% if problem[0] in submitted_status %}
+								{% set status = submitted_status[problem[0]] %}
+								<a href="/record/{{status[0]}}">
+									<span class="judge-{{status[4]}}">
+										<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>
+										{% if status[5] != 100 %} {{Toint(status[5])}} {% endif %}
+									</span>
+								</a>
+							{% endif %}
+						</span>
+						<span class="listitem center" style="width: 90px;">
+							<a href="/problem/{{problem[0]}}" class="uncolored"> #{{problem[0]}} </a>
+						</span>
+						<span class="listitem center" style="width: 10px;"> </span>
+						<span class="listitem fivewide" style="flex-grow: 233">
+							<a href="/problem/{{problem[0]}}" style="display: block">
+								{{problem[1]}}
+								{% if problem[9] != 1 %}
+									<span style="font-size: 12px; color: #000" class="tag"> 未公开 </span>
+								{% endif %}
+							</a>
+						</span>
 					</div>
-				</a>
 				{% endfor %}
 			</div>
 		</div>
+	</div>
+	<div style="display: flex; justify-content: center;">
+		{% set args = Argstring() %}
+		{{ Pager(args,current_page,total_page)}}
 	</div>
 </div>
 {% endblock %}
