@@ -21,7 +21,7 @@ div.listline-active-animation:active,div.listline-animation:active{
 div.listline-active-animation,div.listline-animation{
 	cursor: pointer;
 }
-span.listitem{
+span.listitem, .overflow-ellipsis{
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

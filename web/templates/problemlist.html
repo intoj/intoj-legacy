@@ -29,7 +29,7 @@
 						<span class="listitem center" style="width: 55px; font-size: 16px;">
 							{% if problem[0] in submitted_status %}
 								{% set status = submitted_status[problem[0]] %}
-								<a href="/record/{{status[0]}}" style="display: block">
+								<a href="/record/{{status[0]}}" style="display: inline-block; min-width: 54px; max-width: 100%;" class="dynamicsize">
 									<span class="judge-{{status[4]}}">
 										<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>
 										{% if status[5] != 100 %} {{Toint(status[5])}} {% endif %}

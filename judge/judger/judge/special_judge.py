@@ -27,7 +27,7 @@ def Special_Judge( inputpath, outputpath, anspath, fullscore, spj_exepath ):
 			index[1] = index[1].strip()
 			status = int(index[0])
 			score = float(index[1])/100 * fullscore
-			if not modules.Is_Number(score): raise ValueError()
+			if not modules.Is_Number(str(score)): raise ValueError()
 		except:
 			return 2, 0, 'spj 输出的分数不对: \n%s'%str(index)
 	with open('../tmp/spj_message','r') as spj_message_file:
