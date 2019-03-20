@@ -22,12 +22,20 @@
 
 # 开发人员名单与联系方式
 
-开发:
+web 开发:
 
 - @[interestingLSY](https://github.com/interestingLSY)
 
-莓了... 就我一个人.
+~~莓了... 就我一个人.~~
 
 联系方式:
 
 - interestingLSY 的 qq: 2659723130
+
+judger 开发：
+- @[Dust1404](https://github.com/Dust1404)
+
+~~目前还没做什么事，正在写新版评测端~~
+
+联系方式：
+- qq : 2477259579
