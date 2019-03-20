@@ -4,11 +4,13 @@
 
 一个适合于校级用户使用的, 用于 ACM / OI 竞赛的在线测评系统.
 
+[intoj-judger](https://github.com/intoj/intoj-judger)
+
 # 这是啥 ?
 
 上面好像说过一遍了...
 
->一个适合于校级用户使用的, 用于 ACM / OI 竞赛的在线测评系统.
+> 一个适合于校级用户使用的, 用于 ACM / OI 竞赛的在线测评系统.
 
 有时 interestingLSY 也会咕咕咕地更新.
 
@@ -39,3 +41,5 @@ judger 开发：
 
 联系方式：
 - qq : 2477259579
+
+这里是 judger 端的 [仓库](https://github.com/intoj/intoj-judger)
