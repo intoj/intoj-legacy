@@ -25,11 +25,12 @@
 			{% if contest_id != 0 %}
 				{{title}}
 				<div class="button-group" style="float: right">
-					<a class="button button-rounded button-primary button-small" style="font-size: 15px;" onclick="history.go(-1)"> 返回 </a>
-					<a class="button button-rounded button-primary button-small" style="font-size: 15px;" href="/contest/{{contest_id}}"> 比赛主页 </a>
+					<a class="button button-rounded button-primary button-small" onclick="history.go(-1)"> 返回 </a>
+					<a class="button button-rounded button-primary button-small" href="/contest/{{contest_id}}"> 比赛主页 </a>
 				</div>
 			{% else %}
 				{{title}}
+				<button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right" onclick="history.go(-1)"> 返回 </button>
 			{% endif %}
 		</div>
 		<form method="GET">
