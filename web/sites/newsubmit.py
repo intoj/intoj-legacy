@@ -42,7 +42,7 @@ def Rejudge(record_id):
 		flash(r'提交记录R%d没找着!\\\n可能是因为编号不对.'%record_id,'error')
 		return redirect('/status')
 
-	db.Execute("UPDATE records SET status=0,score=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",record_id)
+	db.Execute("UPDATE records SET status=0,score=0,time_usage=0,memory_usage=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",record_id)
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(record_id))
