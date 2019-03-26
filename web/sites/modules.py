@@ -57,6 +57,8 @@ statuscolor = {
 }
 
 def Score_Color(a,fullscore=100,opacity=1):
+	a = float(a)
+	fullscore = float(fullscore)
 	if a <= fullscore/2:
 		g = int( (a/fullscore) * (255+255-80) )
 		return "rgb(255,%d,0,%f)" % (g,opacity) if opacity != 1 else "rgb(255,%d,0)" % g
@@ -82,6 +84,8 @@ def Email_Hash(s):
 	return hashlib.md5(s.strip().lower().encode('utf-8')).hexdigest()
 def Vaild_Username(username):
 	return re.match(r'[A-Za-z0-9_\-]+',username) != None and re.match(r'[A-Za-z0-9_\-]+',username).span()[1] == len(username)
+def Is_Integer(str):
+	return re.match(r'^-?[1-9]\d*$',str) != None or re.match(r'^-?0$',str) != None
 
 def Get_Session(type,name):
 	if session.get(type) == None:

@@ -143,6 +143,10 @@ def Userhome(username):
 def Useredit(username):
 	return sites.useredit.Run(username)
 
+@app.route('/api/score_color')
+def Api_Score_Color():
+	return sites.api.Score_Color()
+	
 # app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
 app.secret_key = '你知道也没事反正我不用这个'
 
