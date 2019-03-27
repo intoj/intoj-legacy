@@ -50,6 +50,15 @@ function Find_User(){
 						<input class="input-mediumlong" type="text" id="find-user"> </input> <button class="button button-primary button-rounded button-small" style="flex-shrink: 0;" onclick="Find_User()"> 查找 </button>
 					</div>
 				</div>
+				<div class="block-mini-inner" style="padding-bottom: 30px;">
+					<div class="contitle"> 一言 </div>
+					<div class="content">
+						<div id="hitokoto" style="width: 85%; margin: auto">
+						</div>
+						<div id="hitokoto-from" style="font-size: 15px; float: right; color: #666; margin-right: 10px;">
+						</div>
+					</div>
+				</div>
 				<div class="block-mini-inner">
 					<div class="contitle"> 近期比赛 </div>
 					<div class="list">
@@ -90,4 +99,14 @@ function Find_User(){
 		</div>
 	</div>
 </div>
+<script>
+$.get({
+	url: 'https://v1.hitokoto.cn/',
+	success: function(data,status){
+		console.log(data);
+		$('#hitokoto').text(data.hitokoto)
+		$('#hitokoto-from').text('—— ' + data.from)
+	}
+})
+</script>
 {% endblock %}
