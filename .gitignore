@@ -6,3 +6,4 @@
 **/tmp
 judge/testdata*
 venv*
+web/.log/*

@@ -1,8 +1,5 @@
 #coding:utf-8
-from gevent import monkey
-monkey.patch_all()
 from flask import *
-from gevent import pywsgi
 import sys,os,time,random
 import hashlib,re
 reload(sys)
@@ -146,13 +143,9 @@ def Useredit(username):
 @app.route('/api/score_color')
 def Api_Score_Color():
 	return sites.api.Score_Color()
-	
+
 # app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
 app.secret_key = '你知道也没事反正我不用这个'
 
 if __name__ == "__main__":
-	from werkzeug.debug import DebuggedApplication
-	app.jinja_env.auto_reload = True
-	dapp = DebuggedApplication(app,evalex=True)
-	server = pywsgi.WSGIServer(('0.0.0.0',5000),dapp)
-	server.serve_forever()
+	app.run()
