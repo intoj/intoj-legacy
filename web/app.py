@@ -122,7 +122,9 @@ def Login():
 @app.route('/logout')
 def Logout():
 	try:
-		resp = Response(render_template('jumpto.html',link='/'))
+		link = request.args['url'] if 'url' in request.args else '/'
+		resp = Response(render_template('jumpto.html',link=link))
+		flash('ok','Goodbye, %s'%request.cookies.get('username'))
 		resp.delete_cookie('username')
 		resp.delete_cookie('client_key')
 		return resp
