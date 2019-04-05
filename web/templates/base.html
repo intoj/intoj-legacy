@@ -108,7 +108,7 @@
 			</span>
 			{% else %}
 			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
-				<a href="/login" class="uncolored">
+				<a href="/login?url={{request.url}}" class="uncolored">
 					<button class="button button-small button-primary button-rounded" style="width: 70px; padding: 0px 10px;">
 						登录
 					</button>
