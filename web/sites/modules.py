@@ -144,3 +144,9 @@ def Page_Split(lst,page,per_page,condition):
 		except: pass
 	total_page = count//per_page + ( 1 if count%per_page != 0 else 0 )
 	return shown, total_page
+
+def Todict(a):
+	ret = {}
+	for key,val in a.items():
+		ret[key] = val
+	return ret

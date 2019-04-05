@@ -5,7 +5,7 @@ import db,modules
 status_per_page = 15
 
 def Run():
-	args = dict(request.args)
+	args = modules.Todict(request.args)
 
 	if args.get('contest_id') == None: args['contest_id'] = 0
 	page = int(request.args['page']) if 'page' in args else 1
