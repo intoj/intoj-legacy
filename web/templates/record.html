@@ -30,12 +30,36 @@
 					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
 				<div class="listline" id="overview">
-					{% include 'record_overview.html' %}
+					<span class="listitem onewide center"> #{{record[0]}} </span>
+					{% if record[12] == 0 %}
+					<span class="listitem threewide center"> <a href="/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
+					{% else %}
+					<span class="listitem threewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
+					{% endif %}
+					<span class="listitem fourwide center" id="overview_judge_status">
+						<span class="judge-{{record[4]}}" long_or_short="long">
+							<i class="icon-{{statusicon[record[4]]}}" aria-hidden="true"></i>  {{tostatus[record[4]]}}
+						</span>
+					</span>
+					<span class="listitem twowide center" id="overview_score">
+						<span style="color:{{Score_Color(record[5])}}" id="overview_score">
+							{{ Toint(record[5]) }}
+						</span>
+					</span>
+					{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
+					<span class="listitem onewide center smallfont" id="overview_time_usage"> {{record[8]}} ms </span>
+					<span class="listitem onewide center smallfont" id="overview_memory_usage"> {{record[9]}} M </span>
+					{% else %}
+					<span class="listitem onewide center smallfont" id="overview_time_usage"> </span>
+					<span class="listitem onewide center smallfont" id="overview_memory_usage"> </span>
+					{% endif %}
+					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
+					<span class="listitem center smallfont" style="width: 15%"> {{record[13]}} </span>
 				</div>
 			</div>
 		</div>
 	</div>
-	{%if record[11] != "Compile Error" %}
+	{% if record[11] != "Compile Error" %}
 	<div class="block">
 		<div class="contitle"> 测试点信息 </div>
 		<div class="">
@@ -48,17 +72,9 @@
 					<span class="listitem twowide center"> 内存 </span>
 				</div>
 				<div id="subtasks">
-				{% include 'record_subtasks.html' %}
+					{% include 'record_subtasks.html' %}
 				</div>
 			</div>
-		</div>
-	</div>
-	{% endif %}
-	{% if record[6] != "" %}
-	<div class="block">
-		<div class="contitle"> 编译信息 </div>
-		<div class="content">
-			<pre><code class="hljs plain">{{record[6]}}</code></pre>
 		</div>
 	</div>
 	{% endif %}
@@ -68,16 +84,20 @@
 			<pre><code class="{{record[3]}}">{{record[2]}}</code></pre>
 		</div>
 	</div>
-	{% if record[10] != "" %}
+	<div class="block">
+		<div class="contitle"> 编译信息 </div>
+		<div class="content">
+			<pre><code class="hljs plain" id="compilation">{{record[6]}}</code></pre>
+		</div>
+	</div>
 	<div class="block">
 		<div class="contitle"> 系统信息 </div>
 		<div class="content">
-			<pre><code class="plaintext">{{record[10]}}</code></pre>
+			<pre><code class="hljs plain" id="system_message">{{record[10]}}</code></pre>
 		</div>
 	</div>
-	{% endif %}
 </div>
 <script>
-Refresh_Begin({{record[0]}});
+Refresh_Begin({{record[0]}},{% if not record[12] or Current_User_Privilege(3) %}1{%else%}0{%endif%});
 </script>
 {% endblock %}

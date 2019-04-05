@@ -1,24 +1,23 @@
 {% for subtask in subtasks %}
-<div class="listline listline-animation unselect" onclick="Click({{loop.index}});">
+{% set subtask_id = subtask['id'] %}
+<div id="subtask_{{subtask_id}}">
+<div class="listline listline-animation unselect" onclick="Click({{subtask_id}});">
 	<span class="listitem onewide center"> #{{subtask['id']}} </span>
-	<span class="listitem sixwide center">
+	<span class="listitem sixwide center" id="subtask_{{subtask_id}}_judge_status">
 		<span class="judge-{{subtask['status']}}" long_or_short="long">
 			<i class="icon-{{statusicon[subtask['status']]}}" aria-hidden="true"></i>  {{tostatus[subtask['status']]}}
 		</span>
 	</span>
-	{% if subtask['status_name'] not in ["Waiting","Compile Error","Unknown Error"] %}
-	<span class="listitem twowide center" style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
-		{{Toint(subtask['score'])}}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
+	<span class="listitem twowide center" id="subtask_{{subtask_id}}_score">
+		<span style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
+			{{Toint(subtask['score'])}}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
+		</span>
 	</span>
-	<span class="listitem twowide center"> {{subtask['time_usage']}} ms </span>
-	<span class="listitem twowide center"> {{subtask['memory_usage']}} M </span>
-	{% else %}
-	<span class="listitem twowide center"> </span>
-	<span class="listitem twowide center"> </span>
-	{% endif %}
+	<span class="listitem twowide center" id="subtask_{{subtask_id}}_time_usage"> {{subtask['time_usage']}} ms </span>
+	<span class="listitem twowide center" id="subtask_{{subtask_id}}_memory_usage"> {{subtask['memory_usage']}} M </span>
 </div>
 {% if not record[12] or Current_User_Privilege(3) %}
-<div class="dropdown dropdown-{{loop.index}}" hidden="hidden">
+<div class="dropdown dropdown-{{subtask_id}}" hidden="hidden">
 	<div class="markdown">
 {% if subtask['checker_message'] != "" %}
 ### 比较器信息
@@ -37,4 +36,5 @@
 	</div>
 </div>
 {% endif %}
+</div>
 {% endfor %}

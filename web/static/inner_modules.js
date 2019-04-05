@@ -1,3 +1,32 @@
+String.prototype.replaceAll = function (exp, newStr) {
+    return this.replace(new RegExp(exp, "gm"), newStr);
+};
+/**
+by 花果山总钻风
+https://blog.csdn.net/dszgf5717/article/details/51314952
+ * 原型：字符串格式化
+ * @param args 格式化参数值
+ */
+String.prototype.format = function(args) {
+    var result = this;
+    if (arguments.length < 1) {
+        return result;
+    }
+
+    var data = arguments; // 如果模板参数是数组
+    if (arguments.length == 1 && typeof (args) == "object") {
+        // 如果模板参数是对象
+        data = args;
+    }
+    for ( var key in data) {
+        var value = data[key];
+        if (undefined != value) {
+            result = result.replaceAll("\\{" + key + "\\}", value);
+        }
+    }
+    return result;
+}
+
 function Cannotselect(){
 	$(".unselect").attr("onselectstart","return false");
 	$(".unselect").attr("onselectstart","return false");
@@ -92,9 +121,35 @@ statusicon = [
 ]
 function Judge_Status(status){
 	status = parseInt(status)
-	html = "<span class=\"judge-" + status.toString() + "\">"
-	html += "<i class=\"icon-" + statusicon[status] + "\"></i> "
-	html += tostatus[status]
-	html += "</span>"
+	html = '\
+<span class="judge-{status}">\n\
+	<i class="icon-{statusicon}"></i>\n\
+	{statusname}\n\
+</span>'
+	html = html.format({
+		status: status,
+		statusicon: statusicon[status],
+		statusname: tostatus[status]
+	})
+	return html
+}
+function Score_Color( score , fullscore = 100 , opacity = 1 ){
+	ans = ""
+	if( score <= fullscore/2 ){
+		g = (score/fullscore) * (255+255-80)
+		ans = "rgb(255," + g.toString() + ",0"
+	}else{
+		r = (1.0-score/fullscore) * (255+255)
+		ans = "rgb(" + r.toString() + ",220,0"
+	}
+	if( opacity == 1 ) ans += ")"
+	else ans += "," + opacity.toString() + ")"
+	return ans
+}
+function Judge_Score( score , full_score = 100 ){
+	score_color = Score_Color(score,full_score)
+	html = "<span style=\"color: " + score_color + "\"> "
+	html += score.toString()
+	html += " </span>"
 	return html
 }

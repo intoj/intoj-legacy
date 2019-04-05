@@ -39,17 +39,8 @@ def Refresh(id):
 	if record == None:
 		return '{ "success": 0, "message": "刷新状态失败: id%s不存在" }'%id
 
-	result = json.loads(record[7])
-	subtasks = result['subtasks']
-
-	record_html = render_template("record_overview.html",record=record)
-	subtasks_html = render_template("record_subtasks.html",subtasks=subtasks,record=record)
-
 	ret = {
 		'record': record,
-		'record_html': record_html,
-		'score_color': modules.Score_Color(record[5]),
-		'subtasks_html': subtasks_html,
 		'success': 1
 	}
 
