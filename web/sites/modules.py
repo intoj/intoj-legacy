@@ -150,3 +150,6 @@ def Todict(a):
 	for key,val in a.items():
 		ret[key] = val
 	return ret
+
+def Default(val,default,invaild=None):
+	return default if val == invaild else val

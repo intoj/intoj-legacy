@@ -1,6 +1,6 @@
 #coding:utf-8
 from flask import *
-import db,modules,newsubmit
+import db,modules,newsubmit,config
 
 def Run(problem_id):
 	problem = db.Read_Problem(problem_id)
@@ -12,6 +12,7 @@ def Run(problem_id):
 		return modules.Page_Back()
 
 	if request.method == 'GET':
-		return render_template('problem.html',problem=problem)
+		enable_lang = config.config['enable_lang']
+		return render_template('problem.html',problem=problem,enable_lang=enable_lang)
 	else:
 		return newsubmit.Submit(problem_id,request.form)

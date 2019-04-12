@@ -7,3 +7,9 @@ function Select_Changeto(id,status){
 		$("#select-input-"+id.toString()).attr("value",status)
 	}
 }
+
+function Select_Changeto_Showactive(id,status){
+	Select_Changeto(id,status)
+	$(".select-"+id.toString()+"-item").removeClass("listline-active")
+	$(".select-"+id.toString()+"-item-"+status.toString()).addClass("listline-active")
+}

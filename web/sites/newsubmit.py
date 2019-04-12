@@ -30,12 +30,14 @@ def Submit(problemid,req,contest_id=0):
 	maxid_result = db.Fetchone("SELECT MAX(id) FROM records;")[0]
 	runid = 1 if maxid_result == None else int(maxid_result) + 1
 	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,'cpp',username,contest_id,nowtime))
+	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,req['lang'],username,contest_id,nowtime))
 
 	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
 	r.rpush('intoj-waiting',str(runid))
 
-	return redirect('/record/%d'%runid)
+	resp = make_response(redirect('/record/%d'%runid))
+	resp.set_cookie('lastlang',req['lang'])
+	return resp
 
 def Rejudge(record_id):
 	if db.Fetchone("SELECT * FROM records WHERE id=%s",record_id) == None:

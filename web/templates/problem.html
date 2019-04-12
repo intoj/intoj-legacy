@@ -85,7 +85,22 @@
 		<div class="contitle"> 提交代码 </div>
 		<div class="content">
 			<form method="POST">
-				<textarea class="codeinput" name="code"></textarea>
+				<div style="display: flex;">
+					<div style="width: 20%; height: 300px; overflow: hidden auto; background-color: #e6e6e6;" class="list">
+						{% set lastlang = Default(request.cookies.get('lastlang'),'cpp11') %}
+						<input type="hidden" name="lang" id="select-input-1" value="{{lastlang}}"> </input>
+						{% for lang in enable_lang %}
+							{% set is_active = 'listline-active' if lang['name'] == lastlang else '' %}
+							<div class="listline listline-animation select-1-item select-1-item-{{lang['name']}} {{is_active}}" style="flex-direction: row; height: 50px;" onclick="Select_Changeto_Showactive(1,'{{lang['name']}}')">
+								<div style="font-size: 18px; padding-left: 20px; font-weight: 100;"> {{lang['display_name']}} </div> <br />
+								<div style="font-size: 12px; padding-left: 10px; font-weight: 100; color: #999"> {{lang['compiler']}} </div>
+							</div>
+						{% endfor %}
+					</div>
+					<div style="width: 80%; height: 300px;">
+						<textarea class="codeinput" name="code"></textarea>
+					</div>
+				</div>
 				<button type="submit" class="button button-action button-rounded submitbutton">
 					<i class="icon-pencil icon-spin"></i> 提交!
 				</button>

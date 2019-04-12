@@ -29,6 +29,7 @@ app.add_template_global(sites.modules.Judge_Status,'Judge_Status')
 app.add_template_global(sites.modules.Current_User,'Current_User')
 app.add_template_global(sites.modules.Current_User_Privilege,'Current_User_Privilege')
 app.add_template_global(sites.modules.Is_Loggedin,'Is_Loggedin')
+app.add_template_global(sites.modules.Default,'Default')
 app.add_template_global(sites.db.User_Privilege,'User_Privilege')
 app.add_template_global(sites.db.Read_Problem,'Read_Problem')
 app.add_template_global(sites.db.Read_User_Byname,'Read_User_Byname')
@@ -148,6 +149,7 @@ def Api_Score_Color():
 
 # app.secret_key = hashlib.sha256(str(random.randint(-1000000000,1000000000)).encode('utf-8')).hexdigest()
 app.secret_key = '你知道也没事反正我不用这个'
+sites.config.Readfromfile('config.json')
 
 if __name__ == "__main__":
 	app.run()

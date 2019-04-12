@@ -1,4 +1,5 @@
 from . import api
+from . import config
 from . import contest_problem
 from . import contest_ranklist
 from . import contest_statistic

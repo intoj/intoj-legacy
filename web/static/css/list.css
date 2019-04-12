@@ -18,7 +18,10 @@ div.listline-active-animation:active,div.listline-animation:active{
 	background-color: #bbb;
 	transform: scale(1.02,1.02);
 }
-div.listline-active-animation,div.listline-animation{
+div.listline-active{
+	background-color: #ccc;
+}
+div.listline-active-animation,div.listline-hover-animation,div.listline-animation{
 	cursor: pointer;
 }
 span.listitem, .overflow-ellipsis{
