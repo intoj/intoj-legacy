@@ -37,6 +37,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block title %}{% endblock %} - intoj</title>
+	{% block head %}{% endblock %}
 	{% include "base_online.html" %}
 </head>
 <body onresize="Resize();" onload="Render();Resize();Cannotselect();Icheck_Init();Wrap()">
