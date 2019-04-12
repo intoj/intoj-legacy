@@ -28,9 +28,15 @@
 					<a href="{{problem[0]}}/edit"><button class="button button-primary button-square button-small button-rounded">
 						<i class="icon-pencil"></i>
 					</button></a>
-					<a href="{{problem[0]}}/delete"><button class="button button-caution button-square button-small button-rounded">
+					<button class="button button-caution button-square button-small button-rounded" onclick="Delete_Problem()">
 						<i class="icon-trash"></i>
-					</button></a>
+					</button>
+					<script>
+						function Delete_Problem(){
+							var want_del = confirm("确认删除这道题目?\n请不要删除比赛中的题目!")
+							if(want_del) window.location.href = '{{problem[0]}}/delete'
+						}
+					</script>
 				</span>
 			{% endif %}
 		</div>
