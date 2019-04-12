@@ -124,10 +124,10 @@ def Login():
 def Logout():
 	try:
 		link = request.args['url'] if 'url' in request.args else '/'
-		resp = Response(render_template('jumpto.html',link=link))
-		flash('ok','Goodbye, %s'%request.cookies.get('username'))
+		resp = make_response(redirect(link))
 		resp.delete_cookie('username')
 		resp.delete_cookie('client_key')
+		flash('Goodbye, %s'%request.cookies.get('username'),'ok')
 		return resp
 	except:
 		return redirect('/')

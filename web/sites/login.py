@@ -36,7 +36,7 @@ def Run():
 			modules.Set_Session('client_keys',username,message)
 			# 此时message就是clientkey
 			link = request.args['url'] if 'url' in request.args else '/'
-			resp = Response(render_template('jumpto.html',link=link))
+			resp = make_response(redirect(link))
 			resp.set_cookie('username',username,max_age=60*60*24*30)
 			resp.set_cookie('client_key',message,max_age=60*60*24*30)
 			flash(r'登录成功','ok')
