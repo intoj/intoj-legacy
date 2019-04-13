@@ -5,6 +5,10 @@
         "host": "localhost",
         "pass": "24"
 	},
+	"redis": {
+        "ip": "localhost",
+        "port": 6379
+    },
 	"enable_lang": [
 		{
 			"name": "c",

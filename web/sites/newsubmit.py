@@ -1,7 +1,7 @@
 #coding:utf-8
 from flask import *
-import pymysql,redis,datetime
-import db,modules,problem
+import pymysql,datetime
+import db,modules,problem,myredis
 
 #包含rejudge
 submit_delay_time = 5
@@ -32,8 +32,7 @@ def Submit(problemid,req,contest_id=0):
 	nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	db.Execute("INSERT INTO records VALUES(%s,%s,%s,%s,0,0,'','{\"subtasks\":[]}',0,0,'',%s,%s,%s);",(runid,problemid,code,req['lang'],username,contest_id,nowtime))
 
-	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
-	r.rpush('intoj-waiting',str(runid))
+	myredis.Rpush('intoj-waiting',str(runid))
 
 	resp = make_response(redirect('/record/%d'%runid))
 	resp.set_cookie('lastlang',req['lang'])
@@ -46,8 +45,7 @@ def Rejudge(record_id):
 
 	db.Execute("UPDATE records SET status=0,score=0,time_usage=0,memory_usage=0,result='{\"subtasks\":[]}',compilation='' WHERE id=%s",record_id)
 
-	r=redis.Redis(host='localhost',port=6379,decode_responses=True)
-	r.rpush('intoj-waiting',str(record_id))
+	myredis.Rpush('intoj-waiting',str(record_id))
 
 	flash('成功重测.','ok')
 	return redirect('/record/%d'%record_id)
