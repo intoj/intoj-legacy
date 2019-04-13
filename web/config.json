@@ -1,4 +1,10 @@
 {
+	"database": {
+		"name": "intoj",
+        "user": "intlsy",
+        "host": "localhost",
+        "pass": "24"
+	},
 	"enable_lang": [
 		{
 			"name": "c",

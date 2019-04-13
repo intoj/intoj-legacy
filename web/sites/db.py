@@ -1,8 +1,6 @@
 #coding:utf-8
 import pymysql
-import modules
-
-db_password = '24'
+import modules,config
 
 def Generate_Limitation(limitation,allowed=[]):
 	answer = ''
@@ -17,8 +15,12 @@ def Generate_Limitation(limitation,allowed=[]):
 		answer = 'WHERE ' + answer
 	return answer,arg
 
-def Is_Connect():
-	db = pymysql.connect("localhost","intlsy",db_password,"intoj")
+def Connect():
+	db_name = config.config['database']['name']
+	db_user = config.config['database']['user']
+	db_host = config.config['database']['host']
+	db_pass = config.config['database']['pass']
+	db = pymysql.connect(db_host,db_user,db_pass,db_name)
 	cur = db.cursor()
 	return db,cur
 def End_Connect(db,cur):
@@ -26,13 +28,13 @@ def End_Connect(db,cur):
 	db.close()
 
 def Read_Problem(id):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM problems where id=%s",id)
 	uproblem = cur.fetchone()
 	End_Connect(db,cur)
 	return uproblem
 def Read_Problemlist(order='id'):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM problems ORDER BY %s",order)
 	problemlist = cur.fetchall()
 	End_Connect(db,cur)
@@ -48,7 +50,7 @@ def Read_Submissions(limitation=None,order="id DESC"):
 		'username': ('eq','username'),
 		'contest_id': ('eq','contest_id')
 	}
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	if limitation != None:
 		lim,arg = Generate_Limitation(limitation,allowed)
 		cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,modules.Raw(order))
@@ -61,19 +63,19 @@ def Read_Submissions(limitation=None,order="id DESC"):
 	return submissions
 
 def Read_Contest(id):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM contests where id=%s",id)
 	contest = cur.fetchone()
 	End_Connect(db,cur)
 	return contest
 def Read_Contestlist():
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM contests ORDER BY id DESC")
 	contestlist = cur.fetchall()
 	End_Connect(db,cur)
 	return contestlist
 def Read_Contest_Ranklist(contest_id):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM contest_players WHERE contest_id=%s",contest_id)
 	ranklist = cur.fetchall()
 	End_Connect(db,cur)
@@ -81,34 +83,34 @@ def Read_Contest_Ranklist(contest_id):
 	return list(ranklist)
 
 def Read_Record(id):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM records WHERE id=%s;",id)
 	urecord = cur.fetchone()
 	End_Connect(db,cur)
 	return urecord
 
 def Read_Userlist():
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM users")
 	userlist = cur.fetchall()
 	End_Connect(db,cur)
 	return userlist
 def Read_User_Byname(username):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM users WHERE username=%s;",username)
 	user = cur.fetchone()
 	End_Connect(db,cur)
 	return user
 
 def Execute(cmd,arg=None):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	if arg == None: cur.execute(cmd)
 	else: cur.execute(cmd,arg)
 	db.commit()
 	End_Connect(db,cur)
 
 def Fetchone(cmd,arg=None):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	if arg == None: cur.execute(cmd)
 	else: cur.execute(cmd,arg)
 	ret = cur.fetchone()
@@ -116,7 +118,7 @@ def Fetchone(cmd,arg=None):
 	return ret
 
 def Read_User_Privileges(username):
-	db,cur = Is_Connect()
+	db,cur = Connect()
 	cur.execute("SELECT * FROM user_privileges WHERE username=%s;",username)
 	user = cur.fetchone()
 	End_Connect(db,cur)
