@@ -21,7 +21,7 @@ def Connect():
 	db_host = config.config['database']['host']
 	db_pass = config.config['database']['pass']
 	db = pymysql.connect(db_host,db_user,db_pass,db_name)
-	cur = db.cursor()
+	cur = db.cursor(cursor=pymysql.cursors.DictCursor)
 	return db,cur
 def End_Connect(db,cur):
 	cur.close()
@@ -124,9 +124,9 @@ def Read_User_Privileges(username):
 	End_Connect(db,cur)
 	return user
 
-def User_Privilege(username,privilege_id):
+def User_Privilege(username,privilege_name):
 	if username == None: return 0
 	user = Read_User_Privileges(username)
 	if user == None: return 0
-	if user[2]: return 1
-	return user[privilege_id+2]
+	if user['is_admin']: return 1
+	return user[privilege_name]

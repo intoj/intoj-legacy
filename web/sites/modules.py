@@ -109,9 +109,9 @@ def Is_Loggedin():
 def Current_User():
 	if not Is_Loggedin(): return None
 	return request.cookies.get('username')
-def Current_User_Privilege(id):
+def Current_User_Privilege(privilege_name):
 	if not Is_Loggedin(): return 0
-	return db.User_Privilege(request.cookies['username'],id)
+	return db.User_Privilege(request.cookies['username'],privilege_name)
 
 def Judge_Status(status):
 	status = int(status)

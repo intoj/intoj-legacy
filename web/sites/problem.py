@@ -7,7 +7,7 @@ def Run(problem_id):
 	if problem == None:
 		flash(r'### 题目 P%d 没找着! \n 可能是因为编号不对.'%problem_id,'error')
 		return modules.Page_Back()
-	if not problem[9] and not modules.Current_User_Privilege(2):
+	if not problem['is_public'] and not modules.Current_User_Privilege(2):
 		flash(r'无此权限','error')
 		return modules.Page_Back()
 

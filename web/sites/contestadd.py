@@ -7,9 +7,9 @@ date_format = '%Y-%m-%d %H:%M:%S'
 
 def Contestadd(req):
 	id = 1
-	count = int(db.Fetchone('SELECT COUNT(*) FROM contests')[0])
+	count = int(db.Fetchone('SELECT COUNT(*) FROM contests')['COUNT(*)'])
 	if count > 0:
-		id = int(db.Fetchone('SELECT MAX(id) FROM contests')[0]) + 1
+		id = int(db.Fetchone('SELECT MAX(id) FROM contests')['MAX(id)']) + 1
 
 	req_problems = req['problems'].split(',')
 	problems = []
@@ -33,7 +33,7 @@ def Contestadd(req):
 	return redirect('/contest/%d'%id)
 
 def Run():
-	if not modules.Current_User_Privilege(3):
+	if not modules.Current_User_Privilege('is_contest_manager'):
 		flash(r'无此权限','error')
 		return modules.Page_Back()
 

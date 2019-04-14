@@ -16,7 +16,7 @@ def Can_Login(req):
 
 	password_sha256 = hashlib.sha256(password.encode('utf-8')).hexdigest()
 	password_sha1 = hashlib.sha1(password.encode('utf-8')).hexdigest()
-	if password_sha256 != nowuser[2] or password_sha1 != nowuser[3]:
+	if password_sha256 != nowuser['password_sha256'] or password_sha1 != nowuser['password_sha1']:
 		return 0,'密码不对'
 
 	client_key_raw = username + password_sha256 + password_sha1;

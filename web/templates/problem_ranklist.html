@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} 排行榜 - {{problem[1]}} {% endblock %}
+{% block title %} 排行榜 - {{problem['title']}} {% endblock %}
 {% block selected_problem %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 排行榜 - #{{problem[0]}}. {{problem[1]}} <button class="button button-rounded button-primary button-small" style="float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+		<div class="contitle"> 排行榜 - #{{problem['id']}}. {{problem['title']}} <button class="button button-rounded button-primary button-small" style="float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 	</div>
 	<div class="block">
 		<div class="list">
@@ -20,25 +20,25 @@
 			</div>
 			{% for submission in submissions %}
 			<div class="listline listline-animation">
-				<span class="listitem onewide center"> <a href="/record/{{submission[0]}}"> #{{submission[0]}} </a> </span>
-				<span class="listitem threewide center"> <a href="/problem/{{submission[1]}}"> #{{submission[1]}}. {{problem[1]}} </a> </span>
+				<span class="listitem onewide center"> <a href="/record/{{submission['id']}}"> #{{submission['id']}} </a> </span>
+				<span class="listitem threewide center"> <a href="/problem/{{submission['problem_id']}}"> #{{submission['problem_id']}}. {{problem['title']}} </a> </span>
 				<span class="listitem fourwide center">
-					<a href="/record/{{submission[0]}}" class="uncolored full">
-						<span class="judge-{{submission[4]}}" long_or_short="long">
-							<i class="icon-{{statusicon[submission[4]]}}" aria-hidden="true"></i>  {{tostatus[submission[4]]}}
+					<a href="/record/{{submission['id']}}" class="uncolored full">
+						<span class="judge-{{submission['status']}}" long_or_short="long">
+							<i class="icon-{{statusicon[submission['status']]}}" aria-hidden="true"></i>  {{tostatus[submission['status']]}}
 						</span>
 					</a>
 				</span>
-				<span class="listitem twowide center" style="color:{{Score_Color(submission[5])}}"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{Toint(submission[5])}} </a> </span>
-				{% if tostatus[submission[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{submission[8]}} ms </a> </span>
-				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full"> {{submission[9]}} M </a> </span>
+				<span class="listitem twowide center" style="color:{{Score_Color(submission['score'])}}"> <a href="/record/{{submission['id']}}" class="uncolored full"> {{Toint(submission['score'])}} </a> </span>
+				{% if tostatus[submission['status']] not in ["Waiting","Compile Error","Unknown Error"] %}
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission['id']}}" class="uncolored full"> {{submission['time_usage']}} ms </a> </span>
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission['id']}}" class="uncolored full"> {{submission['memory_usage']}} M </a> </span>
 				{% else %}
-				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full">  </a> </span>
-				<span class="listitem onewide center smallfont"> <a href="/record/{{submission[0]}}" class="uncolored full">  </a> </span>
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission['id']}}" class="uncolored full">  </a> </span>
+				<span class="listitem onewide center smallfont"> <a href="/record/{{submission['id']}}" class="uncolored full">  </a> </span>
 				{% endif %}
-				<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{submission[11]}}"> {{submission[11]}} </a> </span>
-				<span class="listitem center smallfont" style="width: 15%"> <a href="/user/{{submission[11]}}" class="uncolored"> {{submission[13]}} </a> </span>
+				<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{submission['username']}}"> {{submission['username']}} </a> </span>
+				<span class="listitem center smallfont" style="width: 15%"> <a href="/user/{{submission['username']}}" class="uncolored"> {{submission['submit_time']}} </a> </span>
 			</div>
 			{% endfor %}
 		</div>

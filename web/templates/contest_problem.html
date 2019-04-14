@@ -1,76 +1,76 @@
 {% extends 'base.html' %}
-{% block title %} {{problem[1]}} {% endblock %}
+{% block title %} {{problem['title']}} {% endblock %}
 {% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block-mini-box">
-		<a href="/contest/{{contest[0]}}" class="uncolored" style="width: 69%;">
+		<a href="/contest/{{contest['id']}}" class="uncolored" style="width: 69%;">
 			<div class="block-mini">
 				<!-- <div class="block-mini-inner"> -->
-					<div class="contitle" style="text-align: center"> {{contest[1]}} </div>
+					<div class="contitle" style="text-align: center"> {{contest['title']}} </div>
 					<div style="font-size: 14px; text-align: center"> 点击返回比赛主页 </div>
 				<!-- </div> -->
 			</div>
 		</a>
 		<div class="block-mini" style="width: 27%;">
 			<!-- <div class="block-mini-inner"> -->
-				<div class="content"> 开始于 {{contest[3]}} </div>
-				<div class="content"> 结束于 {{contest[4]}} </div>
+				<div class="content"> 开始于 {{contest['begin_time']}} </div>
+				<div class="content"> 结束于 {{contest['end_time']}} </div>
 			<!-- </div> -->
 		</div>
 	</div>
-	<div class="title" style="margin: 20px auto;"> {{problem[1]}} </div>
+	<div class="title" style="margin: 20px auto;"> {{problem['title']}} </div>
 	<div class="block tagsblock">
 		<div class="button-group">
 			<div class="button-group">
 				<a href="#submit_code" class="button button-primary button-rounded button-small" style="font-weight: 500;"> 提交 </a>
-				<a href="/contest/{{contest[0]}}/submissions/my?problem_id={{problem[0]}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 我的提交 </a>
-				<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 所有提交 </a>
-				<a href="/problem/{{problem[0]}}" class="button button-primary button-rounded button-primary button-small" style="font-weight: 500;"> 到题库去 </a>
+				<a href="/contest/{{contest['id']}}/submissions/my?problem_id={{problem['id']}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 我的提交 </a>
+				<a href="/contest/{{contest['id']}}/submissions?problem_id={{problem['id']}}" class="button button-primary button-rounded button-action button-small" style="font-weight: 500;"> 所有提交 </a>
+				<a href="/problem/{{problem['id']}}" class="button button-primary button-rounded button-primary button-small" style="font-weight: 500;"> 到题库去 </a>
 			</div>
 		</div>
 		<div style="float: right">
-			<span class="content tag tag-timelimit">时间限制:{{- problem[7] -}}ms</span>
-			<span class="content tag tag-memorylimit">空间限制:{{- problem[8] -}}M</span>
+			<span class="content tag tag-timelimit">时间限制:{{- problem['time_limit'] -}}ms</span>
+			<span class="content tag tag-memorylimit">空间限制:{{- problem['memory_limit'] -}}M</span>
 		</div>
 	</div>
-	{% if problem[2] != '' %}
+	{% if problem['description'] != '' %}
 	<div class="block" style="margin-top: 10px;">
 		<div class="contitle"> 题目描述 </div>
 		<div class="content markdown">
-			{{- problem[2] -}}
+			{{- problem['description'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[3] != '' %}
+	{% if problem['input_format'] != '' %}
 	<div class="block">
 		<div class="contitle"> 输入格式 </div>
 		<div class="content markdown">
-			{{- problem[3] -}}
+			{{- problem['input_format'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[4] != '' %}
+	{% if problem['output_format'] != '' %}
 	<div class="block">
 		<div class="contitle"> 输出格式 </div>
 		<div class="content markdown">
-			{{- problem[4] -}}
+			{{- problem['output_format'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[5] != '' %}
+	{% if problem['example'] != '' %}
 	<div class="block">
 		<div class="contitle"> 样例 </div>
 		<div class="content markdown">
-			{{- problem[5] -}}
+			{{- problem['example'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[6] != '' %}
+	{% if problem['limit_and_hint'] != '' %}
 	<div class="block">
 		<div class="contitle"> 提示与说明 </div>
 		<div class="content markdown">
-			{{- problem[6] -}}
+			{{- problem['limit_and_hint'] -}}
 		</div>
 	</div>
 	{% endif %}

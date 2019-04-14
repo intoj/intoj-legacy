@@ -14,8 +14,8 @@ def Run(problem_id):
 	submission_shown = []
 	counted = {}
 	for submission in submissions:
-		if counted.get(submission[11]) != None: continue
-		counted[submission[11]] = 1
+		if submission['username'] in counted: continue
+		counted[submission['username']] = 1
 		submission_shown.append(submission)
 
 	submission_shown_inpage, total_page = modules.Page_Split( submission_shown , page , status_per_page ,

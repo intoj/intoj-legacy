@@ -138,7 +138,7 @@
 	<script> Codeinput(); </script>
 	<script>
 		{% if Is_Loggedin() %}
-			{% set background_url = Read_User_Byname(request.cookies['username'])[8] %}
+			{% set background_url = Read_User_Byname(request.cookies['username'])['background_url'] %}
 			{% if background_url not in [None,''] %}
 			{% if background_url[0] == '#' %}
 				$("body").css('background-color','{{background_url}}')

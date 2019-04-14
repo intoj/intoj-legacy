@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} 统计 - {{problem[1]}} {% endblock %}
+{% block title %} 统计 - {{problem['title']}} {% endblock %}
 {% block selected_problem %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 统计 - #{{problem[0]}}. {{problem[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+		<div class="contitle"> 统计 - #{{problem['id']}}. {{problem['title']}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 	</div>
 	<div class="block">
 		<div class="contitle"> 得分统计 </div>
@@ -15,9 +15,9 @@
 			状态分布
 			<div class="button-group" style="float: right">
 				{% if Is_Loggedin() %}
-				<a href="/status?problem_id={{problem[0]}}&username={{Current_User()}}" class="button button-small button-rounded button-primary"> 我的提交 </a>
+				<a href="/status?problem_id={{problem['id']}}&username={{Current_User()}}" class="button button-small button-rounded button-primary"> 我的提交 </a>
 				{% endif %}
-				<a href="/status?problem_id={{problem[0]}}" class="button button-small button-rounded button-primary"> 所有提交 </a>
+				<a href="/status?problem_id={{problem['id']}}" class="button button-small button-rounded button-primary"> 所有提交 </a>
 			</div>
 		</div>
 		{% include "problem_statistic_modules/status.html" %}

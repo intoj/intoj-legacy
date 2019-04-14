@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} 统计 - {{contest[1]}} {% endblock %}
+{% block title %} 统计 - {{contest['title']}} {% endblock %}
 {% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 统计 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+		<div class="contitle"> 统计 - {{contest['title']}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 	</div>
 	<div class="block">
 		<div class="contitle"> 小组平均分 (最终) </div>
@@ -16,10 +16,10 @@
 	</div>
 	<div class="block">
 		<div class="contitle">
-			<a href="/contest/{{contest[0]}}/submissions" class="uncolored"> 题目总览 </a>
+			<a href="/contest/{{contest['id']}}/submissions" class="uncolored"> 题目总览 </a>
 			<div class="button-group" style="float: right">
-				<a href='/contest/{{contest[0]}}/submissions/my' class="button button-small button-rounded button-primary"> 我的提交 </a>
-				<a href='/contest/{{contest[0]}}/submissions' class="button button-small button-rounded button-primary"> 所有提交 </a>
+				<a href="/contest/{{contest['id']}}/submissions/my" class="button button-small button-rounded button-primary"> 我的提交 </a>
+				<a href="/contest/{{contest['id']}}/submissions" class="button button-small button-rounded button-primary"> 所有提交 </a>
 			</div>
 		</div>
 		{% include "contest_statistic_modules/overall.html" %}
@@ -27,8 +27,8 @@
 	{% for problem_id,problem in problems.items() %}
 	<div class="block">
 		<div class="contitle">
-			<a href="/contest/{{contest[0]}}/problem/{{problem_id}}" class="uncolored"> {{problem['name']}} </a>
-			<a href="/contest/{{contest[0]}}/submissions?problem_id={{problem_id}}" class="uncolored">
+			<a href="/contest/{{contest['id']}}/problem/{{problem_id}}" class="uncolored"> {{problem['name']}} </a>
+			<a href="/contest/{{contest['id']}}/submissions?problem_id={{problem_id}}" class="uncolored">
 				<button class="button button-primary button-rounded button-small" style="float: right">
 					 查看提交
 				</button>

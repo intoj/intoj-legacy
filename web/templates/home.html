@@ -14,7 +14,7 @@ function Find_User(){
 				<div class="block-mini-inner" style="margin-bottom: 0px;">
 					<div class="contitle"> 公告 </div>
 					{% if Read_User_Byname('root') != None %}
-					<div class="content markdown"> {{Read_User_Byname('root')[6]}} </div>
+					<div class="content markdown"> {{Read_User_Byname('root')['signature']}} </div>
 					{% endif %}
 				</div>
 			</div>
@@ -32,9 +32,9 @@ function Find_User(){
 							{% for user in users %}
 							<div class="listline listline-animation">
 								<span class="listitem center" style="width: 30px"> {{loop.index}} </span>
-								<span class="listitem center" style="width: 120px"> <a href="/user/{{user[1]}}"> {{user[1]}} </a> </span>
-								<span class="listitem center fixlength" style="width: calc( 100% - 30px - 70px - 120px ); overflow: hidden; max-height: 100%;"> <p class="markdown"> {{user[6]}} </p> </span>
-								<span class="listitem center smallfont" style="width: 70px"> {{user[9]}}/{{user[10]}}</span>
+								<span class="listitem center" style="width: 120px"> <a href="/user/{{user['username']}}"> {{user['username']}} </a> </span>
+								<span class="listitem center fixlength" style="width: calc( 100% - 30px - 70px - 120px ); overflow: hidden; max-height: 100%;"> <p class="markdown"> {{user['signature']}} </p> </span>
+								<span class="listitem center smallfont" style="width: 70px"> {{user['total_ac']}}/{{user['total_submit']}}</span>
 							</div>
 							{% endfor %}
 						</div>
@@ -63,10 +63,10 @@ function Find_User(){
 					<div class="contitle"> 近期比赛 </div>
 					<div class="list">
 						{% for contest in contests %}
-						<a href="/contest/{{contest[0]}}" class="uncolored">
+						<a href="/contest/{{contest['id']}}" class="uncolored">
 							<div class="listline listline-animation">
-								<span class="listitem center smallfont" style="width: 400px"> {{contest[1]}} </span>
-								<span class="listitem center smallfont" style="width: 400px"> {{contest[3].split()[0]}}<br />{{contest[3].split()[1]}} </span>
+								<span class="listitem center smallfont" style="width: 400px"> {{contest['title']}} </span>
+								<span class="listitem center smallfont" style="width: 400px"> {{contest['begin_time'].split()[0]}}<br />{{contest['begin_time'].split()[1]}} </span>
 							</div>
 						</a>
 						{% endfor %}
@@ -78,7 +78,7 @@ function Find_User(){
 				<div class="block-mini-inner">
 					<div class="contitle"> <a href="/user/{{username}}" class="uncolored"> {{username}} </a> </div>
 					<div class="content markdown">
-						{{-user[6]-}}
+						{{-user['signature']-}}
 					</div>
 				</div>
 				{% endif %}

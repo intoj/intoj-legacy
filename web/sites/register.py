@@ -14,7 +14,7 @@ def Register(req):
 	if not modules.Vaild_Username(username):
 		return 0,'用户名只能包含大小写字母,数字,下划线和减号'
 
-	count = int(db.Fetchone("SELECT COUNT(*) FROM users WHERE username=%s;",username)[0])
+	count = int(db.Fetchone("SELECT COUNT(*) FROM users WHERE username=%s;",username)['COUNT(*)'])
 	if count != 0: return 0,'用户名已被占用'
 
 	password_sha256 = hashlib.sha256(password.encode('utf-8')).hexdigest()

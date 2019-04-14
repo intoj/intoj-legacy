@@ -6,7 +6,7 @@ def User_Statistic(username):
 	submissions = db.Read_Submissions({'username':username})
 	status_cnt = [ 0 for i in range(13) ]
 	for submission in submissions:
-		status_cnt[submission[4]] += 1
+		status_cnt[submission['status']] += 1
 	return status_cnt
 
 def Run(username):

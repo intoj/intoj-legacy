@@ -11,7 +11,7 @@ def Submit(req):
 		if int(req['id']) <= 0:
 			flash(r'编号必须为正','error')
 			return render_template("problemadd.html")
-		count = int(db.Fetchone('SELECT COUNT(*) FROM problems WHERE id=%s',req['id'])[0])
+		count = int(db.Fetchone('SELECT COUNT(*) FROM problems WHERE id=%s',req['id'])['COUNT(*)'])
 		if count > 0:
 			flash(r'题目编号 %s 已经有过了.','error')
 			return render_template("problemadd.html")
@@ -19,16 +19,16 @@ def Submit(req):
 		req['example'],req['limit_and_hint'],req['time_limit'],req['memory_limit'],is_public))
 	else:
 		id = 1
-		count = int(db.Fetchone('SELECT COUNT(*) FROM problems')[0])
+		count = int(db.Fetchone('SELECT COUNT(*) FROM problems')['COUNT(*)'])
 		if count > 0:
-			id = int(db.Fetchone('SELECT MAX(id) FROM problems')[0]) + 1
+			id = int(db.Fetchone('SELECT MAX(id) FROM problems')['MAX(id)']) + 1
 		db.Execute("INSERT INTO problems VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",(id,req['title'],req['description'],req['input_format'],req['output_format'],\
 		req['example'],req['limit_and_hint'],req['time_limit'],req['memory_limit'],is_public))
 
 	return redirect('/problem/%s'%id)
 
 def Run():
-	if not modules.Current_User_Privilege(2):
+	if not modules.Current_User_Privilege('is_problem_manager'):
 		flash(r'无此权限','error')
 		return modules.Page_Back()
 

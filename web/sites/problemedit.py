@@ -9,7 +9,7 @@ def Change(origin_id,req):
 		if int(req['id']) < 0:
 			flash(r'编号不可以为负','error')
 			return modules.Page_Back()
-		count = int(db.Fetchone('SELECT COUNT(*) FROM problems WHERE id=%s',req['id'])[0])
+		count = int(db.Fetchone('SELECT COUNT(*) FROM problems WHERE id=%s',req['id'])['COUNT(*)'])
 		if count > 0:
 			flash(r'题目编号 %s 已经有过了.'%req['id'],'error')
 			modules.Page_Back()
@@ -23,7 +23,7 @@ def Change(origin_id,req):
 	return redirect('/problem/%s'%id)
 
 def Run(origin_id):
-	if not modules.Current_User_Privilege(2):
+	if not modules.Current_User_Privilege('is_problem_manager'):
 		flash(r'无此权限','error')
 		return modules.Page_Back()
 	problem = db.Read_Problem(origin_id)

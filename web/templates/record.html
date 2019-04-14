@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% block title %} 评测记录 #{{record[0]}} {% endblock %}
+{% block title %} 评测记录 #{{record['id']}} {% endblock %}
 {% block selected_status %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 评测记录 #{{record[0]}}
-			{% if record[12] %} - {{contest[1]}} {% endif %}
+		<div class="contitle"> 评测记录 #{{record['id']}}
+			{% if record['contest_id'] %} - {{contest['title']}} {% endif %}
 			<div style="float: right;">
 				<button class="button button-rounded button-primary button-small" onclick="history.go(-1)"> 返回 </button>
-				{% if Current_User_Privilege(2) %}
+				{% if Current_User_Privilege('is_problem_manager') %}
 					<form method="POST" style="display: inline">
 						<button type="submit" class="button button-small button-primary button-square button-rounded" name="rejudge"> <i class="icon-repeat"></i> </button>
 					</form>
@@ -30,36 +30,36 @@
 					<span class="listitem center" style="width: 15%"> 提交时间 </span>
 				</div>
 				<div class="listline" id="overview">
-					<span class="listitem onewide center"> #{{record[0]}} </span>
-					{% if record[12] == 0 %}
-					<span class="listitem threewide center"> <a href="/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
+					<span class="listitem onewide center"> #{{record['id']}} </span>
+					{% if record['contest_id'] == 0 %}
+					<span class="listitem threewide center"> <a href="/problem/{{record['problem_id']}}"> #{{record['problem_id']}}. {{Read_Problem(record['problem_id'])['title']}} </a> </span>
 					{% else %}
-					<span class="listitem threewide center"> <a href="/contest/{{record[12]}}/problem/{{record[1]}}"> #{{record[1]}}. {{Read_Problem(record[1])[1]}} </a> </span>
+					<span class="listitem threewide center"> <a href="/contest/{{record['contest_id']}}/problem/{{record['problem_id']}}"> #{{record['problem_id']}}. {{Read_Problem(record['problem_id'])['title']}} </a> </span>
 					{% endif %}
 					<span class="listitem fourwide center" id="overview_judge_status">
-						<span class="judge-{{record[4]}}" long_or_short="long">
-							<i class="icon-{{statusicon[record[4]]}}" aria-hidden="true"></i>  {{tostatus[record[4]]}}
+						<span class="judge-{{record['status']}}" long_or_short="long">
+							<i class="icon-{{statusicon[record['status']]}}" aria-hidden="true"></i>  {{tostatus[record['status']]}}
 						</span>
 					</span>
 					<span class="listitem twowide center" id="overview_score">
-						<span style="color:{{Score_Color(record[5])}}" id="overview_score">
-							{{ Toint(record[5]) }}
+						<span style="color:{{Score_Color(record['score'])}}" id="overview_score">
+							{{ Toint(record['score']) }}
 						</span>
 					</span>
-					{% if tostatus[record[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem onewide center smallfont" id="overview_time_usage"> {{record[8]}} ms </span>
-					<span class="listitem onewide center smallfont" id="overview_memory_usage"> {{record[9]}} M </span>
+					{% if tostatus[record['status']] not in ["Waiting","Compile Error","Unknown Error"] %}
+					<span class="listitem onewide center smallfont" id="overview_time_usage"> {{record['time_usage']}} ms </span>
+					<span class="listitem onewide center smallfont" id="overview_memory_usage"> {{record['memory_usage']}} M </span>
 					{% else %}
 					<span class="listitem onewide center smallfont" id="overview_time_usage"> </span>
 					<span class="listitem onewide center smallfont" id="overview_memory_usage"> </span>
 					{% endif %}
-					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{record[11]}}"> {{record[11]}} </a> </span>
-					<span class="listitem center smallfont" style="width: 15%"> {{record[13]}} </span>
+					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{record['username']}}"> {{record['username']}} </a> </span>
+					<span class="listitem center smallfont" style="width: 15%"> {{record['submit_time']}} </span>
 				</div>
 			</div>
 		</div>
 	</div>
-	{% if record[11] != "Compile Error" %}
+	{% if tostatus[record['status']] != "Compile Error" %}
 	<div class="block">
 		<div class="contitle"> 测试点信息 </div>
 		<div class="">
@@ -81,23 +81,23 @@
 	<div class="block">
 		<div class="contitle"> 源代码 </div>
 		<div class="content">
-			<pre><code class="{{record[3]}}">{{record[2]}}</code></pre>
+			<pre><code class="{{record['language']}}">{{record['code']}}</code></pre>
 		</div>
 	</div>
 	<div class="block">
 		<div class="contitle"> 编译信息 </div>
 		<div class="content">
-			<pre><code class="hljs plain" id="compilation">{{record[6]}}</code></pre>
+			<pre><code class="hljs plain" id="compilation">{{record['compilation']}}</code></pre>
 		</div>
 	</div>
 	<div class="block">
 		<div class="contitle"> 系统信息 </div>
 		<div class="content">
-			<pre><code class="hljs plain" id="system_message">{{record[10]}}</code></pre>
+			<pre><code class="hljs plain" id="system_message">{{record['system_message']}}</code></pre>
 		</div>
 	</div>
 </div>
 <script>
-Refresh_Begin({{record[0]}},{% if not record[12] or Current_User_Privilege(3) %}1{%else%}0{%endif%});
+Refresh_Begin({{record['id']}},{% if not record['contest_id'] or Current_User_Privilege('is_contest_manager') %}1{%else%}0{%endif%});
 </script>
 {% endblock %}

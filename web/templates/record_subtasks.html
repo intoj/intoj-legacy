@@ -16,7 +16,7 @@
 	<span class="listitem twowide center" id="subtask_{{subtask_id}}_time_usage"> {{subtask['time_usage']}} ms </span>
 	<span class="listitem twowide center" id="subtask_{{subtask_id}}_memory_usage"> {{subtask['memory_usage']}} M </span>
 </div>
-{% if not record[12] or Current_User_Privilege(3) %}
+{% if not record['contest_id'] or Current_User_Privilege('is_contest_manager') %}
 <div class="dropdown dropdown-{{subtask_id}}" hidden="hidden">
 	<div class="markdown">
 {% if subtask['checker_message'] != "" %}

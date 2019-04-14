@@ -1,42 +1,42 @@
 {% extends 'base.html' %}
-{% block title %} 排行榜 - {{contest[1]}} {% endblock %}
+{% block title %} 排行榜 - {{contest['title']}} {% endblock %}
 {% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block">
-		<div class="contitle"> 排行榜 - {{contest[1]}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
+		<div class="contitle"> 排行榜 - {{contest['title']}} <button class="button button-rounded button-primary button-small" style="font-size: 15px; float: right;" onclick="history.go(-1)"> 返回 </button> </div>
 	</div>
 	<div class="block">
 		<div class="listline">
 			<span class="listitem onewide center"> 排名 </span>
 			<span class="listitem fivewide center"> 用户名 </span>
 			{% for problem in problems %}
-			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submissions?problem_id={{problem[0]}}&contest_id={{contest[0]}}" class="uncolored dynamicsize"> {{problem[1]}} </a> </span>
+			<span class="listitem threewide center"> <a href="/contest/{{contest['id']}}/submissions?problem_id={{problem['id']}}&contest_id={{contest['id']}}" class="uncolored dynamicsize"> {{problem['title']}} </a> </span>
 			{% endfor %}
-			<span class="listitem threewide center"> <a href="/contest/{{contest[0]}}/submission?contest_id={{contest[0]}}s" class="uncolored"> 总分 </a> </span>
+			<span class="listitem threewide center"> <a href="/contest/{{contest['id']}}/submission?contest_id={{contest['id']}}" class="uncolored"> 总分 </a> </span>
 		</div>
 		{% for player in ranklist %}
-		<div class="listline listline-animation {% if Current_User() == player[1] %} listline-current {% endif %}" style="height: 60px;">
+		<div class="listline listline-animation {% if Current_User() == player['username'] %} listline-current {% endif %}" style="height: 60px;">
 			<span class="listitem onewide center">
 				{#
-				{% if player[3]['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> Au </span> {% else %}
-				{% if player[3]['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> Ag </span> {% else %}
-				{% if player[3]['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> Cu </span> {% else %}
-				{{player[3]['rank']}} {% endif %} {% endif %} {% endif %}
+				{% if player['detail']['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> Au </span> {% else %}
+				{% if player['detail']['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> Ag </span> {% else %}
+				{% if player['detail']['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> Cu </span> {% else %}
+				{{player['detail']['rank']}} {% endif %} {% endif %} {% endif %}
 				#}
-				{% if player[3]['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> UR </span> {% else %}
-				{% if player[3]['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> SSR </span> {% else %}
-				{% if player[3]['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> SR </span> {% else %}
-				{{player[3]['rank']}} {% endif %} {% endif %} {% endif %}
+				{% if player['detail']['rank'] == 1 %} <span style="color: #fbbd08; font-weight: 800; font-size: 18px;"> UR </span> {% else %}
+				{% if player['detail']['rank'] == 2 %} <span style="color: #ffffff; font-weight: 800; font-size: 18px;"> SSR </span> {% else %}
+				{% if player['detail']['rank'] == 3 %} <span style="color: #c47222; font-weight: 800; font-size: 18px;"> SR </span> {% else %}
+				{{player['detail']['rank']}} {% endif %} {% endif %} {% endif %}
 			</span>
-			<span class="listitem fivewide center"> <a href='/user/{{player[1]}}'> {{player[1]}} </a> </span>
+			<span class="listitem fivewide center"> <a href="/user/{{player['username']}}"> {{player['username']}} </a> </span>
 			{% for problem in problems %}
-				{% set problem_id = problem[0]|string %}
-				{% if problem_id in player[3] %}
+				{% set problem_id = problem['id']|string %}
+				{% if problem_id in player['detail'] %}
 					<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
-						<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&problem_id={{problem_id}}&contest_id={{contest[0]}}" class="uncolored">
-							<div style="color:{{Score_Color(player[3][problem_id]['score'])}}"> {{Toint(player[3][problem_id]['score'])}} </div>
-							<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3][problem_id]['submit_cnt']}} </div>
+						<a href="/contest/{{contest['id']}}/submissions?username={{player['username']}}&problem_id={{problem_id}}&contest_id={{contest['id']}}" class="uncolored">
+							<div style="color:{{Score_Color(player['detail'][problem_id]['score'])}}"> {{Toint(player['detail'][problem_id]['score'])}} </div>
+							<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player['detail'][problem_id]['submit_cnt']}} </div>
 						</a>
 					</span>
 				{% else %}
@@ -44,9 +44,9 @@
 				{% endif %}
 			{% endfor %}
 			<span class="listitem threewide center" style="display: flex; justify-content: center; flex-direction: column; height: 100%">
-				<a href="/contest/{{contest[0]}}/submissions?username={{player[1]}}&contest_id={{contest[0]}}" class="uncolored">
-					<div style="color:{{Score_Color(player[3]['score'],full_score)}}"> {{Toint(player[3]['score'])}} </div>
-					<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player[3]['submit_cnt']}} </div>
+				<a href="/contest/{{contest['id']}}/submissions?username={{player['username']}}&contest_id={{contest['id']}}" class="uncolored">
+					<div style="color:{{Score_Color(player['detail']['score'],full_score)}}"> {{Toint(player['detail']['score'])}} </div>
+					<div style="font-size: 11px; color: #777; margin-top: 1px;"> {{player['detail']['submit_cnt']}} </div>
 				</a>
 			</span>
 		</div>

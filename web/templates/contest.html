@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
-{% block title %} {{contest[1]}} {% endblock %}
+{% block title %} {{contest['title']}} {% endblock %}
 {% block selected_contest %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div class="block-mini-box">
 		<div class="block-mini" style="width: 70%;">
 			<div class="block-mini-inner">
-				{% if contest[2] != '' %}
-				<div class="contitle" style="text-align: center" style="font-size: 34px;"> {{contest[1]}} </div>
-				<div class="content" style="text-align: center"> ——{{contest[2]}} </div>
+				{% if contest['subtitle'] != '' %}
+				<div class="contitle" style="text-align: center" style="font-size: 34px;"> {{contest['title']}} </div>
+				<div class="content" style="text-align: center"> ——{{contest['subtitle']}} </div>
 				{% else %}
-				<div class="contitle" style="text-align: center; font-size: 34px; width: 100%; margin-top: 17px;"> {{contest[1]}} </div>
+				<div class="contitle" style="text-align: center; font-size: 34px; width: 100%; margin-top: 17px;"> {{contest['title']}} </div>
 				{% endif %}
 			</div>
 		</div>
 		<div class="block-mini" style="width: 29%;">
 			<div class="block-mini-inner" style="display:flex; justify-content: center; flex-direction: column;">
-				<div class="content"> 开始于 {{contest[3]}} </div>
-				<div class="content"> 结束于 {{contest[4]}} </div>
+				<div class="content"> 开始于 {{contest['begin_time']}} </div>
+				<div class="content"> 结束于 {{contest['end_time']}} </div>
 			</div>
 		</div>
 	</div>
@@ -25,10 +25,10 @@
 		<div class="block-mini" style="width: 34%;">
 			<div class="block-mini-inner" style="padding: 15px 0px; width: 100%; display: flex; flex-direction: column; justify-content: center;">
 				{% for problem in problems %}
-				<a href="/contest/{{contest[0]}}/problem/{{problem[0]}}" class="uncolored">
+				<a href="/contest/{{contest['id']}}/problem/{{problem['id']}}" class="uncolored">
 					<div class="listline listline-animation" style="width: 100%; justify-content: center; margin: 5px auto;">
 						<span class="listitem center" style="width: 20%"> #{{loop.index}} </span>
-						<span class="listitem center" style="width: 60%"> <span class="dynamicsize"> {{problem[1]}} </span> </span>
+						<span class="listitem center" style="width: 60%"> <span class="dynamicsize"> {{problem['title']}} </span> </span>
 					</div>
 				</a>
 				{% endfor %}
@@ -38,7 +38,7 @@
 			<div class="block-mini-inner" style="height: auto">
 				<div class="contitle"> 比赛描述 </div>
 				<div class="content markdown">
-{{contest[5]}}
+{{contest['description']}}
 
 *本场比赛采用 {{rule_name}} 赛制.*
 				</div>
@@ -47,10 +47,10 @@
 	</div>
 	<div class="block-mini-box">
 		<div class="button-group">
-			<a href="/contest/{{contest[0]}}/submissions/my" class="button button-primary button-rounded" > 我的提交 </a>
-			<a href="/contest/{{contest[0]}}/submissions" class="button button-primary button-rounded"> 所有提交 </a>
-			<a href="/contest/{{contest[0]}}/ranklist" class="button button-action button-rounded"> 排行榜 </a>
-			<a href="/contest/{{contest[0]}}/statistic" class="button button-highlight button-rounded"> 统计 </a>
+			<a href="/contest/{{contest['id']}}/submissions/my" class="button button-primary button-rounded" > 我的提交 </a>
+			<a href="/contest/{{contest['id']}}/submissions" class="button button-primary button-rounded"> 所有提交 </a>
+			<a href="/contest/{{contest['id']}}/ranklist" class="button button-action button-rounded"> 排行榜 </a>
+			<a href="/contest/{{contest['id']}}/statistic" class="button button-highlight button-rounded"> 统计 </a>
 		</div>
 	</div>
 </div>

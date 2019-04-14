@@ -8,7 +8,7 @@ def Is_Exist(contest_id,problem_id):
 	if contest == None:
 		flash('不存在的比赛','error')
 		return 0,modules.Page_Back()
-	begin_time = datetime.datetime.strptime(contest[3],'%Y-%m-%d %H:%M:%S')
+	begin_time = datetime.datetime.strptime(contest['begin_time'],'%Y-%m-%d %H:%M:%S')
 	if begin_time > datetime.datetime.now():
 		flash('比赛还未开始','error')
 		return 0,modules.Page_Back()
@@ -23,7 +23,7 @@ def Submit(contest_id,problem_id,req):
 	if not is_exist: return ret
 
 	contest = ret[1]
-	end_time = datetime.datetime.strptime(contest[4],'%Y-%m-%d %H:%M:%S')
+	end_time = datetime.datetime.strptime(contest['end_time'],'%Y-%m-%d %H:%M:%S')
 	if end_time < datetime.datetime.now():
 		flash('比赛已经结束','error')
 		return modules.Page_Back()

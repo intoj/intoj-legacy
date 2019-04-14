@@ -5,8 +5,8 @@
 	<form method="POST">
 	<div class="block-mini-box">
 		<div class="block-mini" style="width: 30%;">
-			<img src="https://cdn.v2ex.com/gravatar/{{Email_Hash(user[4])}}.jpg?s=1000" style="width:100%" />
-			<div class="contitle"> U{{user[0]}} - {{user[1]}} </div>
+			<img src="https://cdn.v2ex.com/gravatar/{{Email_Hash(user['email'])}}.jpg?s=1000" style="width:100%" />
+			<div class="contitle"> U{{user['id']}} - {{user['username']}} </div>
 			<div class="block-mini">
 				<div class="content markdown">
 ## 如何更改头像?
@@ -19,25 +19,25 @@ intoj 不提供头像存储服务, 但是您可以使用您的邮箱所绑定的
 			<div class="block-mini-inner">
 				<div class="contitle"> 个性签名 </div>
 				<div class="content">
-					<textarea class="markdowninput" name="nameplate" style="max-height: 100px;">{{user[6]}}</textarea>
+					<textarea class="markdowninput" name="nameplate" style="max-height: 100px;">{{user['signature']}}</textarea>
 				</div>
 				<div class="contitle"> 邮箱地址 </div>
 				<div class="content">
-					<input type="email" name="email" class="input-long" required value="{{user[4]}}">
+					<input type="email" name="email" class="input-long" required value="{{user['email']}}">
 				</div>
 				<div class="contitle"> 性别 </div>
 				<div class="content">
-					<input type="radio" name="sex" value="0" {% if user[5] == 0 %} checked {% endif %}> ♂ <br />
-					<input type="radio" name="sex" value="1" {% if user[5] == 1 %} checked {% endif %}> ♀ <br />
-					<input type="radio" name="sex" value="2" {% if user[5] not in [0,1] %} checked {% endif %}> Unknown <br />
+					<input type="radio" name="sex" value="0" {% if user['sex'] == 0 %} checked {% endif %}> ♂ <br />
+					<input type="radio" name="sex" value="1" {% if user['sex'] == 1 %} checked {% endif %}> ♀ <br />
+					<input type="radio" name="sex" value="2" {% if user['sex'] not in [0,1] %} checked {% endif %}> Unknown <br />
 				</div>
 				<div class="contitle"> 小组 </div>
 				<div class="content">
-					<input type="text" name="group" class="input-long" value="{{ user[7] if user[7] != None else '' }}">
+					<input type="text" name="group" class="input-long" value="{{ user['group'] if user['group'] != None else '' }}">
 				</div>
 				<div class="contitle"> 背景图片网址 </div>
 				<div class="content">
-					<input type="text" name="background_url" style="width: 600px;" value="{{ user[8] if user[8] != None else '' }}"> <br />
+					<input type="text" name="background_url" style="width: 600px;" value="{{ user['background_url'] if user['background_url'] != None else '' }}"> <br />
 					<div class="smallfont" style="line-height: 20px;">
 						可以使用网址或 RGB 颜色 (如#66ccff) <br />
 						如果想上传本地图片, 请先将图片上传到图床. <br />

@@ -70,17 +70,17 @@ function Get_Judge_Status(rid){
 				return
 			}else{
 				record = val.record
-				current_status = record[4]
-				Update('#overview_judge_status',Judge_Status(record[4]))
-				Update('#overview_score',Judge_Score(record[5]))
+				current_status = record['status']
+				Update('#overview_judge_status',Judge_Status(record['status']))
+				Update('#overview_score',Judge_Score(record['score']))
 				if( current_status >= 4 || current_status <= 1 ){
-					Update('#overview_time_usage',record[8].toString()+" ms")
-					Update('#overview_memory_usage',record[9].toString()+" M")
+					Update('#overview_time_usage',record['time_usage'].toString()+" ms")
+					Update('#overview_memory_usage',record['memory_usage'].toString()+" M")
 				}
-				Update('#compilation',record[6])
-				Update('#system_message',record[10])
-				subtasks = eval("("+record[7]+")")['subtasks']
-				if( record[7] != "" && current_status != 0 ){
+				Update('#compilation',record['compilation'])
+				Update('#system_message',record['system_message'])
+				subtasks = eval("("+record['result']+")")['subtasks']
+				if( record['result'] != "" && current_status != 0 ){
 					for( subtask_id in subtasks ){
 						subtask = subtasks[subtask_id]
 						if( last_subtasks[subtask_id] != undefined && last_subtasks[subtask_id]['status'] == subtask['status'] ) continue

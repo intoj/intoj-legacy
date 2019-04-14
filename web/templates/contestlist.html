@@ -6,7 +6,7 @@
 	<div class="block">
 		<div class="contitle">
 			比赛列表
-			{% if Current_User_Privilege(3) %}
+			{% if Current_User_Privilege('is_contest_manager') %}
 			<a href="/contestadd"><button class="button button-primary button-small button-rounded" style="float:right; margin-top:3px; font-size: 14px;">
 				<i class="icon-plus"></i> 添加比赛
 			</button></a>
@@ -24,13 +24,13 @@
 					<span class="listitem threewide center"> 结束时间 </span>
 				</div>
 				{% for contest in contestlist %}
-				<a href="/contest/{{contest[0]}}">
+				<a href="/contest/{{contest['id']}}">
 					<div class="listline listline-animation">
-						<span class="listitem halfwide center" style="color: initial"> #{{contest[0]}} </span>
-						<span class="listitem fourwide center"> {{contest[1]}} </span>
-						<span class="listitem sixwide center" style="color: initial"> {{contest[2]}} </span>
-						<span class="listitem threewide center smallfont" style="color: initial"> {{contest[3]}} </span>
-						<span class="listitem threewide center smallfont" style="color: initial"> {{contest[4]}} </span>
+						<span class="listitem halfwide center" style="color: initial"> #{{contest['id']}} </span>
+						<span class="listitem fourwide center"> {{contest['title']}} </span>
+						<span class="listitem sixwide center" style="color: initial"> {{contest['subtitle']}} </span>
+						<span class="listitem threewide center smallfont" style="color: initial"> {{contest['begin_time']}} </span>
+						<span class="listitem threewide center smallfont" style="color: initial"> {{contest['end_time']}} </span>
 					</div>
 				</a>
 				{% endfor %}

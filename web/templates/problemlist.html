@@ -27,24 +27,24 @@
 					<div class="listline listline-animation" style="height: 45px;">
 						<span class="listitem center" style="width: 10px;"> </span>
 						<span class="listitem center" style="width: 55px; font-size: 16px;">
-							{% if problem[0] in submitted_status %}
-								{% set status = submitted_status[problem[0]] %}
-								<a href="/record/{{status[0]}}" style="display: inline-block; min-width: 54px; max-width: 100%;" class="dynamicsize">
-									<span class="judge-{{status[4]}}">
-										<i class="icon-{{statusicon[status[4]]}}" aria-hidden="true"></i>
-										{% if status[5] != 100 %} {{Toint(status[5])}} {% endif %}
+							{% if problem['id'] in submitted_status %}
+								{% set status = submitted_status[problem['id']] %}
+								<a href="/record/{{status['id']}}" style="display: inline-block; min-width: 54px; max-width: 100%;" class="dynamicsize">
+									<span class="judge-{{status['status']}}">
+										<i class="icon-{{statusicon[status['status']]}}" aria-hidden="true"></i>
+										{% if status['score'] != 100 %} {{Toint(status['score'])}} {% endif %}
 									</span>
 								</a>
 							{% endif %}
 						</span>
 						<span class="listitem center" style="width: 90px;">
-							<a href="/problem/{{problem[0]}}" class="uncolored"> #{{problem[0]}} </a>
+							<a href="/problem/{{problem['id']}}" class="uncolored"> #{{problem['id']}} </a>
 						</span>
 						<span class="listitem center" style="width: 10px;"> </span>
 						<span class="listitem fivewide" style="flex-grow: 233">
-							<a href="/problem/{{problem[0]}}" style="display: block">
-								{{problem[1]}}
-								{% if problem[9] != 1 %}
+							<a href="/problem/{{problem['id']}}" style="display: block">
+								{{problem['title']}}
+								{% if problem['is_public'] != 1 %}
 									<span style="font-size: 12px; color: #000" class="tag"> 未公开 </span>
 								{% endif %}
 							</a>
@@ -56,7 +56,7 @@
 	</div>
 	<div style="display: flex; justify-content: center;">
 		{% set args = Argstring() %}
-		{{ Pager(args,current_page,total_page)}}
+		{{Pager(args,current_page,total_page)}}
 	</div>
 </div>
 {% endblock %}

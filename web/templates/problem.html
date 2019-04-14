@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
-{% block title %} #{{problem[0]}}. {{problem[1]}} {% endblock %}
+{% block title %} #{{problem['id']}}. {{problem['title']}} {% endblock %}
 {% block selected_problem %} selected {% endblock %}
 {% block body %}
 <div class="ui main">
 	<div style="display: flex; align-items: center; margin: 10px 40px 20px 140px;">
-		<div class="title"> #{{problem[0]}}. {{problem[1]}} </div>
+		<div class="title"> #{{problem['id']}}. {{problem['title']}} </div>
 		<button class="button button-rounded button-primary button-small" style="float: right; width: 100px;" onclick="history.go(-1)"> 返回 </button>
 	</div>
 	<div class="block tagsblock" style="margin: 20px auto;">
 		<div class="button-group">
 			<a href="#submit_code" class="button button-primary button-rounded button-small"> 提交 </a>
 			{% if Is_Loggedin() %}
-			<a href="/status?problem_id={{problem[0]}}&username={{request.cookies['username']}}" class="button button-action button-rounded button-small"> 我的提交 </a>
+			<a href="/status?problem_id={{problem['id']}}&username={{request.cookies['username']}}" class="button button-action button-rounded button-small"> 我的提交 </a>
 			{% endif %}
-			<a href="/status?problem_id={{problem[0]}}" class="button button-action button-rounded button-small"> 所有提交 </a>
-			<a href="/problem/{{problem[0]}}/statistic" class="button button-highlight button-rounded button-small"> 统计信息 </a>
-			<a href="/problem/{{problem[0]}}/ranklist" class="button button-royal button-rounded button-small"> 排行榜 </a>
+			<a href="/status?problem_id={{problem['id']}}" class="button button-action button-rounded button-small"> 所有提交 </a>
+			<a href="/problem/{{problem['id']}}/statistic" class="button button-highlight button-rounded button-small"> 统计信息 </a>
+			<a href="/problem/{{problem['id']}}/ranklist" class="button button-royal button-rounded button-small"> 排行榜 </a>
 		</div>
 		<div style="float: right">
-			<span class="content tag"> 时间限制: {{problem[7]}} ms </span>
-			<span class="content tag"> 空间限制: {{problem[8]}} M </span>
-			{% if problem[9] != 1 %}
+			<span class="content tag"> 时间限制: {{problem['time_limit']}} ms </span>
+			<span class="content tag"> 空间限制: {{problem['memory_limit']}} M </span>
+			{% if problem['is_public'] != 1 %}
 				<span class="content tag tag-red"> 尚未公开 </span>
 			{% endif %}
-			{% if Current_User_Privilege(2) %}
+			{% if Current_User_Privilege('is_problem_manager') %}
 				<span>
-					<a href="{{problem[0]}}/edit"><button class="button button-primary button-square button-small button-rounded">
+					<a href="{{problem['id']}}/edit"><button class="button button-primary button-square button-small button-rounded">
 						<i class="icon-pencil"></i>
 					</button></a>
 					<button class="button button-caution button-square button-small button-rounded" onclick="Delete_Problem()">
@@ -34,50 +34,50 @@
 					<script>
 						function Delete_Problem(){
 							var want_del = confirm("确认删除这道题目?\n请不要删除比赛中的题目!")
-							if(want_del) window.location.href = '{{problem[0]}}/delete'
+							if(want_del) window.location.href = '{{problem['id']}}/delete'
 						}
 					</script>
 				</span>
 			{% endif %}
 		</div>
 	</div>
-	{% if problem[2] != '' %}
+	{% if problem['description'] != '' %}
 	<div class="block" style="margin-top: 10px;">
 		<div class="contitle"> 题目描述 </div>
 		<div class="content markdown">
-			{{- problem[2] -}}
+			{{- problem['description'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[3] != '' %}
+	{% if problem['input_format'] != '' %}
 	<div class="block">
 		<div class="contitle"> 输入格式 </div>
 		<div class="content markdown">
-			{{- problem[3] -}}
+			{{- problem['input_format'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[4] != '' %}
+	{% if problem['output_format'] != '' %}
 	<div class="block">
 		<div class="contitle"> 输出格式 </div>
 		<div class="content markdown">
-			{{- problem[4] -}}
+			{{- problem['output_format'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[5] != '' %}
+	{% if problem['example'] != '' %}
 	<div class="block">
 		<div class="contitle"> 样例 </div>
 		<div class="content markdown">
-			{{- problem[5] -}}
+			{{- problem['example'] -}}
 		</div>
 	</div>
 	{% endif %}
-	{% if problem[6] != '' %}
+	{% if problem['limit_and_hint'] != '' %}
 	<div class="block">
 		<div class="contitle"> 提示与说明 </div>
 		<div class="content markdown">
-			{{- problem[6] -}}
+			{{- problem['limit_and_hint'] -}}
 		</div>
 	</div>
 	{% endif %}

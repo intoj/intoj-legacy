@@ -2,7 +2,7 @@
 
 {% if contest_id != 0 %}
 	{% if my %} {% set name = "我的" %} {% else %} {% set name = "所有" %} {% endif %}
-	{% set title = name + "提交 - " + contest[1] %}
+	{% set title = name + "提交 - " + contest['title'] %}
 {% else %}
 	{% set title = "评测状态" %}
 {% endif %}
@@ -95,27 +95,27 @@
 				</div>
 				{% for status in statuslist %}
 				<div class="listline listline-animation">
-					<span class="listitem onewide center"> <a href="/record/{{status[0]}}"> #{{status[0]}} </a> </span>
-					{% if status[12] == 0 %}
-					<span class="listitem threewide center"> <a href="/problem/{{status[1]}}" class="dynamicsize"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
+					<span class="listitem onewide center"> <a href="/record/{{status['id']}}"> #{{status['id']}} </a> </span>
+					{% if status['contest_id'] == 0 %}
+					<span class="listitem threewide center"> <a href="/problem/{{status['problem_id']}}" class="dynamicsize"> #{{status['problem_id']}}. {{Read_Problem(status['problem_id'])['title']}} </a> </span>
 					{% else %}
-					<span class="listitem threewide center"> <a href="/contest/{{status[12]}}/problem/{{status[1]}}" class="dynamicsize"> #{{status[1]}}. {{Read_Problem(status[1])[1]}} </a> </span>
+					<span class="listitem threewide center"> <a href="/contest/{{status['contest_id']}}/problem/{{status['problem_id']}}" class="dynamicsize"> #{{status['problem_id']}}. {{Read_Problem(status['problem_id'])['title']}} </a> </span>
 					{% endif %}
 					<span class="listitem fourwide center">
-						<a href="/record/{{status[0]}}" class="uncolored full">
-							{{ Judge_Status(status[4]) }}
+						<a href="/record/{{status['id']}}" class="uncolored full">
+							{{ Judge_Status(status['status']) }}
 						</a>
 					</span>
-					<span class="listitem twowide center" style="color:{{Score_Color(status[5])}}"> <a href="/record/{{status[0]}}" class="uncolored full"> {{Toint(status[5])}} </a> </span>
-					{% if tostatus[status[4]] not in ["Waiting","Compile Error","Unknown Error"] %}
-					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[8]}} ms </a> </span>
-					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full"> {{status[9]}} M </a> </span>
+					<span class="listitem twowide center" style="color:{{Score_Color(status['score'])}}"> <a href="/record/{{status['id']}}" class="uncolored full"> {{Toint(status['score'])}} </a> </span>
+					{% if tostatus[status['status']] not in ["Waiting","Compile Error","Unknown Error"] %}
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status['id']}}" class="uncolored full"> {{status['time_usage']}} ms </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status['id']}}" class="uncolored full"> {{status['memory_usage']}} M </a> </span>
 					{% else %}
-					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
-					<span class="listitem onewide center smallfont"> <a href="/record/{{status[0]}}" class="uncolored full">  </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status['id']}}" class="uncolored full">  </a> </span>
+					<span class="listitem onewide center smallfont"> <a href="/record/{{status['id']}}" class="uncolored full">  </a> </span>
 					{% endif %}
-					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{status[11]}}"> {{status[11]}} </a> </span>
-					<span class="listitem center smallfont" style="width: 15%"> <a href="/user/{{status[11]}}" class="uncolored"> {{status[13]}} </a> </span>
+					<span class="listitem center smallfont" style="width: 12%"> <a href="/user/{{status['username']}}"> {{status['username']}} </a> </span>
+					<span class="listitem center smallfont" style="width: 15%"> <a href="/record/{{status['id']}}" class="uncolored"> {{status['submit_time']}} </a> </span>
 				</div>
 				{% endfor %}
 			</div>
