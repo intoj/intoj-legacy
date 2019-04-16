@@ -38,7 +38,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block title %}{% endblock %} - intoj</title>
 	{% block head %}{% endblock %}
-	{% include "base_online.html" %}
+	{% if config['site']['use_resource'] == 'online' %}
+		{% include "base_online.html" %}
+	{% else %}
+		{% include "base_offline.html" %}
+	{% endif %}
 </head>
 <body onresize="Resize();" onload="Render();Resize();Cannotselect();Icheck_Init();Wrap()">
 	<script> Messagerinit(); </script>

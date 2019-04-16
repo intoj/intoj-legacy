@@ -9,6 +9,9 @@
         "ip": "localhost",
         "port": 6379
     },
+	"site": {
+		"use_resource": "offline"
+	},
 	"enable_lang": [
 		{
 			"name": "c",
