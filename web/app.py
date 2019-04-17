@@ -109,6 +109,9 @@ def About():
 @app.route('/zhongwuchishenme')
 def Zhongwuchishenme():
 	return render_template('tools/zhongwuchishenme.html')
+@app.route('/custom_test')
+def Custom_Test():
+	return render_template('custom_test.html')
 
 @app.route('/status')
 def Status():
@@ -134,7 +137,6 @@ def Logout():
 		return resp
 	except:
 		return redirect('/')
-
 @app.route('/register',methods=['GET','POST'])
 def Register():
 	return sites.register.Run()
