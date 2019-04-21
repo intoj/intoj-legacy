@@ -19,7 +19,7 @@ def Register(req):
 
 	password_sha256 = hashlib.sha256(password.encode('utf-8')).hexdigest()
 	password_sha1 = hashlib.sha1(password.encode('utf-8')).hexdigest()
-	db.Execute("INSERT INTO users(`username`,`password_sha256`,`password_sha1`,`email`,`nameplate`,`total_ac`,`total_submit`) VALUES(%s,%s,%s,%s,'',0,0);",(username,password_sha256,password_sha1,email))
+	db.Execute("INSERT INTO users(`username`,`password_sha256`,`password_sha1`,`email`,`signature`,`total_ac`,`total_submit`) VALUES(%s,%s,%s,%s,'',0,0);",(username,password_sha256,password_sha1,email))
 
 	return 1,''
 
