@@ -3,7 +3,7 @@
 {% block body %}
 <div class="ui main">
 	<div class="title"> 自定义测试 </div>
-	<div class="block" id="submit_code">
+	<div class="block">
 		<div class="content">
 			<div class="contitle">
 				代码
@@ -13,7 +13,7 @@
 				<div style="width: 10%; height: 300px; overflow: hidden auto; background-color: #e6e6e6;" class="list">
 					{% set lastlang = Default(request.cookies.get('lastlang'),'cpp11') %}
 					{% set enable_lang=[ {'name':'c','display_name':'C','compiler':''}, {'name':'cpp','display_name':'C++','compiler':''}, {'name':'cpp11','display_name':'C++11','compiler':''} ] %}
-					<input type="hidden" id="select-input-1" value="{{lastlang}}" class="lang"> </input>
+					<input type="hidden" id="select-input-1" value="{{lastlang}}"> </input>
 					{% for lang in enable_lang %}
 						{% set is_active = 'listline-active' if lang['name'] == lastlang else '' %}
 						<div class="listline listline-animation select-1-item select-1-item-{{lang['name']}} {{is_active}}" style="height: 50px;" onclick="Select_Changeto_Showactive(1,'{{lang['name']}}')">
@@ -22,13 +22,13 @@
 					{% endfor %}
 				</div>
 				<div style="width: 90%; height: 300px;">
-					<textarea class="codeinput" id="code"></textarea>
+					<textarea id="code"></textarea>
 				</div>
 			</div>
 			<div style="display: flex; margin-top: 20px">
 				<div style="width: 50%; height: 350px;">
 					<div class="contitle"> 输入数据 </div>
-					<textarea class="codeinput" id="inputdata"></textarea>
+					<textarea id="inputdata"></textarea>
 				</div>
 				<div style="width: 50%; height: 350px;">
 					<div class="contitle"> 评测结果 </div>
@@ -37,10 +37,40 @@
 			</div>
 		</div>
 	</div>
-	<input id="judgeresult"> </input>
-	<button onclick="javascript:submit_custom_test()"> sub </button>
+	<div class="block">
+		<div class="contitle">
+			About intoj.custom-test
+		</div>
+		<div class="content">
+
+		</div>
+	</div>
 </div>
 <script>
+var code_input_editor = CodeMirror.fromTextArea(document.getElementById("code"),{
+	mode: "text/x-c++src",
+	lineNumbers: true,
+	theme: "solarized light",
+	lineWrapping: true,
+	foldGutter: true,
+	gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+	matchBrackets: true,
+	indentUnit: 4,
+	indentWithTabs: true,
+	cursorHeight: 0.85
+});
+var inputdata_input_editor = CodeMirror.fromTextArea(document.getElementById("inputdata"),{
+	lineNumbers: true,
+	theme: "solarized light",
+	lineWrapping: true,
+	foldGutter: true,
+	gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+	matchBrackets: true,
+	indentUnit: 4,
+	indentWithTabs: true,
+	cursorHeight: 0.85
+});
+
 // intOJ's custom test
 // powered by [Judge Duck Online](https://duck.ac)
 // Orz wys
@@ -53,11 +83,17 @@ var submit_custom_test = function() {
 
 	$("#judgeresult").val("Submitting ...");
 
+	function To_Reallang(lang){
+		console.log(lang)
+		if( lang == 'c' ) return 'C'
+		if( lang == 'cpp' ) return 'C++'
+		return 'C++11'
+	}
 	duckclient.do_custom_test(
 		{
-			"code": $("#code").val(),
-			"language": 'C++',
-			"input": $("#inputdata").val(),
+			"code": code_input_editor.getValue(),
+			"language": To_Reallang($("#select-input-1").attr("value")),
+			"input": inputdata_input_editor.getValue()
 		},
 		function(rand_str_local) {
 			return function(res, err) {
