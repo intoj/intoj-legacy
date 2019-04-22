@@ -7,3 +7,4 @@
 judge/testdata*
 venv*
 web/.log/*
+web/config.json
