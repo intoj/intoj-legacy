@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% block title %} 自定义测试 {% endblock %}
+{% block body %}
+<div class="ui main">
+	<div class="title"> 自定义测试 </div>
+	<div class="block">
+		<div class="content">
+			<div class="contitle">
+				代码
+				<button class="button button-action button-rounded button-small" style="float: right" onclick="submit_custom_test()"> 运行! </button>
+			</div>
+			<div style="display: flex;">
+				<div style="width: 10%; height: 300px; overflow: hidden auto; background-color: #e6e6e6;" class="list">
+					{% set lastlang = Default(request.cookies.get('lastlang'),'cpp11') %}
+					{% set enable_lang=[ {'name':'c','display_name':'C','compiler':''}, {'name':'cpp','display_name':'C++','compiler':''}, {'name':'cpp11','display_name':'C++11','compiler':''} ] %}
+					<input type="hidden" id="select-input-1" value="{{lastlang}}"> </input>
+					{% for lang in enable_lang %}
+						{% set is_active = 'listline-active' if lang['name'] == lastlang else '' %}
+						<div class="listline listline-animation select-1-item select-1-item-{{lang['name']}} {{is_active}}" style="height: 50px;" onclick="Select_Changeto_Showactive(1,'{{lang['name']}}')">
+							<div style="font-size: 18px; padding-left: 12px; font-weight: 100;"> {{lang['display_name']}} </div>
+						</div>
+					{% endfor %}
+				</div>
+				<div style="width: 90%; height: 300px;">
+					<textarea id="code"></textarea>
+				</div>
+			</div>
+			<div style="display: flex; margin-top: 20px">
+				<div style="width: 50%; height: 350px;">
+					<div class="contitle"> 输入数据 </div>
+					<textarea id="inputdata"></textarea>
+				</div>
+				<div style="width: 50%; height: 350px;">
+					<div class="contitle"> 评测结果 </div>
+					<textarea id="judgeresult" style="width: 100%; height: 300px; margin: 0; padding: 0; border: 0;"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="contitle">
+			About intoj.custom-test
+		</div>
+		<div class="content">
+
+		</div>
+	</div>
+</div>
+<script>
+var code_input_editor = CodeMirror.fromTextArea(document.getElementById("code"),{
+	mode: "text/x-c++src",
+	lineNumbers: true,
+	theme: "solarized light",
+	lineWrapping: true,
+	foldGutter: true,
+	gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+	matchBrackets: true,
+	indentUnit: 4,
+	indentWithTabs: true,
+	cursorHeight: 0.85
+});
+var inputdata_input_editor = CodeMirror.fromTextArea(document.getElementById("inputdata"),{
+	lineNumbers: true,
+	theme: "solarized light",
+	lineWrapping: true,
+	foldGutter: true,
+	gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+	matchBrackets: true,
+	indentUnit: 4,
+	indentWithTabs: true,
+	cursorHeight: 0.85
+});
+
+// intOJ's custom test
+// powered by [Judge Duck Online](https://duck.ac)
+// Orz wys
+
+var is_running = false;
+var rand_str;
+var submit_custom_test = function() {
+	rand_str = "";
+	for (var i = 0; i < 10; i++) rand_str += "" + Math.floor(Math.random() * 10);
+
+	$("#judgeresult").val("Submitting ...");
+
+	function To_Reallang(lang){
+		console.log(lang)
+		if( lang == 'c' ) return 'C'
+		if( lang == 'cpp' ) return 'C++'
+		return 'C++11'
+	}
+	duckclient.do_custom_test(
+		{
+			"code": code_input_editor.getValue(),
+			"language": To_Reallang($("#select-input-1").attr("value")),
+			"input": inputdata_input_editor.getValue()
+		},
+		function(rand_str_local) {
+			return function(res, err) {
+				if (rand_str_local != rand_str) return;
+				var s = "";
+				if (err) {
+					s = "" + err;
+				} else if (res.type == "partial") {
+					s = "" + res.detail;
+				}
+				$("#judgeresult").val($("#judgeresult").val() + "\n" + s);
+			};
+		}(rand_str)
+	);
+};
+
+// This is the judgeduck js client
+
+var duckclient = function() {
+	var conf = {
+		server_url: "wss://api.duck.ac",
+		token: "anonymous",
+		debug: console.log
+	};
+
+	var debug = function(a) {
+		return conf.debug(a);
+	};
+
+	/*
+		List of states:
+		"connecting"
+		"connected": Right after connected, sending hello.
+		"negotiating": Right after hello response, negotiating judge protocol.
+		"send-code": Sending user code.
+		"send-input": Sending input data.
+		"judging": Receiving judge results.
+
+		Protocol: "custom-test:20190309"
+
+		Submission format:
+		"code": "int mian() {}", no more than 100KB
+		"language": "C++/C++11/C"
+		"input": input data no more than 100KB
+	*/
+	var do_custom_test = function(submission, callback) {
+		if (function(s) {
+			if (typeof s != "object") return true;
+			if (typeof s.code != "string") return true;
+			if (typeof s.language != "string") return true;
+			if (typeof s.input != "string") return true;
+			return false;
+		} (submission)) {
+			callback(undefined, "Invalid submission.");
+			return;
+		}
+
+		var ws = new WebSocket(conf.server_url);
+		var state = "connecting";
+		var terminated = false;
+		var terminate = function(res, err) {
+			terminated = true;
+			ws.close();
+			callback(res, err);
+		};
+		ws.sendJSON = function(data) {this.send(JSON.stringify(data));};
+		ws.onopen = function(event) {
+			state = "connected";
+			ws.sendJSON({"token": conf.token});
+			ws.sendJSON({"protocol": "custom-test:20190309"});
+			ws.sendJSON({"code": submission.code, "language": submission.language});
+			ws.sendJSON({"type": "text", "content": submission.input});
+			debug("Connected, sending hello.");
+		};
+		ws.onmessage = function(event) {
+			debug("on message: " + event.data);
+			var data = undefined;
+			try {
+				data = JSON.parse(event.data);
+			} catch (e) {}
+
+			if (typeof data != "object") {
+				return terminate(undefined, "Invalid response.");
+			}
+
+			if (state == "connected") {
+				if (data.status != "ok") {
+					return terminate(undefined, "Auth failed: " + data.error);
+				}
+				state = "negotiating";
+				// already sent
+				debug("Auth ok, sending protocol.");
+			} else if (state == "negotiating") {
+				if (data.status != "ok") {
+					return terminate(undefined, "Negotiation failed: " + data.error);
+				}
+				state = "send-code";
+				// already sent
+				debug("Negotiation done, sending code.");
+			} else if (state == "send-code") {
+				if (data.status != "ok") {
+					return terminate(undefined, "Send code failed: " + data.error);
+				}
+				state = "send-input";
+				// already sent
+				debug("Sending input.");
+			} else if (state == "send-input") {
+				if (data.status != "ok") {
+					return terminate(undefined, "Send input failed: " + data.error);
+				}
+				state = "judging";
+				debug("Judging...");
+			} else if (state == "judging") {
+				if (data.type == "error") {
+					return terminate(undefined, "Judge failed: " + data.error);
+				}
+				if (data.type == "final") {
+					return terminate(data.data, undefined);
+				} else if (data.type == "partial") {
+					callback(data, undefined);
+				}
+			}
+		};
+		ws.onclose = function(event) {
+			// on close!!
+			if (!terminated) {
+				terminate(undefined, "Network error.");
+			}
+		};
+	};
+
+	return {
+		conf: conf,
+		do_custom_test: do_custom_test,
+		test_wraper: function() {
+			do_custom_test(
+				{
+					"code": '#include <stdio.h>\nint main() {puts("233333\\\n");}',
+					"language": "C++",
+					"input": "1 2\n"
+				},
+				function(res, err) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(res);
+					}
+				}
+			);
+		}
+	};
+}();
+</script>
+{% endblock %}
