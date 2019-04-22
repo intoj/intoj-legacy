@@ -10,7 +10,7 @@
         "port": 6379
     },
 	"site": {
-		"use_resource": "offline"
+		"use_resource": "online"
 	},
 	"enable_lang": [
 		{
