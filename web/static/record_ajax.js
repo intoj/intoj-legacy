@@ -45,7 +45,7 @@ function Generate_Subtask_Html(subtask){
 </code></code></pre>\n'.format(subtask['checker_message'])
 		if( subtask['judger_message'] != "" )
 			s += '\
-<h3> 比较器信息 </h3>\n\
+<h3> 评测器信息 </h3>\n\
 <pre><code class="hljs language-plain"><code class="hljs plaintext">{0}\n\
 </code></code></pre>\n'.format(subtask['judger_message'])
 		s += '\
