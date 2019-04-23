@@ -15,6 +15,7 @@ sites.config.Readfromfile('config.json')
 
 app = Flask("intoj")
 
+app.add_template_global(len,'len')
 app.add_template_global(min,'min')
 app.add_template_global(max,'max')
 app.add_template_global(sum,'sum')

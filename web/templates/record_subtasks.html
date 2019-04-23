@@ -1,25 +1,27 @@
 {% for subtask in subtasks %}
 {% set subtask_id = subtask['id'] %}
 <div id="subtask_{{subtask_id}}">
-<div class="listline listline-animation unselect" onclick="Click({{subtask_id}});">
-	<span class="listitem onewide center"> #{{subtask['id']}} </span>
-	<span class="listitem sixwide center" id="subtask_{{subtask_id}}_judge_status">
-		<span class="judge-{{subtask['status']}}" long_or_short="long">
-			<i class="icon-{{statusicon[subtask['status']]}}" aria-hidden="true"></i>  {{tostatus[subtask['status']]}}
-		</span>
-	</span>
-	<span class="listitem twowide center" id="subtask_{{subtask_id}}_score">
-		<span style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
-			{{Toint(subtask['score'])}}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
-		</span>
-	</span>
-	<span class="listitem twowide center" id="subtask_{{subtask_id}}_time_usage"> {{subtask['time_usage']}} ms </span>
-	<span class="listitem twowide center" id="subtask_{{subtask_id}}_memory_usage"> {{subtask['memory_usage']}} M </span>
-</div>
-{% if not record['contest_id'] or Current_User_Privilege('is_contest_manager') %}
-<div class="dropdown dropdown-{{subtask_id}}" hidden="hidden">
-	<div class="markdown">
-{% if subtask['checker_message'] != "" %}
+	{% if subtask.get('cases') == None %}
+	{# 没有 subtask #}
+		<div class="listline listline-animation unselect" onclick="Click({{subtask_id}});">
+			<span class="listitem onewide center"> #{{subtask['id']}} </span>
+			<span class="listitem sixwide center" id="subtask_{{subtask_id}}_judge_status">
+				<span class="judge-{{subtask['status']}}" long_or_short="long">
+					<i class="icon-{{statusicon[subtask['status']]}}" aria-hidden="true"></i>  {{tostatus[subtask['status']]}}
+				</span>
+			</span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_score">
+				<span style="color:{{Score_Color(subtask['score'],subtask['full_score'])}};">
+					{{Toint(subtask['score'])}}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
+				</span>
+			</span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_time_usage"> {{subtask['time_usage']}} ms </span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_memory_usage"> {{subtask['memory_usage']}} M </span>
+		</div>
+		{% if not record['contest_id'] or Current_User_Privilege('is_contest_manager') %}
+		<div class="dropdown dropdown-{{subtask_id}}" hidden="hidden">
+			<div class="markdown">
+		{% if subtask['checker_message'] != "" %}
 ### 比较器信息
 
 ```plain
@@ -32,9 +34,69 @@
 ```plain
 {{ subtask['judger_message'] }}
 ```
+		{% endif %}
+			</div>
+		</div>
+		{% endif %}
+	{% else %}
+	{# 有 subtask #}
+	{% set cases = subtask['cases'] %}
+	{% set subtask_fullscore = len(cases)*subtask['full_score'] %}
+		<div class="listline listline-animation unselect" onclick="Click({{subtask_id}});">
+			<span class="listitem onewide center"> #{{subtask['id']}} </span>
+			<span class="listitem sixwide center" id="subtask_{{subtask_id}}_judge_status">
+				<span class="judge-{{subtask['status']}}" long_or_short="long">
+					<i class="icon-{{statusicon[subtask['status']]}}" aria-hidden="true"></i>  {{tostatus[subtask['status']]}}
+				</span>
+			</span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_score">
+				<span style="color:{{Score_Color(subtask['score'],subtask_fullscore)}};">
+					{{Toint(subtask['score'])}}<span style="font-size: 10px" class="dropdown-{{loop.index}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask_fullscore)}}</span>
+				</span>
+			</span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_time_usage"> {{subtask['time_usage']}} ms </span>
+			<span class="listitem twowide center" id="subtask_{{subtask_id}}_memory_usage"> {{subtask['memory_usage']}} M </span>
+		</div>
+		<div class="dropdown-{{subtask_id}}" hidden="hidden" style="background-color: #dddddd99; margin: 5px 30px 30px 30px; padding: 5px 2px 5px 5px;">
+			{% for case in cases %}
+			{% set case_id = case['id'] %}
+				<div class="listline listline-animation unselect" onclick="Click('{{subtask_id}}_{{case_id}}')">
+					<span class="listitem onewide center"> #{{case_id}} </span>
+					<span class="listitem sixwide center" id="subtask_{{subtask_id}}_{{case_id}}_judge_status">
+						<span class="judge-{{case['status']}}" long_or_short="long">
+							<i class="icon-{{statusicon[case['status']]}}" aria-hidden="true"></i>  {{tostatus[case['status']]}}
+						</span>
+					</span>
+					<span class="listitem twowide center" id="subtask_{{subtask_id}}_{{case_id}}_score">
+						<span style="color:{{Score_Color(case['score'],subtask['full_score'])}};">
+							{{Toint(case['score'])}}<span style="font-size: 10px" class="dropdown-{{subtask_id}}_{{case_id}}" show_or_hide="hide" hidden="hidden">/{{Toint(subtask['full_score'])}}</span>
+						</span>
+					</span>
+					<span class="listitem twowide center" id="subtask_{{subtask_id}}_{{case_id}}_time_usage"> {{case['time_usage']}} ms </span>
+					<span class="listitem twowide center" id="subtask_{{subtask_id}}_{{case_id}}_memory_usage"> {{case['memory_usage']}} M </span>
+				</div>
+				{% if not record['contest_id'] or Current_User_Privilege('is_contest_manager') %}
+					<div class="dropdown dropdown-{{subtask_id}}_{{case_id}}" hidden="hidden">
+						<div class="markdown">
+{% if case['checker_message'] != "" %}
+### 比较器信息
+
+```plain
+{{ case['checker_message'] }}
+```
 {% endif %}
-	</div>
-</div>
+{% if case['judger_message'] != "" %}
+### 评测器信息
+
+```plain
+{{ case['judger_message'] }}
+```
 {% endif %}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endif %}
 </div>
 {% endfor %}
