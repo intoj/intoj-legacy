@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-{% macro Pager(other_args,current_page,total_page) %}
+{% macro Pager(args,current_page,total_page) %}
 <div class="button-group">
 	<a class="button button-rounded button-square button-grey" href="?page=1&{{args}}"> <i class="icon-double-angle-left"> </i> </a>
 	<a class="button button-rounded button-square button-grey" href="?page={{max(1,current_page-1)}}&{{args}}"> <i class="icon-angle-left"> </i> </a>
