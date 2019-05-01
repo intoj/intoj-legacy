@@ -138,17 +138,6 @@ div.block-mini-inner{
 	border-radius: 6px;
 }
 
-/**************** footer ****************/
-#footer{
-	background: #ffffff88;
-	width: 100%;
-	height: 22px;
-	margin-top: 30px;
-	padding-top: 5px;
-	font-size: 14px;
-	text-align: center;
-}
-
 /**************** tags ****************/
 .tag{
 	background-color: #cfcfcf;
