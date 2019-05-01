@@ -12,6 +12,7 @@
 	"site": {
 		"use_resource": "online",
 		"zisheng": {
+			"enable": true,
 			"max_length": "400"
 		}
 	},

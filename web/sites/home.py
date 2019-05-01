@@ -16,6 +16,9 @@ def Send_Zisheng():
 	if not modules.Is_Loggedin():
 		flash('请先登录','error')
 		return False
+	if not config.config['site']['zisheng']['enable']:
+		flash('管理员已关闭「吱声」','error')
+		return False
 
 	message = request.form['message']
 	max_length = config.config['site']['zisheng']['max_length']
