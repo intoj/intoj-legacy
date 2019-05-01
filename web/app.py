@@ -48,7 +48,7 @@ def Error_404(e):
 def Blank():
 	return render_template('base.html')
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def Home():
 	return sites.home.Run()
 
