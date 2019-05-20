@@ -10,7 +10,11 @@
         "port": 6379
     },
 	"site": {
-		"use_resource": "online"
+		"use_resource": "online",
+		"zisheng": {
+			"enable": true,
+			"max_length": "400"
+		}
 	},
 	"enable_lang": [
 		{

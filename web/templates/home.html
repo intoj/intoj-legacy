@@ -41,6 +41,41 @@ function Find_User(){
 					</div>
 				</div>
 			</div>
+			<div class="ui" style="padding: 13px 12px; border-radius: 3px; margin-top: 12px;">
+				<div class="block-mini-inner">
+					<div class="contitle"> 吱声 </div>
+					{% if config['site']['zisheng']['enable'] %}
+						<div style="">
+							<form method="POST">
+								<textarea class="markdowninput" name="message"></textarea>
+								<button type="submit" class="button button-action button-small button-rounded" style="margin: 10px 0px 0px 10px"> 发射! </button>
+							</form>
+						</div>
+						<hr style="color: #dddddd" />
+						{% for zisheng in zishengs %}
+							<div style="margin: 20px 10px; border: 1px dashed #66ccff; border-radius: 5px; box-shadow: 1px 1px 2px #ddd;">
+								<div style="height: 35px; background-color: #e3e3e3; padding: 1px 15px; display: flex; align-items: center;">
+									<span>
+										<span style="color: #666;">
+											@ <span style="font-family: consolas"><a href="/user/{{- zisheng['username'] -}}">{{zisheng['username']}}</a></span>
+										</span>
+										<span style="color: #aaa; font-family: consolas; font-size: 12px; margin-left: 10px;">
+											{{zisheng['send_time']}}
+										</span>
+									</span>
+								</div>
+								<div style="padding: 5px 15px; overflow: hidden; max-height: 600px;" class="markdown">
+									{{- zisheng['message'] -}}
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<div style="height: 50px; display: flex; justify-content: center; align-items: center; color: #999; font-size: 20px;">
+							<span> <i class="icon-ban-circle"> </i> 该功能已被管理员关闭 </span> </span>
+						</div>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 		<div class="block-mini" style="width: 35%;">
 			<div class="ui" style="padding: 15px 12px; border-radius: 3px;">

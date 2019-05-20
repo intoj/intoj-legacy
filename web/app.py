@@ -18,6 +18,8 @@ app = Flask("intoj")
 app.add_template_global(min,'min')
 app.add_template_global(max,'max')
 app.add_template_global(sum,'sum')
+app.add_template_global(len,'len')
+app.add_template_global(random.randint,'randint')
 
 app.add_template_global(sites.modules.Argstring,'Argstring')
 app.add_template_global(sites.modules.Score_Color,'Score_Color')
@@ -48,7 +50,7 @@ def Error_404(e):
 def Blank():
 	return render_template('base.html')
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def Home():
 	return sites.home.Run()
 

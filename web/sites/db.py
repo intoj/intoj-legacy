@@ -3,6 +3,7 @@ import pymysql
 import modules,config
 
 def Generate_Limitation(limitation,allowed=[]):
+	if limitation == None: return '',[]
 	answer = ''
 	arg = []
 	for key,value in limitation.items():
@@ -51,13 +52,9 @@ def Read_Submissions(limitation=None,order="id DESC"):
 		'contest_id': ('eq','contest_id')
 	}
 	db,cur = Connect()
-	if limitation != None:
-		lim,arg = Generate_Limitation(limitation,allowed)
-		cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,modules.Raw(order))
-		cur.execute(cmd,arg)
-	else:
-		cur.execute("SELECT * FROM records ORDER BY %s"%order)
-
+	lim,arg = Generate_Limitation(limitation,allowed)
+	cmd = "SELECT * FROM records %s ORDER BY %s" % (lim,modules.Raw(order))
+	cur.execute(cmd,arg)
 	submissions = cur.fetchall()
 	End_Connect(db,cur)
 	return submissions
@@ -85,9 +82,9 @@ def Read_Contest_Ranklist(contest_id):
 def Read_Record(id):
 	db,cur = Connect()
 	cur.execute("SELECT * FROM records WHERE id=%s;",id)
-	urecord = cur.fetchone()
+	record = cur.fetchone()
 	End_Connect(db,cur)
-	return urecord
+	return record
 
 def Read_Userlist():
 	db,cur = Connect()
@@ -130,3 +127,18 @@ def User_Privilege(username,privilege_name):
 	if user == None: return 0
 	if user['is_admin']: return 1
 	return user[privilege_name]
+
+def Read_Zisheng(limitation=None,top=10):
+	allowed = {
+		'id': ('eq','id'),
+		'username': ('eq','username')
+	}
+	db,cur = Connect()
+
+	lim,arg = Generate_Limitation(limitation,allowed)
+	cmd = "SELECT * FROM zisheng %s ORDER BY id DESC LIMIT %d" % (lim,top)
+	cur.execute(cmd,arg)
+	zisheng = cur.fetchall()
+
+	End_Connect(db,cur)
+	return zisheng

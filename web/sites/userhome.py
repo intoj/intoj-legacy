@@ -16,4 +16,5 @@ def Run(username):
 		return modules.Page_Back()
 
 	status_cnt = User_Statistic(username)
-	return render_template('userhome.html',user=user,status_cnt=status_cnt)
+	zishengs = db.Read_Zisheng({'username':username})
+	return render_template('userhome.html',user=user,status_cnt=status_cnt,zishengs=zishengs,top=1000)
