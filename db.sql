@@ -1,21 +1,29 @@
-# 网页端名字列表
-
----
-
-## 题目:
-
-- 0 id
-- 1 title
-- 2 description
-- 3 input_format
-- 4 output_format
-- 5 example
-- 6 limit_and_hint
-- 7 time_limit
-- 8 memory_limit
-- 9 is_public
-
-```sql
+CREATE DATABASE intoj CHARACTER SET utf8;
+use intoj;
+CREATE TABLE zisheng(
+	id INT NOT NULL PRIMARY KEY auto_increment,
+	username VARCHAR(20),
+	message TEXT,
+	send_time VARCHAR(50)
+);
+CREATE TABLE contests(
+	id INT NOT NULL PRIMARY KEY auto_increment,
+	title VARCHAR(100),
+	subtitle VARCHAR(100),
+	begin_time VARCHAR(50),
+	end_time VARCHAR(50),
+	description TEXT,
+	rule TEXT,
+	holder_name VARCHAR(20),
+	problems TEXT,
+	admins TEXT
+);
+CREATE TABLE contest_players(
+	id INT NOT NULL PRIMARY KEY auto_increment,
+	username VARCHAR(20),
+	contest_id INT,
+	detail TEXT
+);
 CREATE TABLE problems(
 	`id` BIGINT NOT NULL PRIMARY KEY auto_increment,
 	`title` VARCHAR(100),
@@ -28,28 +36,6 @@ CREATE TABLE problems(
 	`memory_limit` BIGINT,
 	`is_public` TINYINT(1) DEFAULT 1
 );
-```
-
----
-
-## 评测:
-
-- 0 id
-- 1 problem_id
-- 2 code
-- 3 language
-- 4 status
-- 5 score
-- 6 compilation
-- 7 result(subtasks)
-- 8 time_usage
-- 9 memory_usage
-- 10 system_message
-- 11 username
-- 12 contest_id
-- 13 submit_time
-
-```sql
 CREATE TABLE records(
 	`id` BIGINT(20) NOT NULL PRIMARY KEY auto_increment,
 	`problem_id` BIGINT(20) NOT NULL,
@@ -66,38 +52,6 @@ CREATE TABLE records(
 	`contest_id` INT,
 	`submit_time` VARCHAR(50)
 );
-```
-
-其中result为json,大概长这样:
-
-```json
-{
-	"subtasks": [
-	{ "id":1, "status": 10, "score": 80, "checker_message": "OK", "time_usage": 10, "memory_usage": 20 },
-	{ "id":2, "status": 9, "score": 30, "checker_message": "=w=", "time_usage": 200, "memory_usage": 10 },
-	{ "id":3, "status": 3, "score": 0, "checker_message": "o_o", "time_usage": 1000, "memory_usage": 256 }
-	]
-}
-```
-
----
-
-## 用户:
-
-- 0 id
-- 1 username
-- 2 password_sha256
-- 3 password_sha1
-- 4 email
-- 5 sex
-- 6 signature
-- 7 group
-- 8 background_url
-- 9 total_ac
-- 10 total_submit
-- 11 ac_list
-
-```sql
 CREATE TABLE users(
 	`id` INT(11) NOT NULL PRIMARY KEY auto_increment,
 	`username` VARCHAR(20),
@@ -112,23 +66,6 @@ CREATE TABLE users(
 	`total_submit` INT(10),
 	`ac_list` TEXT
 );
-```
-
----
-
-## 用户权限:
-
-- 0 id
-- 1 username
-- 2 is_admin (0)
-- 3 is_user_manager (1)
-- 4 is_problem_manager (2)
-- 5 is_contest_manager (3)
-- 6 is_tag_manager (4)
-
-括号里为权限的id
-
-```sql
 CREATE TABLE user_privileges(
 	`id` INT(11) NOT NULL PRIMARY KEY auto_increment,
 	`username` VARCHAR(20),
@@ -138,4 +75,3 @@ CREATE TABLE user_privileges(
 	`is_contest_manager` TINYINT(1) default 0,
 	`is_tag_manager` TINYINT(1) default 0
 );
-```
