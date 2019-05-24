@@ -3,7 +3,7 @@
 		"name": "intoj",
         "user": "root",
         "host": "localhost",
-        "pass": "DATABASE_PASSWORD_HERE"
+        "pass": ""
 	},
 	"redis": {
         "ip": "localhost",
