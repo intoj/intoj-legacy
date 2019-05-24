@@ -18,23 +18,27 @@
 						<span style="font-size: 60px;"> {{user['total_submit']}} </span> 提交
 					</div>
 				</div>
-				<div class="block-mini-inner">
-					<div class="contitle"> 统计 <a class="button button-primary button-small button-rounded" style="float: right; margin-top: 5px;" href="/status?username={{user['username']}}"> {{called}}的提交 </a> </div>
-					<div style="width: 100%; height: 100%;">
-						<canvas id="submit_cnt" width="100" height="100"></canvas>
+				{% if user['total_submit'] > 0 %}
+					<div class="block-mini-inner">
+						<div class="contitle"> 统计 <a class="button button-primary button-small button-rounded" style="float: right; margin-top: 5px;" href="/status?username={{user['username']}}"> {{called}}的提交 </a> </div>
+						<div style="width: 100%; height: 100%;">
+							<canvas id="submit_cnt" width="100" height="100"></canvas>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="block-mini-inner ui">
-				{% if user['ac_list'] != None %}
-				<div class="contitle" onclick="Click('ac_list')"> AC 的题目 <span style="font-size: 14px"> (点击查看) </span> </div>
-				<div class="content dropdown-ac_list" style="font-size: 18px;" hidden>
-					{% for problem_id in user['ac_list'][1:-1].split(', ') %}
-						<a href="/problem/{{problem_id}}" style="margin-right: 10px;"> {{problem_id}} </a>
-					{% endfor %}
-				</div>
 				{% endif %}
 			</div>
+			{% if user['total_submit'] > 0 %}
+				<div class="block-mini-inner ui">
+					{% if user['ac_list'] != None %}
+					<div class="contitle" onclick="Click('ac_list')"> AC 的题目 <span style="font-size: 14px"> (点击查看) </span> </div>
+					<div class="content dropdown-ac_list" style="font-size: 18px;" hidden>
+						{% for problem_id in user['ac_list'][1:-1].split(', ') %}
+							<a href="/problem/{{problem_id}}" style="margin-right: 10px;"> {{problem_id}} </a>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+			{% endif %}
 			<div class="block-mini ui">
 				<div class="block-mini-inner">
 					<div class="contitle"> 邮箱地址 </div>
@@ -106,7 +110,7 @@
 						{% endfor %}
 					{% else %}
 						<div style="height: 50px; display: flex; justify-content: center; align-items: center; color: #999; font-size: 20px;">
-							<span> <i class="icon-ban-circle"> </i> 这人太懒, 没吱过声. </span> </span>
+							<span> <i class="icon-ban-circle"> </i> 这人太懒, 没吱过声. </span>
 						</div>
 					{% endif %}
 				</div>
