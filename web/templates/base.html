@@ -46,87 +46,98 @@
 </head>
 <body onresize="Resize();" onload="Render();Resize();Cannotselect();Icheck_Init();Wrap()">
 	<script> Messagerinit(); </script>
-	<div class="ui topbar">
-		<div class="topbar-container" style="margin: 0px auto;">
-			<a href="/"> <span class="topbaritem"> <img src="/static/pic/icon1.png" style="height: 50px;"> </img> </span> </a>
-			<a href="/" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth unselect {% block selected_home %}{% endblock %}">
-					<div class="topbarindex"> <i class="icon-home" aria-hidden="true"></i>
-						<span class="topbarword"> 首页 </span>
-					</div>
-				</span>
-			</a>
-			<a href="/problemlist" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth unselect {% block selected_problem %}{% endblock %}">
-					<div class="topbarindex"> <i class="icon-list" aria-hidden="true"></i>
-						<span class="topbarword"> 题目 </span>
-					</div>
-				</span>
-			</a>
-			<a href="/contestlist" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth unselect {% block selected_contest %}{% endblock %}">
-					<div class="topbarindex"> <i class="icon-fire" aria-hidden="true"></i>
-						<span class="topbarword"> 比赛 </span>
-					</div>
-				</span>
-			</a>
-			<a href="/status" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth unselect {% block selected_status %}{% endblock %}">
-					<div class="topbarindex"> <i class="icon-tasks" aria-hidden="true"></i>
-						<span class="topbarword"> 评测 </span>
-					</div>
-				</span>
-			</a>
-			<a href="/help" style="flex: 2;" class="uncolored">
-				<span class="topbaritem onewidth unselect {% block selected_help %}{% endblock %}">
-					<div class="topbarindex"> <i class="icon-question-sign" aria-hidden="true"></i>
-						<span class="topbarword"> 帮助 </span>
-					</div>
-				</span>
-			</a>
-			<span class="topbaritem-noanimation onewidth" style="flex: 2;">
-			</span>
-			{% if Is_Loggedin() %}
-			<span class="topbaritem unselect" style="width:auto">
-				<span class="button-dropdown button-dropdown-primary" data-buttons="dropdown">
-					<button class="button button-large button-nobg" style="padding: 0px 10px; width:200px;">
-						{{- request.cookies['username'] -}} &nbsp; <i class="icon-caret-down"> </i>
-					</button>
-				  	<div class="button-dropdown-list is-below list" style="background-color: #eeeeee;">
-						<a class="uncolored" href="/user/{{request.cookies['username']}}">
-						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
-								&nbsp; &nbsp; &nbsp; <i class="icon-home"></i> &nbsp; &nbsp; 个人中心
-						</div>
-						</a>
-						<a class="uncolored" href="/user/{{request.cookies['username']}}/edit">
-						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
-								&nbsp; &nbsp; &nbsp; <i class="icon-edit"></i> &nbsp; &nbsp; 编辑资料
-						</div>
-						</a>
-						<a class="uncolored" href="/logout?url={{request.url}}">
-						<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
-								&nbsp; &nbsp; &nbsp; <i class="icon-off"></i> &nbsp; &nbsp; 注销
-						</div>
-						</a>
-				  	</div>
-				</span>
-			</span>
-			{% else %}
-			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
-				<a href="/login?url={{request.url}}" class="uncolored">
-					<button class="button button-small button-primary button-rounded" style="width: 70px; padding: 0px 10px;">
-						登录
-					</button>
+	<div class="ui row item-centered" style="position: fixed; top: 0px; left: 0px; z-index: 233;">
+		<div class="column" style="width: 100%; max-width: 1100px;">
+			<div class="row item-centered" style="width: 100%;">
+				<a href="/" style="flex: 2; height: 100%;">
+					<span style="display: flex; align-items: center;">
+						<img src="/static/pic/icon1.png" style="height: 50px;"> </img>
+					</span>
 				</a>
-			</span>
-			<span class="topbaritem-noanimation onewidth" style="width:80px; flex-grow:0">
-				<a href="/register" class="uncolored">
-					<button class="button button-small button-highlight button-rounded" style="width: 70px; padding: 0px 10px;">
-						注册
-					</button>
+				<a href="/" style="flex: 2; height: 100%;" class="uncolored hover-animation-ddd">
+					<div class="column item-centered">
+						<div class="row item-centered">
+							<i class="icon-home" aria-hidden="true" style="font-size: 22px; margin-right: 4px;"> </i>
+							<span style="font-size: 18px"> 首页 </span>
+						</div>
+					</div>
 				</a>
-			</span>
-			{% endif %}
+				<a href="/problemlist" style="flex: 2; height: 100%;" class="uncolored hover-animation-ddd">
+					<div class="column item-centered">
+						<div class="row item-centered">
+							<i class="icon-list" aria-hidden="true" style="font-size: 22px; margin-right: 4px;"> </i>
+							<span style="font-size: 18px"> 题目 </span>
+						</div>
+					</div>
+				</a>
+				<a href="/contestlist" style="flex: 2; height: 100%;" class="uncolored hover-animation-ddd">
+					<div class="column item-centered">
+						<div class="row item-centered">
+							<i class="icon-fire" aria-hidden="true" style="font-size: 22px; margin-right: 4px;"> </i>
+							<span style="font-size: 18px"> 比赛 </span>
+						</div>
+					</div>
+				</a>
+				<a href="/status" style="flex: 2; height: 100%;" class="uncolored hover-animation-ddd">
+					<div class="column item-centered">
+						<div class="row item-centered">
+							<i class="icon-tasks" aria-hidden="true" style="font-size: 22px; margin-right: 4px;"> </i>
+							<span style="font-size: 18px"> 评测 </span>
+						</div>
+					</div>
+				</a>
+				<a href="/help" style="flex: 2; height: 100%;" class="uncolored hover-animation-ddd">
+					<div class="column item-centered">
+						<div class="row item-centered">
+							<i class="icon-question-sign" aria-hidden="true" style="font-size: 22px; margin-right: 4px;"> </i>
+							<span style="font-size: 18px"> 帮助 </span>
+						</div>
+					</div>
+				</a>
+				<span style="flex: 2;">
+				</span>
+				{% if Is_Loggedin() %}
+					<span class="hover-animation-ddd" style="width:auto">
+						<span class="button-dropdown button-dropdown-primary" data-buttons="dropdown">
+							<button class="button button-large button-nobg" style="padding: 0px 10px; width:200px;">
+								{{- request.cookies['username'] -}} &nbsp; <i class="icon-caret-down"> </i>
+							</button>
+						  	<div class="button-dropdown-list is-below list" style="background-color: #eeeeee;">
+								<a class="uncolored" href="/user/{{request.cookies['username']}}">
+								<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+										&nbsp; &nbsp; &nbsp; <i class="icon-home"></i> &nbsp; &nbsp; 个人中心
+								</div>
+								</a>
+								<a class="uncolored" href="/user/{{request.cookies['username']}}/edit">
+								<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+										&nbsp; &nbsp; &nbsp; <i class="icon-edit"></i> &nbsp; &nbsp; 编辑资料
+								</div>
+								</a>
+								<a class="uncolored" href="/logout?url={{request.url}}">
+								<div class="listline listline-animation" style="display:flex; align-items:center; justify-content: flex-start;">
+										&nbsp; &nbsp; &nbsp; <i class="icon-off"></i> &nbsp; &nbsp; 注销
+								</div>
+								</a>
+						  	</div>
+						</span>
+					</span>
+				{% else %}
+					<span style="width:80px; flex-grow:0">
+						<a href="/login?url={{request.url}}" class="uncolored">
+							<button class="button button-small button-primary button-rounded" style="width: 70px; padding: 0px 10px;">
+								登录
+							</button>
+						</a>
+					</span>
+					<span style="width:80px; flex-grow:0">
+						<a href="/register" class="uncolored">
+							<button class="button button-small button-highlight button-rounded" style="width: 70px; padding: 0px 10px;">
+								注册
+							</button>
+						</a>
+					</span>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 	{% for ok in get_flashed_messages(category_filter=["ok"]) %}
@@ -144,16 +155,16 @@
 		{% if Is_Loggedin() %}
 			{% set background_url = Read_User_Byname(request.cookies['username'])['background_url'] %}
 			{% if background_url not in [None,''] %}
-			{% if background_url[0] == '#' %}
-				$("body").css('background-color','{{background_url}}')
-				$("body").css('background-image','initial')
-			{% else %}
-				var img = new Image();
-				img.src = '{{background_url}}'
-				img.onload = function(){
-					$("body").css('background-image','url("{{background_url}}")')
-				}
-			{% endif %}
+				{% if background_url[0] == '#' %}
+					$("body").css('background-color','{{background_url}}')
+					$("body").css('background-image','initial')
+				{% else %}
+					var img = new Image();
+					img.src = '{{background_url}}'
+					img.onload = function(){
+						$("body").css('background-image','url("{{background_url}}")')
+					}
+				{% endif %}
 			{% endif %}
 		{% endif %}
 	</script>

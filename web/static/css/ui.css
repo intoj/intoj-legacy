@@ -158,3 +158,42 @@ div.tagsblock{
 	margin-bottom: 10px;
 	background-color: #ffffff00 !important;
 }
+
+.column{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.centered{
+	margin: auto;
+}
+.row{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+.item-vertical-centered:not(.column){	/* 竖直方向上居中 */
+	display: flex;
+	align-items: center;
+}
+.item-horizontal-centered:not(.column){	/* 水平方向上居中 */
+	display: flex;
+	justify-content: center;
+}
+.item-centered{			/* 两个方向上同时居中 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.item-vertical-centered.column{	/* 竖直方向上居中 */
+	display: flex;
+	justify-content: center;
+}
+.item-horizontal-centered.column{	/* 水平方向上居中 */
+	display: flex;
+	align-items: center;
+}
+
+.hover-animation{ transition: .1s; }
+.hover-animation:hover{ background-color: #eee; }
+.hover-animation-ddd:hover{ background-color: #ddd; }

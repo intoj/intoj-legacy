@@ -28,12 +28,12 @@ p{
 
 a{
 	color: #4183c4;
-	text-decoration:none;
+	text-decoration: none;
 	transition: all 0.2s;
 }
+a.uncolored{ color: inherit !important; }
 a:hover{ color: #FF0000; }
 a:focus{ outline:0; }
-a.uncolored{ color: inherit !important; }
 a.full{ width: 100%; display: block; }
 p code{
 	margin: auto 2px;

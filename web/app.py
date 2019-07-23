@@ -132,6 +132,7 @@ def Login():
 def Logout():
 	try:
 		link = request.args['url'] if 'url' in request.args else '/'
+		if link == '/logout': link = '/'
 		resp = make_response(redirect(link))
 		resp.delete_cookie('username')
 		resp.delete_cookie('client_key')
